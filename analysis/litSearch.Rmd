@@ -1,0 +1,35 @@
+---
+title: "Lit Search"
+author: "Santi Allende"
+date: "10/12/2019"
+output: html_document
+---
+
+## **Intraindividual Variability of Negative and Positive Affect and Health**
+
+### Positive and Negative Affect Variability and Health
+
+[Hardy, J., & Segerstrom, S. C. (2017). Intra-individual variability and psychological flexibility: Affect and health in a National US sample. Journal of research in personality, 69, 13-21.](https://drive.google.com/file/d/19HPdaWrv7Yb4RO-5SIegzJacXnfEiWaM/view?usp=sharing)
+
+**Abstract**
+Intra-individual variability (IIV) and psychological flexibility (PF) in affect both describe affective change over time (i.e., within-person variability). However, IIV and PF might differ from each other and predict different psychological and physical health outcomes. A large sample of adults (n = 793) completed two assessments of daily stress, daily affect, and health over a 10-year interval in The National Study of Daily Experiences (an 8-day daily diary portion of the Midlife Development in the United States study). IIV and PF in affect were modestly reliable within and between assessments. IIV, operationalized as total variability, predicted worse psychological and physical health concurrently and prospectively. PF, operationalized as changes in dimensionality, predicted better psychological and physical health concurrently and prospectively. Other operationalizations of PF were not consistently related to health. Within-person variability in affect could therefore be adaptive or maladaptive depending on how it was defined.
+
+**Key Takeaway.** 
+Using MIDUS 1 and 2 data, the authors examined the prospective and concurrent effects of IIV of PA and NA and psychological flexibility on mental and physical health. Results differed from Human et al. (2015) in that NA IIV was a more robust predictor of mental and physical health than PA IIV. NA IIV was predictive of adverse mental and physical health both concurrently and prospectively, while PA IIV was only predictive of concurrent adverse mental and physical health. Importantly, NA IIV had greater within- and between-wave reliability than PA IIV. Rather than using quadratic terms to account for healthy (flexible) vs. unhealthy (rigid/labile) thresholds of affect variability, Hardy and Segerstrom (2017) derived theory-based measures of situationally-dependent psychological flexibility in affect using a mixed model approach. Results demonstrated that dynamic psychological flexibility had good psychometric properties and was predictive of better concurrent physical health. 
+
+## **Intraindividual Variability of Negative and Positive Affect and Salivary Cortisol**
+
+### Positive Affect Variability and Daily Cortisol
+
+[Human, L.J., Whillans, A.V., Hoppmann, C.A., Klumb, P.L., Dickerson, S.S., & Dunn, E.W. (2015). Finding the middle ground: Curvilinear associations between positive affect variability and daily cortisol profiles. Emotion, 15 6, 705-20.](https://drive.google.com/open?id=1OUbbCdUIj7AIFfByltUVZ8LlxZ6G2dig)
+
+**Abstract.**
+There is growing evidence that there are stable and meaningful individual differences in how much people vary in their experience of positive affect (PA), which in turn may have implications for health and well-being. Does such PA variability play a role in physiological processes potentially related to stress and health, such as daily cortisol profiles? We explored this question by examining whether PA variability across and within days in middle-aged adults (Study 1) and across weeks in older adults (Study 2) was associated with daily salivary cortisol profiles. **In both studies, individuals who exhibited moderate PA variability demonstrated more favorable cortisol profiles, such as lower levels of cortisol and steeper slopes. Interestingly, for middle-aged adults (Study 1), high levels of within-day PA variability were associated with the least favorable cortisol profiles, whereas for older adults (Study 2), low levels of across-week PA variability were associated with the least favorable cortisol profiles.** Collectively, these findings provide some of the first evidence that PA variability is related to daily cortisol profiles, suggesting that it may be better to experience a moderate degree of positive affect variability. Too much or too little variability, however, may be problematic, potentially carrying negative implications for stress-related physiological responding.
+
+**Key Takeaway.** 
+Moderate positive affect variability was associated with steeper diurnal cortisol slope in both middle-aged and older adult populations. Middle-aged adults showed an association between flattened DCS and high within-day positive affect variability and older adults showed an association between flattened DCS and low across-week PA variability. Across-day positive affect variability was not associated with diurnal slope. Interestingly, while variability in high arousal PA items such as alert and enthusiastic were associated with DCS, variability in low arousal PA items such as items such as good and relaxed were not associated with DCS.
+
+**Other Notes** They have NA variability in [supp materials](https://docs.google.com/document/d/1JFxrcLci1LZ0Y7nVfiggKA0AHmroYQFGD85fUf8iETQ/edit?usp=sharing) and lme4 models in appendix. 
+
+## **References**
+Need apa6 package for functionality

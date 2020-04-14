@@ -1,0 +1,230 @@
+---
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+bibliography: refs.bib
+---
+
+# **CHAPTER 1**  
+
+# **LITERATURE REVIEW** 
+
+## **Synthesis, Secretion and Effect of Cortisol on Peripheral Cells**
+
+### **Anatomy and Function of the Adrenal Glands**  
+
+The adrenal glands, also known as the suprarenal glands, are positioned on the superior pole of the kidneys. The adrenal glands are divided into an innermost region, known as the adrenal medulla (i.e., middle) and an outermost region, known as the adrenal cortex (i.e., outer) [@netter2014atlas]. The adrenal medulla is responsible for synthesizing hormones that produce the fight or flight response, namely epinephrine and norepinephrine [@molina2006endocrine]. The adrenal cortex is responsible for synthesizing a host of different steroid hormones, collectively known as corticosteroids [@molina2006endocrine].  
+
+The adrenal cortex is divided into 3 regions: (1) the zona glomerulosa, (2) the zona fasciculata and (3) the zona reticularis [@netter2014atlas]. The cells of the zona glomerulosa, the outer region of the adrenal cortex, produce a corticosteroid known as aldosterone, which is important in fluid retention [@molina2006endocrine]. The cells of the zona fasciculata, the middle region of the adrenal cortex, produce glucocorticoid steroids such as cortisol [@molina2006endocrine]. The cells of the zona reticularis, the inner region of the adrenal cortex, are responsible for synthesizing androgen precursors such as dehydroepiandrosterone (DHEA) and androstenedione [@molina2006endocrine]. 
+
+### **Synthesis of Cortisol**  
+
+\indent Corticosteroids are synthesized from cholesterol, which is a sterol molecule consisting of a core steroid structure [@molina2006endocrine]. Cells of the zona fasciculata derive cholesterol by either de novo synthesis or, more commonly, recruit it from low density lipoproteins (LDL) in the bloodstream [@molina2006endocrine]. Once cholesterol is made available, it is converted into pregnenolone by the cholesterol side-chain cleavage enzyme, also known as P450 11A1 [@melmed2015williams]. Afterward, 17$\alpha$-hydroxylase is used to convert pregnenolone into 17$\alpha$-hydroxypregnenolone [@melmed2015williams]. Then, 3$\beta$-hydroxysteroid dehydrogenase (3$\beta$-HSD) converts 17$\alpha$-hydroxypregnenolone into 17$\alpha$-hydroxyprogesterone [@melmed2015williams]. Finally, 21-hydroxylase is used to convert 17$\alpha$-hydroxyprogesterone into 11-deoxycortisol, which is then converted into cortisol via 11$\beta$-hydroxylase [@melmed2015williams]. Alternatively, pregnenolone can be converted into progesterone via 3$\beta$-HSD prior to the synthesis of 17$\alpha$-hydroxyprogesterone by 17$\beta$-hydroxylase [@melmed2015williams]. In being lipid soluble, cortisol is transported around the bloodstream by binding to plasma proteins, primarily binding to cortisol-binding globulin (CBG; transcortin) [@molina2006endocrine]. As CBG becomes saturated, a free, unbound, active portion of cortisol enters the cytoplasm of peripheral cells and alters cellular activity [@molina2006endocrine].
+
+### **Interaction Between Cortisol and Peripheral Cells**
+
+\indent At peripheral sites, lipid soluble cortisol molecules cross cell membranes, bind to glucocorticoid receptors (GR) in the cytoplasm and initiate a pathway to change gene expression and cell behavior [@johnson2012human]. In the cytoplasm, glucocorticoid receptors are initially bound to proteins (e.g., HSP90) that prevent them from entering the nucleus of cells [@melmed2015williams]. However, once cortisol molecules bind to GRs, the proteins break away, leaving cortisol-receptor complexes that are capable of entering the nucleus [@melmed2015williams]. In the nucleus, cortisol-receptor complexes form homodimers, specific transcription factors, that bind to the glucocorticoid response element (GRE) in the gene control region of specific genes [@melmed2015williams]. Binding of the homodimers to the GRE causes variable effects on genes, with some genes increasing their expression, some decreasing their expression and others remaining unchanged [@melmed2015williams]. Variation in gene expression results in altered cell behavior.
+
+## **Cortisol and the Metabolic System**
+
+### **Metabolic Homeostasis**
+
+The liver is the main driver of metabolic homeostasis. It performs two functions, glycogenosis and gluconeogenesis, that maintain adequate fasting blood glucose levels. In adults, normative fasting blood glucose levels range from 80 mg/dL to 120 mg/dL [@johnson2012human]. During the fasting state, glycogenosis occurs, whereby glycogen polymers stored in the cells of the liver, called hepatocytes, are broken down and gradually released into the bloodstream [@van1991role]. Then, during the fed state, hepatocytes rebuild glycogen polymers by recruiting glucose from the bloodstream [@van1991role]. In gluconeogenesis, hepatocytes convert blood-bound amino acids into glucose, which is subsequently circulated through the bloodstream [@van1991role].
+
+A dynamic relationship between two hormones, insulin and glucagon, during the fasting-fed cycle triggers glycogenosis and gluconeogenesis [@van1991role]. During the fasting state, insulin levels are low, while glucagon levels are high [@van1991role]. In contrast, during the fed state, insulin levels are high, while glucagon levels are low [@van1991role]. In the fasting state, high glucagon levels without high insulin levels, triggers glycogenosis and gluconeogenesis, which increases blood glucose levels [@van1991role]. In the fed state, high insulin levels inhibit the glucagon signal that triggers hepatocytes to perform glycogenosis and gluconeogenesis [@van1991role]. Interestingly, fasting hyperglycemia, as is found in diabetes mellitus, is caused by maladaptive insulin signaling, which results in glucagon overstimulating hepatocytes to engage in glycogenosis and gluconeogenesis [@van1991role].
+
+In addition to inhibiting the glucagon signal, insulin also initiates proteolysis in skeletal muscle cells [@van1991role]. Specifically, low insulin concentrations catalyze proteolysis, which increases amino acid concentrations for use in gluconeogenesis [@van1991role]. Similarly, low insulin concentrations catalyze lipolysis, whereby adipocytes, cells of adipose tissue, break down triglycerides into free fatty acids (FFAs) [@van1991role]. Resulting free fatty acids are then circulated around the bloodstream via the transport protein, albumin, and are used as an energy source by muscle tissues such as the cardiac muscle [@van1991role].
+
+### **Effects of Cortisol on the Metabolic System**
+
+Elevated cortisol levels increase metabolic activity by binding to GRs in the cytoplasm of hepatocytes and initiating glycogenosis and gluconeogenesis [@melmed2015williams]. As a result, hepatocytes secrete more glucose than peripheral tissues require, which can induce hyperglycemia and insulin resistance [@melmed2015williams]. Cortisol molecules also stimulate gluconeogenesis because they encourage skeletal muscle cells to engage in proteolysis [@melmed2015williams]. In addition, cortisol molecules stimulate lipolysis and the secretion of FFAs by binding to GRs in the cytoplasm of adipocytes [@melmed2015williams]. In sum, cortisol increases blood glucose, amino acid and FFA concentrations [@melmed2015williams]. 
+
+## **Cortisol and the Immune System**
+
+### **Function of the Immune System**
+
+The immune system is responsible for disarming pathogens such as bacteria, viruses, fungi and parasites [@johnson2012human]. The immune system comprises the innate immune system and the adaptive immune system [@johnson2012human]. The innate immune system is characterized by a singular inflammatory response to pathogens, while the adaptive immune system is characterized by its ability to vary its response to different types of pathogens [@johnson2012human]. 
+
+In the innate immune system, two sentinel cells, macrophages and dendritic cells, monitor local tissue for pathogens [@johnson2012human]. They do so via pattern recognition receptors (PRRs) that detect pathogen associated molecular patterns (PAMPs) [@johnson2012human]. If PAMPs are identified, macrophages and dendritic cells initiate the inflammatory response by releasing pro-inflammatory cytokines [@johnson2012human]. Pro-inflammatory cytokines have two primary functions in the innate immune system [@johnson2012human]. First, they cause arterial vasodilation and endothelial contraction, which produce inflammatory exudate and fend off pathogens [@johnson2012human]. Second, they encourage the recruitment of two leukocytes, neutrophils and macrophages, that phagocytosize pathogens [@johnson2012human]. Of note, pro-inflammatory cytokines need to be continuously produced to maintain the inflammatory response [@johnson2012human]. 
+
+The adaptive immune system is further divided into two branches, the humoral adaptive immune response and the cell mediated adaptive immune response, which target extracellular and intracellular pathogens, respectively [@johnson2012human]. The humoral adaptive immune response activates helper T cells (CD4+), which target specific pathogenic antigens, and B cells, which produce targeted antibodies [@johnson2012human]. The cell mediated immune response activates cytotoxic T cells (CD8+), which target and destroy infected human cells [@johnson2012human]. Similar to pro-inflammatory cytokines, T cells need to be continuously activated to fend off pathogens [@johnson2012human].
+
+### **Effects of Cortisol on the Immune System**
+
+In non-pathological conditions, cortisol dampens the function of the immune system and prevents tissue damage [@maletic2017new]. Cortisol has an anti-inflammatory effect because it inhibits the innate immune system and an immunosuppressive effect because it inhibits the adaptive immune system [@maletic2017new]. In the innate immune system, cortisol dampens the inflammatory response by using its lipid soluble structure to transgress and reduce the pro-inflammatory activity of macrophages, dendritic cells and neutrophils [@maletic2017new]. Without the dampening effect of cortisol, the inflammatory response would cause tissue damage [@maletic2017new]. Similarly, in the adaptive immune system, cortisol molecules reduce the activity of T cells, which prevents tissue damage by decreasing the destruction of infected cells [@maletic2017new]. Clinical populations characterized by low cortisol levels are likely to experience excessive immune responses [@maletic2017new]. Paradoxically, clinical populations characterized by chronically elevated cortisol levels may also experience increased inflammation via reduced GR sensitivity [@maletic2017new]. 
+
+## **Hypothalamic-Pituitary-Adrenal Axis Function**
+
+### **Cortisol Secretion Pathway**
+
+The paraventricular nucleus (PVN) of the hypothalamus, a structure parallel to the third ventricle, initiates the downstream secretion of cortisol [@geer2016hypothalamic]. Hypophysiotropic neurons in the PVN project their axons to the median eminence and, when sufficiently activated, the median eminence releases corticotropin-releasing hormone (CRH) into the hypothalamic-hypophyseal portal system [@geer2016hypothalamic]. The hypothalamic-hypophyseal portal system ends in the anterior pituitary, where corticotrophs, cells of the anterior pituitary, respond to CRH by synthesizing adrenocorticotropic hormone (ACTH) from the precursor hormone, proopiomelanocortin (POMC) [@geer2016hypothalamic]. 
+Once secreted into the bloodstream, ACTH binds to adrenocortical ACTH receptors (MC2R) in the cells of the zona fasciculata, increases cholesterol availability and stimulates the synthesis and secretion of cortisol [@geer2016hypothalamic]. The HPA axis self-regulates, in part, by negative feedback, whereby cortisol molecules cross the blood-brain barrier, bind to glucocorticoid receptors in the hypothalamus and act to either increase or decrease the discharge of CRH and ACTH [@geer2016hypothalamic]. In doing so, cortisol either inhibits or propagates its own downstream synthesis and the downstream synthesis of epinephrine and norepinephrine [@geer2016hypothalamic]. Thus, cortisol-induced negative feedback in the hypothalamus is a primary mechanism by which the fight or flight response is deactivated.
+
+### **Circadian Oscillations Related to HPA Axis Function**
+
+\indent The suprachiasmatic nuclei (SCN), the chief circadian pacemaker, alters cellular activity in response to the day-night cycle [@foster2017circadian]. It is a constituent of the hypothalamic nuclei and is superior to the optic chiasm [@netter2014atlas]. The SCN is connected to the retina via the retinohypothalamic tract, whereby melanopsin, a photopigment expressed by photosensitive retinal ganglion cells, entrains the SCN and its slave oscillatiors, including the PVN [@foster2017circadian]. In this way, the SCN initiates the downstream synthesis of ACTH and cortisol, which express similar diurnal rhythms [@young2001twenty]. The diurnal rhythm of cortisol is marked by a nadir at midnight, a peak 30-minutes post-wake and a gradual decline thereafter [@kirschbaum1989salivary]. Interestingly, the circadian rhythm of melatonin, a pineal hormone critical to the sleep-wake cycle, is inversely related the cortisol circadian rhythm [@zisapel2005relationship].
+
+### **Ultradian Oscillations Related to HPA Axis Function**
+
+The ultradian rhythm, which peaks approximately once per hour, is the pulsatile pattern that underlies the circadian cortisol cycle [@jasper1991synchronous; @lightman2010crucial]. Importantly, the ultradian cycle is not a product of the SCN, as animal studies have shown that the ultradian rhythm remains intact when the SCN is removed [@waite2012ultradian]. However, when the SCN is intact, a decrease in ultradian amplitude occurs from dawn to midnight [@jasper1991synchronous; @windle1998ultradian; @nielsen2017mathematical; @waite2012ultradian]. While a physiological pulse generator, per se, has not been discovered [@young2004cortisol], computational models suggest that time delays in the feedforward-feedback process of the HPA axis generate observed cortisol pulsatility [@gjerstad2018role; @walker2010origin]. In the feedforward component of the process, ACTH catalyzes the synthesis of cortisol in the zona fasciculata and a time delay occurs due to the lipid solubility of cortisol and due to its de novo synthesis [@gjerstad2018role; @walker2010origin].
+
+In the feedback component of the process, unbound cortisol crosses the blood-brain barrier, binds to glucocorticoid (GR) and mineralocorticoid (MR) receptors and, via its effect on GRs, inhibits the production of CRH and ACTH [@conrad2009modeling; @young2004cortisol]. That is, while research suggests involvement of GRs in negative feedback signaling and in producing a delay, MRs may be less important in negative feedback [@young2004cortisol; @karssen2001multidrug]. The diminished role of MRs may be due to their low saturation threshold and to the poor transportation of low levels of cortisol by P-glycoprotein [@young2004cortisol; @karssen2001multidrug]. Moreover, whereas GRs are primarily expressed in the hippocampus, amygdala, prefrontal cortex and paraventricular nucleus, MRs are primarily expressed in the hippocampus and, to a lesser extent, in the amygdala and prefrontal cortex [@reul1985two; @reul1986anatomical]. 
+
+In brief, GRs are primarily activated during the rise or peak of an ultradian cycle (i.e., feedforward component), perhaps in response to stress, or during the rise or peak of the circadian cycle, while MRs are additionally activated during the fall or nadir of an ultradian cycle (i.e., feedback component) or during the fall or nadir of the circadian cycle [@young2004cortisol; @conway2007proteasome; @kitchener2004differences; @reul1985two; @reul1990binding; @spencer1993diurnal; @gjerstad2018role; @nielsen2017mathematical]. 
+
+## **Salivary Cortisol Laboratory Procedures**
+
+### **Biologically Active Cortisol**
+
+Cortisol-binding globulin (i.e., transcortin) is a carrier protein synthesized by the liver that helps to regulate the amount of free or unbound, active, cortisol that affects peripheral cells [@molina2006endocrine]. Cortisol-binding globulin acts as a cortisol buffer in that it contains approximately 90% of cortisol and replenishes the smaller free fraction of cortisol as needed, which narrowly fluctuates around 10% [@mendel1989free]. In this way, CBG extends the 66 minute half-life of cortisol [@weitzman1971twenty]. The biologically free fraction of cortisol is partially determined by the availability of CBG, which varies as a function of its initial synthesis and as a function of its affinity with other hormones such as progesterone and aldosterone [@hammond2016plasma]. The biologically active portion of cortisol increases when such hormones are abnormally elevated because they prevent cortisol from binding onto CBG [@spencer2017users]. However, cortisol has the highest affinity for CBG [@hammond2016plasma].
+ 
+### **Salivary Cortisol Assay Procedures**
+
+The lipid soluble biologically active portion of cortisol is found in many different cell types and is thus commonly assayed for use in biobehavioral research. Unbound cortisol is assayed from non-blood samples such as saliva, urine, hair and feces. Salivary cortisol sampling is widely used because it is noninvasive, it can be sampled in laboratory and field settings and because it is strongly correlated with the 24-hour rhythm of unbound plasma cortisol [@kirschbaum1989salivary]. However, a marked dissociation between unbound cortisol in blood and salivary samples has also been reported, with salivary cortisol containing lower cortisol concentrations [@hellhammer2009salivary; @levine2007measuring]. It is estimated that approximately 14% of salivary cortisol is bound to CBG [@chu1988detection].
+
+The Salivette device (Sarstedt, Numbrecht, Germany), wherein participants chew on cotton swabs, is the most widely used collection device [@inder2012measurement; @groschl2008current]. The Salivette device is preferred over other devices because of its ease-of-use and its effective filtering capacity [@inder2012measurement; @groschl2008current]. At collection time, participants are commonly asked to rinse their oral cavities and chew on a cotton swab for 30 to 180 seconds [@inder2012measurement]. Participants are also asked to refrain from eating, brushing their teeth, smoking and drinking non-water beverages 30 to 120 minutes before providing a sample [@inder2012measurement; @Almeida2002-fo]. Nonetheless, smokers tend to have higher salivary cortisol levels than nonsmokers and oral abrasions tend to result in erroneously high salivary cortisol levels [@kirschbaum1992normal; @inder2012measurement].
+
+Salivary samples are cooled at various temperatures at different stages of study procedures. In the field, participants are typically asked to store samples at 4-8 $^\circ$C for a maximum of 7 days [@inder2012measurement]. In the laboratory, samples can be stored between -20 $^\circ$C and -80 $^\circ$C for up to 12 months prior to centrifugation [@garde2005long; @inder2012measurement]. After a clear supernatant component is derived from centrifugation, immunoassay methods are used to quantify free salivary cortisol concentrations. Although radioimmunoassay methods (RIA) are most readily used, immunosorbent assay (ELISA), electrochemiluminescent assays (ECLIA) and liquid chromatographic mass spectrometry methods (LC-MSMS) are also used. Of note, salivary cortisol RIA assay methods cross-react with cortisone, corticosterone, 11-deoxycortisol, 21-deoxycortisol, 6$\beta$-hydroxycortisol, prednisolone and 6$\alpha$-methylprednisolone [@beko2010cutoff; @inder2012measurement]. 
+
+## **Salivary Cortisol Measures**
+
+Commonly used diurnal salivary cortisol measures include the cortisol awakening response (CAR), area under the curve (AUC) and diurnal cortisol slope (DCS) [@Adam:2009et]. Each measure is designed to capture a distinct aspect of HPA axis function. Below is a methodological overview of each measure as well as common covariates, with a particular focus on DCS. 
+
+### **Cortisol Awakening Response**
+
+The cortisol awakening response (CAR) is characterized by an increase in cortisol 30-45 minutes post-wake and represents a physiological reaction to awakening (i.e., a reactivity index) [@PRUESSNER19972539; @stalder2016assessment]. The CAR is calculated by subtracting the initial wake sample from the 30-45 minute post-wake sample or by computing the ratio between the two morning samples [@Adam:2009et]. Area under the curve with respect to increase is advised in study designs that have a high morning sampling rate [@fekedulegn2007area]. 
+The "boost" hypothesis suggests that the CAR represents an anticipation of perceived daily stress; indeed, the CAR is more pronounced on weekdays than on weekends [@schlotz2004perceived; @Adam:2006hr]. A greater CAR is also observed on high stressor days versus low stressor days [@almeida2009interindividual] and when awakening in the light versus when awakening in the dark [@figueiro2013comparisons]. Last, the CAR is frequently associated with physical and mental health outcomes, with the most consistent association between a reduced CAR and posttraumatic stress disorder [@chida_cortisol_2009]. 
+
+### **Area Under the Curve**
+
+Area under the curve has two orthogonal derivations that account for intensity and sensitivity: (1) area under the curve with respect to ground ($AUC_G$) and (2) area under the curve with respect to increase ($AUC_I$), with $AUC_G$ more readily used [@fekedulegn2007area]. The 30-45 minute post-wake sample is inconsistently removed from the calculations to avoid modeling the CAR [@Adam:2009et]. While $AUC_G$ is a better indicator of total daily cortisol output (i.e, intensity), $AUC_I$ is a better indicator of diurnal rate of change (i.e., sensitivity) [@fekedulegn2007area]. Greater $AUC_G$ is linked to experiencing more stress than usual in nonclinical populations [@stawski2013associations] but is not linked to shorter survival in cancer populations [@sephton2000diurnal; @sephton2013diurnal]. 
+
+### **Diurnal Cortisol Slope Modeling Procedures**
+
+Diurnal cortisol slope, defined as the time period between the morning and bedtime samples, is a strong indicator of diurnal change [@Adam:2009et]. A normative diurnal rhythm is characterized by a negative slope coefficient [@stone2001individual]. To correct for a positively skewed distribution, the natural logarithm of salivary cortisol is computed prior to deriving slope coefficients [@kraemer2006design]. Last, research protocols generally sample 5 times per day for a minimum of two days to estimate reliable DCS estimates [@kraemer2006design].
+
+Currently, four methods exist to examine diurnal cortisol slopes. In the first method, end-of-day bedtime levels are subtracted from initial wake levels [@Adam:2009et]. In the second method, the difference between the wake and bedtime samples is divided by the time interval between them [@Adam:2009et]. In the third method, an ordinary least squares (OLS) slopes-as-outcomes approach is used, where log-transformed cortisol values are either regressed on time-of-day continuously across days or regressed separately for each day with daily coefficients averaged together [@Adam:2009et; @GieseDavis:2004jj; @smyth1997individual]. In the fourth method, variance components models (i.e., linear mixed models) are used to partition and explain moment-level (individual collection times, level 1), day level (day-to-day, level 2) and participant level (between-participant, level 3) sources of variance [@Hruschka:2005ed; @Adam:2009et]. 
+
+In methods three and four, slopes are anchored at wake or at wake +30 at the discretion of the researcher, although anchoring at wake is advised more frequently [@Adam:2009et; @kraemer2006design]. If slopes are anchored at wake, the wake +30 sample is commonly removed to avoid modeling the CAR [@Adam:2009et; @kraemer2006design]. With adequate sample sizes, piecewise and quadratic multilevel approaches are used to simultaneously model the CAR and the DCS [@Adam:2006hr; @Karlamangla:2013cs].
+Recently, variance components models have become preferred over OLS slopes-as-outcomes approaches. The slopes-as-outcomes approach has been scrutinized as less reliable due to: (1) using fewer than 30 measurements per individual regression, (2) in subsequent analyses, failing to account for error associated with prior person-specific regression models and (3) not adequately accounting for missing data [@hoffman2015longitudinal]. On the other hand, variance components models allow researchers to test for sources of dependency in the response variable, partition that variance accordingly, test predictors against appropriate source(s) of variance and compute relevant effect sizes (e.g., pseudo-$R^2$) [@snijders1999multilevel]. 
+
+In the context of salivary cortisol, variance components models test for and explain within-day, day-to-day and between-participant sources of variance. Partitioning variance in the response variable (cortisol) is used to distinguish between moment-level predictors whose sampling rates match that of the cortisol sampling rate (e.g., time-since-waking); day-level predictors with a sampling rate of once per day (e.g., daily mood); and participant-level predictors computed or observed with sampling rates of once per the duration of the study. Participant-level predictors specifically account for individual differences in cortisol values (e.g., marital status). Although some studies have found DCS to be relatively stable across days [@kraemer2006design; @segerstrom2017intraindividual], others have found DCS to not only vary across days but also for resulting sources of variability to be associated with targeted variables [@Abercrombie:2004ih; @Adam:2006hr; @Dmitrieva:2013kn; @Hruschka:2005ed; @Karlamangla:2013cs; @Ross:2014jy; @segerstrom2017intraindividual; @Sin:2017gt; @stone2001individual; @segerstrom2017intraindividual].
+
+### **Diurnal Cortisol Slope and Health Outcomes**
+Diurnal cortisol slope has received considerable attention across a range of physical and mental health presentations. Prior studies have examined between-participant DCS variation in depressive disorders, fatigue, posttraumatic stress disorder, anxiety disorders, elevated body mass index (BMI), cardiovascular disease and cancer populations. All above presentations, with the exception of anxiety disorders, which evidence a precipitous diurnal decline, are associated with a flattened diurnal rhythm.
+
+A substantial body of literature has investigated the link between DCS and depression. Results on DCS and depression are inconsistent, with some studies reporting a flattened diurnal rhythm [@Weinrib:2010il; @jarcho2013dysregulated; @gold2009flatter; @gallagher2006ethnicity] and others reporting null or opposing results [@veen2011basal; @ho2013associations; @hsiao2010self; @vammen2014salivary]. Heterogeneous results may be due to a variety of factors, including depressive subtypes, variable collection times, psychiatric comorbidities, age, medication use, menstruation timing and the derivation of slopes [@jarcho2013dysregulated]. In light of these discrepant results, it is hypothesized that since positive affect, but not negative affect, exhibits a diurnal pattern, positive affect may be entrained to the diurnal variation of cortisol [@miller2015chronotype; @miller2016trait]. Thus, it may be that low positive, rather than high negative affect, primarily drives the relationship between HPA axis dysregulation and depression [@miller2015chronotype; @miller2016trait].
+
+In both clinical and non-clinical samples, fatigue is associated with a flattened DCS, possibly due to the presence of abnormally low waking cortisol levels [@kumari2009cortisol; @Bower:2005id]. Since posttraumatic stress disorder is marked by hypo-activation of the HPA axis [@yehuda1990low], diurnal decline is typically low and blunted [@yehuda2005circadian]. Somewhat of an anomaly, anxiety disorders are associated with a precipitous diurnal decline, which may be due to abnormally elevated morning cortisol levels [@packard2011hpa]. 
+
+A positive association between BMI and DCS exists, which may be related to the excitatory function of cortisol in metabolic processes [@rodriguez2015hypothalamic]. With regard to cardiovascular disease, coronary artery bypass graft surgery patients with flattened diurnal rhythms are at greater risk for major adverse cardiac events and death [@ronaldson2015diurnal]. A particularly robust finding exists between flattened diurnal cortisol rhythms and cancer mortality [@schrepf2013cortisol; @sephton2000diurnal; @sephton2013diurnal; @Weinrib:2010il]. It is hypothesized that cancer-related inflammatory processes and associated depressive presentations may explain the link between flattened rhythms and earlier mortality [@sephton2009depression].
+
+### **Covariates**
+
+Within-participant and within-day covariates commonly adjusted for include: weekend versus weekday, wake time, time of smoking, alcohol and caffeine consumption, exercise, perceived stress, negative mood and time of last meal [@Adam:2009et]. Between-participant covariates commonly adjusted for include: gender, socioeconomic status, ethnicity, age, physical and mental health diagnoses, body mass index, medications and menstrual timing [@Adam:2009et]. Participants are generally excluded for endocrine disorders, use of steroid medications, late-stage pregnancy and the common cold [@Adam:2009et]. 
+
+## **Salivary Cortisol Measures and Positive and Negative Affect**
+
+### **Age and Gender Differences in Measures of Salivary Cortisol**
+
+Notable age and gender differences exist in associations between affect and HPA axis regulation. For example, lower waking cortisol is observed in females who report greater state positive affect (PA) but not in males who report greater state PA [@polk2005state]. Also, for participants who report high trait PA, women express lower cortisol concentrations than men until 1600h [@polk2005state]. In contrast, for participants who report low trait PA, men express higher concentrations of cortisol than women after 1200h [@polk2005state]. Moreover, lower trait negative affect (NA) is associated with a blunted CAR in men but not in women. In contrast, state NA is not associated with gender differences in the CAR [@polk2005state]. Together, age and NA have deleterious effects on HPA axis function. For example, exaggerated total daily cortisol output in response to elevated daily NA is only observed in adults greater than 50 years-of-age [@piazza2013age]. Similarly, older adults exhibit higher evening cortisol levels in response to low-to-moderate daily NA, while younger adults do not [@piazza2013age].
+
+### **Global Positive Affect and Salivary Cortisol Measures**
+
+Associations between PA and measures of salivary cortisol in nonclinical populations are inconclusive. While a few studies have found significant associations between trait PA and a decreased CAR [@brummett2009positive; @chida_cortisol_2009; @miller2016trait; @steptoe2007neuroendocrine], after adjusting for the effect of daily positive events, a recent study failed to find an association between daily PA and the CAR [@Sin:2017gt]. Apropos DCS, although some studies have reported a steeper diurnal curve in response to higher trait PA [@hoyt2015positive; @miller2016trait], null results have also been reported [@brummett2009positive; @Sin:2017gt]. Methodological differences related to the operationalization of affect (e.g., low arousal. vs high arousal PA) likely contribute to divergent results. Of note, one study found that the association between high arousal PA and a steeper diurnal decline is likely due to lower bedtime cortisol levels [@hoyt2015positive]. 
+
+
+### **Global Negative Affect and Salivary Cortisol Measures**
+
+In a similar vein, a tenuous relationship exists between NA and HPA axis regulation in non-clinical populations. As described above, NA is associated with a greater CAR and a greater AUC in men but not in women [@polk2005state]. Further, while both low and high arousal NA are associated with lower waking cortisol levels, only low arousal NA is associated with a blunted DCS [@hoyt2015positive]. On the other hand, others have reported null results for associations between NA and diurnal cortisol measures [@miller2016trait; @nater2010neuroticism]. Variability across study results may be partially attributable to differences in low versus high arousal NA [@hoyt2015positive]. 
+
+### **Basic Emotions and Salivary Cortisol Measures**
+
+The study of basic emotions may help to disentangle the discrepant results found in global measures of PA and NA. For example, one study found a series of revealing results: (1) a composite measure of loneliness, sadness and overwhelm was positively associated with the CAR, (2) a composite measure of anger and tension was positively associated with DCS, and (3) fatigue was negatively associated with lower waking cortisol levels [@adam2006day]. However, a composite measure of feeling active/effective and confident/confused/forgetful was not associated with any measures of cortisol [@adam2006day]. Another study found that optimism is associated with decreased waking and daily cortisol levels in men but not in women [@dockray2010positive]. Further, happiness is associated with elevated morning cortisol levels and a higher CAR [@steptoe2007neuroendocrine] as well as greater weekday-weekend CAR flexibility [@mikolajczak2010cortisol]. Laboratory studies designed to induce acute stress have found shame, decreased self-esteem and fear to be associated with heightened HPA axis activity [@denson2009cognitive; @dickerson2004acute; @kemeny2004shame; @lerner2007facial] and anger and disgust to be associated with decreased HPA axis activity [@lerner2007facial].
+
+
+### **Day-to-Day Dynamics of Affect and Salivary Cortisol Measures**
+
+With regard to temporal precedence, a day-to-day analysis of basic emotions and measures of diurnal cortisol was particularly telling. First, elevated prior-day scores on a composite measure of loneliness, sadness and overwhelm predicted a greater CAR, but an increased CAR did not predict subsequent daily scores on the same composite measure [@adam2006day]. Second, elevated waking cortisol levels predicted subsequent daily scores on a composite measure of fatigue and related physical symptoms, but prior-day scores on the same composite measure did not predict waking cortisol levels [@adam2006day]. Third, a composite measure of tension and anger predicted flatter same-day DCS, but prior-day tension and anger did not predict DCS. Interestingly, the same-day tension/anger and DCS finding was due to elevated evening cortisol levels, rather than lower morning cortisol levels [@adam2006day]. 
+
+### **Emotion Regulation Strategies and Salivary Cortisol Measures**
+
+Among commonly studied emotion regulation strategies, emotional suppression, cognitive reappraisal, repressive-defensiveness, emotional expressivity and mindfulness have been examined in the salivary cortisol literature. In nonclinical samples, emotional suppression is linked to a steeper CAR and a flatter DCS but is not linked to AUCg [@otto2018trait]. Interestingly, self-report reappraisal is not associated with any measures of diurnal cortisol [@otto2018trait]. Moreover, in laboratory-induced stress paradigms, both reappraisal and emotional suppression are associated with increased activation of the HPA axis [@denson2014cognitive; @lam2009emotion]. In metastatic breast cancer patients, lower repressive-defensiveness, a construct related to emotional suppression, is associated with a steeper diurnal decline [@giese2006emotional]. In supportive-expressive group therapy for metastatic breast cancer patients, greater expression of NA is related to a steeper diurnal decline [@giese2006emotional]. Mindfulness interventions demonstrate mixed results. Some studies report null effects of mindfulness interventions on the CAR, DCS, and on laboratory-induced cortisol reactivity [@beddig2020mindfulness; @gex2012salivary; @Engerte1700495], while other studies report improved HPA axis activity [@fan2014cortisol; @tang2007short]. Divergent results are likely due to methodological differences in the type of meditation practiced, the duration of the intervention and the amount of previous meditation experience.
+
+### **Affect Intraindividual Variability and Salivary Cortisol Measures**
+
+A nascent body of literature is investigating the effects of affect intraindividual variability on salivary cortisol measures. For example, moderate PA variability is associated with a steeper DCS; however, an age effect is present, wherein middle-aged adults show an association between flattened DCS and high within-day PA variability and wherein older adults show an association between flattened DCS and low week-to-week PA variability [@Human2015FindingTM]. Interestingly, day-to-day PA variability is not associated with diurnal cortisol slope [@Human2015FindingTM]. Consistent with prior literature on affect arousal, while variability in high arousal PA items such as alert and enthusiastic are associated with DCS, variability in low arousal PA items such as good and relaxed are not associated with DCS [@Human2015FindingTM]. With regard to the CAR, prior-day NA variability, but not prior-day PA variability, is associated with a blunted CAR [@proulx2017psychosocial].
+
+## **Study Rationale**
+
+In reviewing the literature on diurnal salivary cortisol measures, it is plausible that deriving residual standard deviations from diurnal cortisol slopes may yield a reliable estimate of cortisol dynamics. While commonly used measures of diurnal salivary cortisol provide meaningful information on HPA axis regulation, intraindividual secretory variability is not explicitly captured. Computational models of the ultradian rhythm and high-frequency sampling studies point to the importance of developing a sensitive measure of cortisol intraindividual secretory variability (cIIV).
+
+Both computational models and high-frequency sampling studies demonstrate that ultradian oscillations dampen over the course of the day, with the largest oscillations occurring at the peak of the circadian rhythm and the smallest oscillations occurring at the nadir of the circadian rhythm (Nielsen et al. 2017; Bhake et al. 2020). Thus, normative salivary secretory patterns, excluding the CAR, may be characterized by low diurnal residual variability. In contrast, erratic secretory patterns, excluding the CAR, may be characterized by sporadic or high diurnal residual variability. 
+
+Computational models of the ultradian rhythm suggest that a normative ultradian rhythm is characterized by a tightly controlled and highly responsive dynamic system (Walker et al. 2015; Oster et al. 2017). In a normative ultradian rhythm, it is likely that oscillations operate within preset thresholds at various times of day (Wiener 1966). Normative secretory patterns are due to the rapid responsiveness of autoregulatory feedback components, namely GRs and MRs, in the adrenal glands and in the brain (Walker et al. 2015). 
+
+Erratic secretory patterns may be due to hyper- or hypo-sensitivity of GRs and MRs in the feed-forward and feedback processes of the ultradian pulse (Young et al. 2004). For example, a system that is marked by hypo-sensitivity and is ‘slow to respond’ may result in larger than expected oscillations during the nadir of the circadian rhythm. Indeed, aging may be associated with decreased responsiveness of the HPA axis, wherein older adults experience delayed GR and MR activation and thus a lagged stress response (Young et al. 2004).
+
+Although cIIV may not directly detect pulsatile episodes, it may provide a reliable measure of cortisol secretory dynamics in that it may be related to how tightly controlled and responsive the system is. Deriving individual residual standard deviations from predicted linear mixed model trajectories is akin to the root mean square error (RMSE) in ordinary least-squares regression models, a measure of model fit. In the context of diurnal cortisol, a better fitting model would be expected for salubrious health outcomes, whereas a poorer fitting model would be expected for adverse health outcomes. In sum, cIIV, excluding the CAR, may be conceptualized as a measure of HPA axis systemic health, with a poorer fitting model indicative of a disrupted dynamical system.
+
+A few salivary cortisol studies have examined cortisol dynamics in mood disorders. Contrary to the above prediction, a recent study using a Bayesian multilevel Ornstein-Uhlenbeck model found lower variability in older depressed female adults (Booij et al. 2020). However, this finding was only found in one of two samples analyzed and is qualified by a small sample size (Booij et al. 2020). 
+
+Two other studies of depressed patients used linear mixed models to test group differences (depression diagnosis vs. control & bipolar diagnosis vs. control) in cortisol residual variance and autocorrelation (i.e., sample to sample variability) structures (Peeters et al. 2004; Havermans et al. 2011). In these studies, clinical patients exhibited lower autocorrelation but did not exhibit different residual variance structures (Peeters et al. 2004; Havermans et al. 2011). In both studies, cortisol levels were used as the dependent variable and the likelihood ratio test was used to compare models with different group-level variance and autocorrelation structures (Peeters et al. 2004; Havermans et al. 2011). Of note, both studies reported small sample sizes, which may have rendered it difficult to obtain reliable variance component estimates (Peeters et al. 2004; Havermans et al. 2011).
+
+Given the paucity of data on salivary cortisol dynamics, more studies are needed to discern meaningful conclusions. While a few studies have examined cortisol dynamics in clinical depression, studies have yet to examine cortisol dynamics in nonclinical affect presentations. Moreover, studies have yet to investigate salivary cortisol intraindividual secretory variability as a person-level predictor. Thus, the primary aim of the present study is to address these gaps in the literature.
+
+A second exploratory aim is to examine whether distinct salivary cortisol profiles comprising the CAR, DCS, AUC and cIIV are associated with trait positive and negative affect. Although extant literature has demonstrated individual associations between affect and measures of salivary cortisol, studies have yet to examine associations with distinct profiles of salivary cortisol measures (i.e., similar patterns of the CAR, DCS, AUC and cIIV) and affect. It may be that particular combinations of the CAR, DCS, AUC and cIIV are better or worse for health. An initial step in this line of research is to derive distinct profiles of salivary cortisol measures and to assess their relation to positive and negative affect.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

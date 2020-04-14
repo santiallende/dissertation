@@ -1,0 +1,26 @@
+---
+title: "Dissertation"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+---
+
+## Key Dates
+
+| Proposal due dates                                                                                                 | Final defense due dates                                        |
+|--------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| June 30 - (of year 3) 1st draft of proposal must be submitted to portal (to be reviewed by dissertation committee) | Feb 1 - 1st draft of final defense must be submitted to portal |
+| September 1 - final draft due to committee                                                                         | April 1 -final draft due to Chair                             |
+| September 15 -deadline to propose to be able to apply for internship                                              | May 15 - deadline to defend to be able to walk at graduation   |
+
+Structure of lit review/personal dates:
+
+1) Intro/summary of chapters (~2 pgs; intend to complete by 11/30) 
+2) Cort, phys systems and stress (~6 pgs; intend to complete by 12/08) 
+3) DCS primary in lit / end with evening cort statement (~6 pgs; intend to complete by 12/15) 
+4) Evening cort findings (~5 pgs; intend to complete by 12/22) 
+5) IIV affect, health, DCS - none on PM cort - discuss analytic methods/LPA not used (~6 pgs; intend to complete by 12/29) 
+6) Present aims (~1pg; intend to complete by 01/5)

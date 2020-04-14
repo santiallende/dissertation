@@ -1,0 +1,88 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Load Libraries
+```{r}
+library(dplyr)
+library(tidyr)
+```
+
+# Load Daily Data
+```{r}
+dailyDat <- read.table("data.tsv",
+                  header = T,
+                  sep = "\t",
+                  stringsAsFactors = F)
+
+# 999994. UNRELIABLE
+# 999995. NOT DONE
+# 999996. EMPTY
+# 999998. REFUSED/MISSING
+```
+
+# Select Variables of Interest from Daily Data
+```{r}
+dailyDat <- dailyDat %>%
+  select(id = M2ID, gender = B1PGENDER, age = B1PAGE_M2, medUseNone1Yes = B2DMED10,
+         startWork = B2DA3AAP, endWork = B2DA3BAP, day = B2DDAY, dailyMeanPosAff = B2DPOSAV, dailyMeanNegAffect = B2DNEGAV, dailyInGoodSpirits = B2DC7, dailyCheerful = B2DC8, dailyExtremelyHappy = B2DC9, dailyCalmPeaceful = B2DC10, dailySatisfied = B2DC11, dailyFullOfLife =  B2DC12, dailyCloseToOthers = B2DC21, dailyLikeYouBelong = B2DC22, dailyEnthusiastic = B2DC23, dailyAttentive = B2DC24, dailyProud = B2DC25, dailyActive = B2DC26, dailyConfident = B2DC27, dailyRestlessFidgety = B2DC1, dailyNervous = B2DC2, dailyWorthless = B2DC3, dailySoSadNoCheerUp = B2DC4, dailyEverythingAnEffort = B2DC5, dailyHopeless = B2DC6, dailyLonely = B2DC13, dailyAfraid = B2DC14, dailyJittery = B2DC15, dailyIrritable = B2DC16, dailyAshamed = B2DC17, dailyUpset = B2DC18, dailyAngry = B2DC19, dailyFrustrated = B2DC20, wakeTime = B2DWAKE2, providedCort1yes2no = B2DCORT, wakeCortTime = B2DCORWT, wakeThirtyCortTime = B2DCORAT, noonCortTime = B2DCORLT, pmCortTime = B2DCORBT, wakeCortValue = B2DCORW, wakeThirtyCortValue = B2DCORA, noonCortValue = B2DCORL, pmCortValue = B2DCORB)
+```
+
+# Load Midus 2 Time-invariant Data
+```{r}
+midusDat <- read.table("midusTwoData.tsv",
+                  header = T,
+                  sep = "\t",
+                  stringsAsFactors = F)
+```
+
+# Select Variables of Interest from Midus 2 Data
+```{r}
+midusDat <- midusDat %>%
+  select(id = M2ID, ethnicity = B1PF7A, education = B1PB1, traitSoSadNoCheer = 
+B1SA24A, )
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

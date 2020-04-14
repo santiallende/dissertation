@@ -1,0 +1,123 @@
+---
+title: "chapter2"
+author: "Santi Allende"
+date: "4/7/2020"
+output: html_document
+---
+
+# **CHAPTER 2**  
+
+# **METHOD**
+
+## **Sample and Procedure**
+
+The present study used data from the National Study of Daily Experiences (NSDE), a substudy of the second wave of the Midlife in the United States Survey (MIDUS II). A nonclinical sample of participants (N = 2,022) completed 10-15 minute semi-structured evening telephone interviews for eight consecutive days, where daily affect was assessed alongside other variables of interest (see Almeida et al. 2002 for methodological details). However, saliva samples to be assayed for cortisol were only collected on days two through five, four times per day. Informed consent was obtained from all participants. Participants were compensated $20 for participating in the NSDE. Per the cortisol exclusion criteria outlined below, data from 1,101 participants were analyzed in the present study. 
+
+Age of participation ranged from 34 to 87 years-of-age (M = 58.2, SD = 12.1) and 56.2% of participants identified as female. Eighty three percent of participants identified as Caucasian, 10% as African-American and 7% as Asian, Native American/Alaska Native/Aleutian Islander/Eskimo or Other. As shown in Table 1, 51.3% had at least some college education or a college degree, 28.3% had at least earned a high school diploma or a GED and 20.3% had at least some graduate education or a graduate degree.
+
+## **Measures**
+
+### **Trait Affect**
+
+Trait positive and negative affect were assessed with the Positive and Negative Affect Schedule (PANAS) (Watson et al., 1988). The PANAS was administered at MIDUS II and assessed the degree to which they felt 10 positive and 10 negative emotional states during the preceding month (Watson et al., 1988). Positive emotional states included, “attentive,” ‘active,” “alert,” “excited,” “enthusiastic “determined,” “inspired,” “proud,” “interested” and “strong” (Watson et al., 1988). Negative emotional states included, "hostile," "irritable," "ashamed," "guilty," "distressed," "upset," "scared," "afraid," "jittery" and "nervous” (Watson et al., 1988). The measure has good internal consistency (PA and NA Cronbach’s $\alpha$ = .87) (Watson et al., 1988). Separate summed scores for positive and negative items were used in the present analysis. Each item was rated on a 5-point likert scale ranging from “very slightly or not at all” to “extremely” (Watson et al., 1988).
+
+### **Trait Affect**
+
+Trait positive and negative affect were assessed with the Positive and Negative Affect Schedule (PANAS) (Watson et al., 1988). The PANAS was administered at MIDUS II and assessed the degree to which they felt 10 positive and 10 negative emotional states during the preceding month (Watson et al., 1988). Positive emotional states included, “attentive,” ‘active,” “alert,” “excited,” “enthusiastic “determined,” “inspired,” “proud,” “interested” and “strong” (Watson et al., 1988). Negative emotional states included, "hostile," "irritable," "ashamed," "guilty," "distressed," "upset," "scared," "afraid," "jittery" and "nervous” (Watson et al., 1988). The measure has good internal consistency (PA and NA Cronbach’s $\alpha$ = .87) (Watson et al., 1988). Separate summed scores for positive and negative items were used in the present analysis. Each item was rated on a 5-point likert scale ranging from “very slightly or not at all” to “extremely” (Watson et al., 1988).
+
+### **Daily Affect**
+
+Daily positive and negative affect were assessed with an instrument specifically designed for the MIDUS (Kessler et al. 2002; Mroczek and Kolarz 1998). The measure uses a 5-point Likert-type scale ranging from “none of the time” to “all of the time” to assess the frequency of 13 positive and 14 negative emotions during the preceding 24h. Examples of positive emotion items include, “cheerful,” “calm and peaceful,” “enthusiastic” and “attentive.” Examples of negative emotion items include, “nervous,” “upset,” “frustrated” and “hopeless.” The measure demonstrated good internal consistency across the 8 study days (daily PA Cronbach’s $\alpha$ = [.93, .95]; daily NA Cronbach’s $\alpha$ = [.84, .88]) Separate averaged scores for positive and negative items were used in the present analysis.
+
+### **Salivary Cortisol**
+
+Using at-home cotton swab Salivette collection devices (Sarstedt, Nümbrecht, Germany), participants provided four saliva samples per day for four consecutive days (Almeida et al., 2002). Participants were instructed to provide samples at wake, 30-minutes post-wake, before lunch and before bed (Almeida et al., 2002). Participants were also instructed to refrain from consuming a meal at least one hour prior to collection, drinking or eating dairy products 20 minutes prior to collection, brushing their teeth and consuming caffeine 30 minutes prior to collection (alcohol?). In addition, participants recorded all prescription and over-the-counter medications and disclosed any history of endocrine-related disorders.
+
+Intra- and inter-coefficients of variation less than 5% were derived from the luminescence immunoassay procedure (Almeida et al., 2002). After collecting a total of 16 samples, participants shipped the Salivette devices to the MIDUS Biological Core at the University of Wisconsin. At MIDUS Biological Core, samples were stored at -60C before being thawed, centrifuged and assayed for cortisol (Almeida et al., 2002). Also, each cortisol sample was examined and corrected if not within a 4 to 9 pH range.
+
+In addition to paper-and-pencil logs and evening telephone interviews to record timestamps, ~25% of participants used an electronic box that recorded when participants opened and closed the box to use a Salivette collection device (Almeida et al., 2002). At each collection occasion, self-reported timestamps were correlated above .90. Correlations between self-reported time-stamps and the electronic box were correlated above .75, with a stronger correlation in the morning than in the evening (Almeida et al., 2002).
+
+Based on prior studies on the NSDE dataset, the following exclusion criteria were used (CITE). First, cortisol values with missing timestamps (n = , x%) or with concentration levels greater than 60 nmol/L were excluded (n = , x%). Second, participants who worked night shifts were excluded (n = , x%). Third, waking cortisol samples with timestamps before 0400h or after 1200h, indicating aberrant sleep patterns, were removed. Fourth, to avoid modeling erroneously high cortisol levels due to lunchtime meals, noon cortisol samples 10 nmol/L or greater than the wake +30 sample were removed. Fifth, for hypotheses 2a and 2b, due to unreliable SD estimates with only 2 data points, participants with fewer than 3 cortisol samples on any given day were removed from the dataset. Last, X samples were removed due to missing data on one or more covariates. The final analytic sample included X number of participants, who provided x number of saliva samples.
+
+## **Statistical Analyses**
+
+The R statistical computing language was used for all analyses. The natural logarithm of cortisol was computed to correct for skewness in the distribution. Prior to all analyses, a variably spaced time-since-waking variable (i.e., uniquely computed hours since waking for each participant) was computed as time-unstructured predictors are more reliable than time-structured predictors (Singer & Willett, 2003). To avoid modeling the cortisol awakening response, the second salivary cortisol sample from day 2 was removed for each participant (i.e., wake + 30 minutes) (Adam & Kumari, 2009; Kraemer et al., 2006). The intercept was centered at the waking sample for all analyses. An alpha level of .05 was used for the likelihood ratio tests as well as for the fixed effect estimates. Diagnostic plots for assumptions of normality, independence and constant variance at level 1 and at level 2 did not reveal notable departures.
+
+Covariates known to be associated with positive and negative affect were individually tested in an unconditional model. Demographic variables included age, gender, ethnicity, education level and marital status. Health variables included smoking status, menopause status, self-rated physical health status (4 = poor, 3 = fair, 2 = good, 1 = very good, 0 = excellent) and a binary variable for use of steroid and hormonal medications, oral contraceptives, anxiolytics and antidepressants. Covariates that were not significantly associated with positive and negative affect, which included XXXX, were not included in the models below.
+
+### **Hypotheses 1a and 1b** 
+
+First, cIIV was derived by developing a 2-level variance components model, with log-transformed cortisol entered as the outcome variable and time-since-waking and relevant covariates entered as predictor variables. Random intercept and slope variance components were estimated at level 2, while within-participant residual variability was estimated at level 1. Cortisol IIV was calculated as the SD of raw residuals (observed - fitted) at level 1. As a result, each participant had one, time-invariant, cIIV value. 
+
+Two ordinary least-squares regression models were used to quantify the association between cIIV and positive and negative affect. Positive and negative affect were entered as outcome variables, while cIIV and relevant covariates were entered as predictor variables. Multicollinearity was tested with the variance inflation factor (VIF). Diagnostic plots were used to assess assumptions of linearity, homoscedasticity, independence and normality.
+
+### **Hypotheses 2a and 2b** 
+
+To test hypotheses 2a and 2b, cIIV was derived as it was for hypotheses 1a and 2b, but separately for each of the four days. Then, cIIV was separated into its time-invariant component (between-person variability) and its time-varying component (within-person variable). To do so, a 2-level variance components model was estimated, with cIIV entered as the dependent variable and days-in-study entered as the independent variable. Variance components were estimated for the intercept and for the slope. An ICC of X was derived, indicating that X% of the variability in cIIV was between-persons and X% was within-persons. After assessing within- and between-person variability in cIIV, person-mean-centering was used to create 2 orthogonal within- and -between-person variables. The time-invariant predictor was calculated as the mean of all persons for all days subtracted from the mean of each individual for all days. The time-varying predictor was calculated as the mean for each individual for all days subtracted from each day’s cIIV value for each individual.
+
+Separate bottom-up variance components modeling procedures were used to estimate baseline models from which $pseudo-R^2$ (see Eq. 1) could be derived. The best fitting baseline model for both PA and NA was a fixed linear time, random intercept model, with affect specified as the dependent variable and days-in-study specified as the independent variable. The intercept was centered at the waking sample for all analyses. Then an adjusted model was estimated, which included the time-varying and time-invariant predictors for affect and all relevant covariates. Equation (1) was used to quantify the proportion of variance explained by time-invariant and time-varying predictors in between-person intercept variance and within-person residual variance, respectively.
+
+### **Hypothesis 3** 
+
+Cortisol intraindividual variability was derived as it was in Hypothesis 1. Then, a correlation matrix was used to examine correlation coefficients between cIIV, DCS and AUC.
+
+### **Hypothesis 4** 
+
+A 2-part procedure was used to investigate hypothesis 4. In part 1, a latent profile analysis (LPA), a type of latent variable mixture model, was used to estimate a latent factor with K number of groups (i.e., profiles) from person-level values on the CAR, DCS, AUC and cIIV. That is, participant profile membership probabilities were based on similar values in the CAR, DCS, AUC and cIIV. The best fitting model was determined by Akaike information criteria (AIC), Bayesian information criteria (BIC), sample-adjusted Bayesian information criteria (SABIC), Log-likelihood estimates, entropy values and by theoretical interpretability (Jung & Wickrama, 2008; Pastor, Barron, Miller, & Davis, 2007).
+
+In part 2, two ordinary least-squares regression models were used to examine associations between salivary cortisol profiles and positive and negative affect. Trait positive and negative affect were entered as outcome variables, while the profile variable and other relevant covariates were entered as predictor variables. The variance inflation factor (VIF) was used to test for multicollinearity. Diagnostic plots were used to assess assumptions of linearity, homoscedasticity, independence and normality.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

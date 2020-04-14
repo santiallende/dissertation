@@ -1,0 +1,144 @@
+---
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: no
+  word_document: default
+bibliography: refs.bib
+csl: apa-6th-edition.csl
+geometry: margin = 1.0in
+font-family: Times New Roman
+header-includes:
+- \usepackage{setspace}
+- \doublespacing
+- \usepackage{sectsty}
+- \allsectionsfont{\centering\normalsize}
+- \subsectionfont{\centering\normalsize}
+- \subsubsectionfont{\raggedright\normalsize}
+- \usepackage{titlesec}
+- \titlespacing{\section}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
+- \titlespacing{\subsection}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
+- \titlespacing{\subsubsection}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
+- \usepackage[document]{ragged2e}
+- \raggedright
+- \setlength{\parindent}{4em}
+- \setlength{\parskip}{0em}
+- \setlength{\RaggedRightParindent}{0.5in}
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+library("rmarkdown")
+#table of contents: https://stackoverflow.com/questions/23957278/how-to-add-table-of-contents-in-rmarkdown
+
+# indent: https://latex.org/forum/viewtopic.php?t=28495
+
+#rmarkdown::render("analysis/manuscript.Rmd", rmarkdown::pdf_document())
+```
+
+\setcounter{page}{1}
+
+\begin{center}
+MY TITLE\\
+\vspace{4cm}
+A Dissertation\\
+Presented to the Faculty of\\
+The PGSP-Stanford Psy.D. Consortium\\
+Palo Alto University\\
+Palo Alto, California\\
+In Partial Fulfillment of the\\
+Requirements for the Degree of\\
+Doctor of Psychology\\
+\vspace{8.5cm}
+by\\
+Santiago Allende\\
+November, 2019
+\end{center}
+
+\newpage
+\begin{center}
+MY TITLE\\
+Santiago Allende\\
+The PGSP-Stanford Psy.D. Consortium, Palo Alto University, 2019
+\end{center}
+
+\newpage
+\vspace*{\fill}
+\begingroup
+\centering
+
+\textcopyright\space 2019\\
+by\\
+Santiago Allende\\
+ 
+\endgroup
+\vspace*{\fill}
+
+\newpage
+\begin{center}
+My Title\\
+\vspace{3cm}
+This dissertation by Santiago Allende, directed and approved by the candidate’s committee, has\\
+been accepted and approved by the Faculty of The PGSP-Stanford Psy.D. Consortium, Palo Alto\\
+University in partial fulfillment of the requirements for the degree of\\
+DOCTOR OF PSYCHOLOGY\\
+\vspace{3cm}
+\begin{minipage}{4cm}
+  \centering
+  \hrulefill\\
+  Signed
+\end{minipage}
+
+\end{center}
+
+\newpage
+
+\newpage
+\tableofcontents 
+\listoffigures
+\listoftables
+\newpage
+
+```{r 'chapter1.Rmd', child = "/Users/Santi/Desktop/dissertation/R/analysis/chapter1.Rmd"}
+```
+
+\newpage
+
+```{r 'hypotheses.Rmd', child = "/Users/Santi/Desktop/dissertation/R/analysis/hypotheses.Rmd"}
+```
+
+\newpage
+
+```{r 'chapter2.Rmd', child = "/Users/Santi/Desktop/dissertation/R/analysis/chapter2.Rmd"}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+# References
+```{r create_r-references}
+r_refs(file = "refs.bib")
+```
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup
