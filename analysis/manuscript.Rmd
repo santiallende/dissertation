@@ -99,17 +99,17 @@ DOCTOR OF PSYCHOLOGY\\
 \listoftables
 \newpage
 
-```{r 'chapter1.Rmd', child = "/Users/Santi/Desktop/dissertation/R/analysis/chapter1.Rmd"}
+```{r 'chapter1.Rmd', child = "/Users/Santi/Desktop/rProjects/dissertation/analysis/chapter1.Rmd"}
 ```
 
 \newpage
 
-```{r 'hypotheses.Rmd', child = "/Users/Santi/Desktop/dissertation/R/analysis/hypotheses.Rmd"}
+```{r 'hypotheses.Rmd', child = "/Users/Santi/Desktop/rProjects/dissertation/analysis/hypotheses.Rmd"}
 ```
 
 \newpage
 
-```{r 'chapter2.Rmd', child = "/Users/Santi/Desktop/dissertation/R/analysis/chapter2.Rmd"}
+```{r 'chapter2.Rmd', child = "/Users/Santi/Desktop/rProjects/dissertation/analysis/chapter2.Rmd"}
 ```
 
 

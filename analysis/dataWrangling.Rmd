@@ -11,7 +11,7 @@ library(tidyr)
 
 # Load Daily Data
 ```{r}
-dailyDat <- read.table("data.tsv",
+dailyDat <- read.table("/Users/Santi/Desktop/rProjects/dissertation/analysis/data.tsv",
                   header = T,
                   sep = "\t",
                   stringsAsFactors = F)
@@ -31,7 +31,7 @@ dailyDat <- dailyDat %>%
 
 # Load Midus 2 Time-invariant Data
 ```{r}
-midusDat <- read.table("midusTwoData.tsv",
+midusDat <- read.table("/Users/Santi/Desktop/rProjects/dissertation/analysis/midusTwoData.tsv",
                   header = T,
                   sep = "\t",
                   stringsAsFactors = F)
