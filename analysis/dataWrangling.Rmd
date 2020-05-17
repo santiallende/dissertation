@@ -1,20 +1,26 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
-# Load Libraries
-```{r}
+# Load libraries
+```{r, message=F, warning=F}
 library(dplyr)
 library(tidyr)
+library(ggplot2)
+library(nlme)
+options(scipen=999)
 ```
 
-# Load Daily Data
-```{r}
+# Load daily data
+```{r, message=F, warning=F, results="hold"}
 dailyDat <- read.table("/Users/Santi/Desktop/rProjects/dissertation/analysis/data.tsv",
                   header = T,
                   sep = "\t",
-                  stringsAsFactors = F)
+                  stringsAsFactors = F,
+                  na.strings = c(999994, 999995, 999996, 999998, 98.00))
 
 # 999994. UNRELIABLE
 # 999995. NOT DONE
@@ -22,30 +28,725 @@ dailyDat <- read.table("/Users/Santi/Desktop/rProjects/dissertation/analysis/dat
 # 999998. REFUSED/MISSING
 ```
 
-# Select Variables of Interest from Daily Data
-```{r}
-dailyDat <- dailyDat %>%
-  select(id = M2ID, gender = B1PGENDER, age = B1PAGE_M2, medUseNone1Yes = B2DMED10,
-         startWork = B2DA3AAP, endWork = B2DA3BAP, day = B2DDAY, dailyMeanPosAff = B2DPOSAV, dailyMeanNegAffect = B2DNEGAV, dailyInGoodSpirits = B2DC7, dailyCheerful = B2DC8, dailyExtremelyHappy = B2DC9, dailyCalmPeaceful = B2DC10, dailySatisfied = B2DC11, dailyFullOfLife =  B2DC12, dailyCloseToOthers = B2DC21, dailyLikeYouBelong = B2DC22, dailyEnthusiastic = B2DC23, dailyAttentive = B2DC24, dailyProud = B2DC25, dailyActive = B2DC26, dailyConfident = B2DC27, dailyRestlessFidgety = B2DC1, dailyNervous = B2DC2, dailyWorthless = B2DC3, dailySoSadNoCheerUp = B2DC4, dailyEverythingAnEffort = B2DC5, dailyHopeless = B2DC6, dailyLonely = B2DC13, dailyAfraid = B2DC14, dailyJittery = B2DC15, dailyIrritable = B2DC16, dailyAshamed = B2DC17, dailyUpset = B2DC18, dailyAngry = B2DC19, dailyFrustrated = B2DC20, wakeTime = B2DWAKE2, providedCort1yes2no = B2DCORT, wakeCortTime = B2DCORWT, wakeThirtyCortTime = B2DCORAT, noonCortTime = B2DCORLT, pmCortTime = B2DCORBT, wakeCortValue = B2DCORW, wakeThirtyCortValue = B2DCORA, noonCortValue = B2DCORL, pmCortValue = B2DCORB)
+# Select cortisol variables of interest from daily data
+```{r, message=F, warning=F, results="hold"}
+cortTimesDat <- dailyDat %>%
+  select(id = M2ID, gender = B1PGENDER, age = B1PAGE_M2, medUseNone1Yes = B2DMED10, startWork = B2DA3AAP, endWork = B2DA3BAP, providedCort1yes2no = B2DCORT, day = B2DDAY, wakeCort = B2DCORWT, wakeThirtyCort = B2DCORAT, noonCort = B2DCORLT, pmCort = B2DCORBT) %>%
+  filter(providedCort1yes2no == 1) %>%
+  filter(day == 2 | day == 3 | day == 4 | day == 5) %>%
+  pivot_longer(9:12, names_to = "cortTimeText", values_to = "cortTime") 
+  
+cortValuesDat <- dailyDat %>%
+  select(id = M2ID, providedCort1yes2no = B2DCORT, day = B2DDAY, wakeCort = B2DCORW, wakeThirtyCort = B2DCORA, noonCort = B2DCORL, pmCort = B2DCORB) %>%
+  filter(providedCort1yes2no == 1) %>%
+  filter(day == 2 | day == 3 | day == 4 | day == 5) %>%
+  pivot_longer(4:7, names_to = "cortTimeText", values_to = "cortNmol") %>%
+  select(id, day, cortTimeText, cortNmol)
+
+cortDat <- left_join(cortTimesDat, cortValuesDat, by = c("id", "day", "cortTimeText"))
+
+str(cortDat)
 ```
 
-# Load Midus 2 Time-invariant Data
-```{r}
+# Remove NAs from cortTime and cortNmol
+```{r, message=F, warning=F, results="hold"}
+naCortNmol <- round((sum(is.na(cortDat$cortNmol)) / nrow(cortDat)) * 100, 2)
+naCortTime <- round((sum(is.na(cortDat$cortTime)) / nrow(cortDat)) * 100, 2)
+
+masterCortDat <- cortDat %>%
+  filter(!is.na(cortNmol), !is.na(cortTime))
+
+str(masterCortDat)
+```
+
+# Remove samples collected outside of 24hr window
+```{r, message=F, warning=F, results="hold"}
+samplesOutside24hrWindow <- masterCortDat %>%
+  filter(cortTime < 0.00 | cortTime > 24.00) %>%
+  nrow()
+#607 samples collected prior to beginning of of interview day or after end of interview day
+
+masterCortDat <- masterCortDat %>%
+  filter(cortTime >= 0.00, cortTime <= 24.00)
+
+str(masterCortDat)
+```
+
+# Remove samples with cortNmol > 60
+```{r, message=F, warning=F, results="hold"}
+masterCortDat %>%
+  filter(cortNmol > 60)
+#381 greater than 60
+
+greaterThanSixty <- round((nrow(subset(masterCortDat, cortNmol > 60)) / nrow(masterCortDat)) * 100, 2)
+
+masterCortDat <- masterCortDat %>%
+  filter(cortNmol <= 60)
+
+str(masterCortDat)
+```
+
+# Remove waking cortisol samples collected before 0400h or after 1200h
+```{r, message=F, warning=F, results="hold"}
+earlyLateWakeCort <- masterCortDat %>%
+  filter(cortTimeText == "wakeCort") %>%
+  filter(cortTime < 4.00 | cortTime > 12) %>%
+  nrow()
+#173 wake cort collected before 4am or after 12pm
+
+# df that contains wakeCortTime between 4 and 12
+wakeCortKeepMe <- masterCortDat %>%
+  filter(cortTimeText == "wakeCort") %>%
+  filter(between(cortTime, 4.00, 12.00)) 
+
+# remove all wakeCort rows from master dat
+masterCortDat <- masterCortDat %>%
+  filter(cortTimeText != "wakeCort")
+
+# bind wakeCortKeepMe rows w/ masterCortDat rows
+masterCortDat <- bind_rows(masterCortDat, wakeCortKeepMe)
+
+# arrange rows
+masterCortDat <- masterCortDat %>%
+  arrange(id, day, cortTime)
+
+str(masterCortDat)
+```
+
+# Number of 1200h Values that are 10 nmol/L greater than the wake + 30 values?
+```{r, message=F, warning=F, results="hold"}
+erronLunchValues <- masterCortDat %>% 
+  mutate(dummy1 = case_when(
+    cortTimeText == "wakeThirtyCort" ~ 1,
+    cortTimeText == "noonCort" ~ 1,
+    TRUE ~ 0
+  )) %>%
+  filter(dummy1 == 1) %>%
+  arrange(id, day, cortTime) %>%
+  group_by(id, day) %>%
+  mutate(dummyDif = last(cortNmol) - first(cortNmol)) %>%
+  mutate(assignDummy = case_when(
+    dummyDif > 10 ~ 1,
+    TRUE ~ 0
+  )) %>%
+  filter(assignDummy == 1) %>%
+  nrow()
+# 166 samples
+
+nmolWakeNoon10 <- masterCortDat %>%
+  mutate(dummy1 = case_when(
+    cortTimeText == "wakeThirtyCort" ~ 1,
+    cortTimeText == "noonCort" ~ 1,
+    TRUE ~ 0
+  )) %>%
+  filter(dummy1 == 1) %>%
+  arrange(id, day, cortTime) %>%
+  group_by(id, day) %>%
+  mutate(dummyDif = last(cortNmol) - first(cortNmol)) %>%
+  mutate(assignDummy = case_when(
+    dummyDif > 10 ~ 1,
+    TRUE ~ 0
+  )) %>%
+  filter(assignDummy == 1) %>%
+  select(-dummy1, -dummyDif, -assignDummy)
+
+masterCortDat <- anti_join(masterCortDat, nmolWakeNoon10)
+
+str(masterCortDat)
+```
+
+# How many participants are using medications that impact HPA axis function,
+#didn't know or did not answer this question?
+```{r, message=F, warning=F, results="hold"}
+masterCortDat %>%
+  filter(medUseNone1Yes == 2 | medUseNone1Yes == 8 | medUseNone1Yes == 9) %>%
+  select(id) %>%
+  distinct() %>%
+  nrow()
+# 895 of 1731
+
+masterCortDat %>%
+  select(id) %>%
+  n_distinct()
+```
+
+# Compute natural logarithm of cortisol
+```{r, message=F, warning=F, results="hold"}
+masterCortDat <- masterCortDat %>%
+  mutate(logCort = log(cortNmol))
+
+str(masterCortDat)
+```
+
+# Derive CAR
+```{r, message=F, warning=F, results="hold"}
+masterCortDat <- masterCortDat %>%
+  group_by(id) %>%
+  mutate(car = nth(logCort, 2) - nth(logCort, 1)) %>%
+  ungroup()
+
+str(masterCortDat)
+```
+
+# Derive AUC
+```{r, message=F, warning=F, results="hold"}
+aucDat <- masterCortDat %>%
+  select(id, day, cortTimeText, cortTime, logCort) %>%
+  filter(cortTimeText != "wakeThirtyCort") %>%
+  group_by(id, cortTimeText) %>%
+  mutate(meanCortTime = mean(cortTime)) %>%
+  mutate(meanLogCort = mean(logCort)) %>%
+  ungroup() %>%
+  filter(day == 2) %>%
+  group_by(id) %>%
+  mutate(duration = meanCortTime - lag(meanCortTime)) %>%
+  mutate(auc = ((meanLogCort + lag(meanLogCort)) / 2) * duration ) %>%
+  mutate(aucTot = sum(auc, na.rm = T)) %>%
+  ungroup() %>%
+  group_by(id) %>%
+  filter(any(n() == 3)) %>%
+  select(id, aucTot) %>%
+  distinct() 
+
+# check who has negative AUC and why??? aha - remove any(id) groups where n(timepoints) < 3
+aucLessThanTimePoints <- masterCortDat %>%
+  select(id, day, cortTimeText, cortTime, logCort) %>%
+  filter(cortTimeText != "wakeThirtyCort") %>%
+  group_by(id, cortTimeText) %>%
+  mutate(meanCortTime = mean(cortTime)) %>%
+  mutate(meanLogCort = mean(logCort)) %>%
+  ungroup() %>%
+  filter(day == 2) %>%
+  group_by(id) %>%
+  mutate(duration = meanCortTime - lag(meanCortTime)) %>%
+  mutate(auc = ((meanLogCort + lag(meanLogCort)) / 2) * duration ) %>%
+  mutate(aucTot = sum(auc, na.rm = T)) %>%
+  ungroup() %>%
+  group_by(id) %>%
+  filter(any(n() < 3)) %>%
+  select(id) %>%
+  distinct() %>%
+  ungroup()
+
+masterCortDat <- left_join(masterCortDat, aucDat, by = "id")
+
+str(masterCortDat)
+```
+
+# Derive slope
+```{r, message=F, warning=F, results="hold"}
+cortSlopeDat <- masterCortDat %>%
+  select(id, day, cortTimeText, cortTime, logCort) %>%
+  filter(cortTimeText != "wakeThirtyCort")
+
+
+lmeSlopes <- gls(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude")
+
+lmeSlopes2 <- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~1|id)
+
+lmeSlopes3 <- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~cortTime|id)
+
+anova(lmeSlopes, lmeSlopes2, lmeSlopes3)
+
+slopeDat <- as.data.frame(coef(lmeSlopes3))
+
+slopeDat <- slopeDat %>%
+  tibble::rownames_to_column("id") %>%
+  rename(lmmCortSlope = cortTime) %>%
+  select(-"(Intercept)") %>%
+  mutate(lmmCortSlope = round(lmmCortSlope, 2)) %>%
+  mutate(id = as.numeric(id))
+
+indRegSlope <- cortSlopeDat %>%
+  group_by(id) %>% 
+  do(broom::tidy(lm(logCort ~ cortTime, data=.,
+             na.action = na.exclude))) %>% #change predictor 
+  filter(., term == "cortTime") %>%
+  dplyr::select(., id, leastSquaresCortSlope = estimate) %>%
+  mutate(leastSquaresCortSlope = round(leastSquaresCortSlope, 2))
+
+tTestJoin <- left_join(indRegSlope, slopeDat, by = "id")
+
+cor.test(tTestJoin$lmmCortSlope, tTestJoin$leastSquaresCortSlope,
+         paired = T) #.7869
+
+masterCortDat <- left_join(masterCortDat, slopeDat, by = "id")
+masterCortDat <- left_join(masterCortDat, indRegSlope, by = "id")
+
+str(masterCortDat)
+```
+
+# NAs per slope derivation method
+```{r, message=F, warning=F, results="hold"}
+masterCortDat %>%
+  summarise(sumLmmNA = sum(is.na(lmmCortSlope)),
+            sumLsNA = sum(is.na(leastSquaresCortSlope)))
+```
+
+# LMM and least-squares association with observed values: all days 
+```{r, message=F, warning=F, results="hold"}
+#extract observed
+observedValues <- cortSlopeDat %>%
+  select(id, logCort) %>%
+  na.omit()
+
+#extract fitted lme
+fittedLmeValues <- fitted(lmeSlopes3) %>%
+  tibble::enframe(., "id", "fittedLme")
+
+#extract fitted least-squares
+fittedLeastSquaresValues <- cortSlopeDat %>%
+  group_by(id) %>% 
+  do(broom::tidy(lm(logCort ~ cortTime, data=.,
+             na.action = na.exclude)$fitted)) %>% #change predictor 
+  select(id, fittedLeastSquares = x)
+
+#compare
+cor.test(observedValues$logCort, fittedLmeValues$fittedLme, 
+         method = "spearman",
+         paired = T) 
+
+cor.test(observedValues$logCort, fittedLeastSquaresValues$fittedLeastSquares, 
+         method = "spearman",
+         paired = T)
+```
+# LMM and least-squares association with observed values: each day, cond only
+```{r, message=F, warning=F, results="hold"}
+#extract observed
+observedValues <- cortSlopeDat %>%
+  dplyr::select(id, day, logCort) %>%
+  na.omit()
+
+##lme approach separate days: day 2
+lmeFitDay2Dat <- cortSlopeDat %>%
+  filter(day == 2)
+
+lmeResidsDay2 <- lme(logCort ~ cortTime,
+                 data = lmeFitDay2Dat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 control = list(opt = "optim"),
+                 random = ~cortTime|id)
+
+#extract fitted lme
+fittedLmeValuesDay2 <- fitted(lmeResidsDay2) %>%
+  tibble::enframe(., "id", "fittedLmeDay2") %>%
+  mutate(id = as.numeric(id))
+
+attr(fittedLmeValuesDay2$fittedLmeDay2, "label") <- NULL
+
+#cor result
+observedValuesDay2 <- observedValues %>%
+  filter(day == 2)
+
+cor.test(fittedLmeValuesDay2$fittedLmeDay2, observedValuesDay2$logCort, 
+         method = "spearman",
+         paired = T)
+
+##lme approach separate days: day 3
+lmeFitDay3Dat <- cortSlopeDat %>%
+  filter(day == 3)
+
+lmeResidsDay3 <- lme(logCort ~ cortTime,
+                 data = lmeFitDay3Dat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 control = list(opt = "optim"),
+                 random = ~cortTime|id)
+
+#extract fitted lme
+fittedLmeValuesDay3 <- fitted(lmeResidsDay3) %>%
+  tibble::enframe(., "id", "fittedLmeDay3") %>%
+  mutate(id = as.numeric(id))
+
+attr(fittedLmeValuesDay3$fittedLmeDay3, "label") <- NULL
+
+#cor result
+observedValuesDay3 <- observedValues %>%
+  filter(day == 3)
+
+cor.test(fittedLmeValuesDay3$fittedLmeDay3, observedValuesDay3$logCort, 
+         method = "spearman",
+         paired = T)
+
+##lme approach separate days: day 4
+lmeFitDay4Dat <- cortSlopeDat %>%
+  filter(day == 4)
+
+lmeResidsDay4 <- lme(logCort ~ cortTime,
+                 data = lmeFitDay4Dat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 control = list(opt = "optim"),
+                 random = ~cortTime|id)
+
+#extract fitted lme
+fittedLmeValuesDay4 <- fitted(lmeResidsDay4) %>%
+  tibble::enframe(., "id", "fittedLmeDay4") %>%
+  mutate(id = as.numeric(id))
+
+attr(fittedLmeValuesDay4$fittedLmeDay4, "label") <- NULL
+
+#cor result
+observedValuesDay4 <- observedValues %>%
+  filter(day == 4)
+
+cor.test(fittedLmeValuesDay4$fittedLmeDay4, observedValuesDay4$logCort, 
+         method = "spearman",
+         paired = T)
+
+##lme approach separate days: day 5
+lmeFitDay5Dat <- cortSlopeDat %>%
+  filter(day == 5)
+
+lmeResidsDay5 <- lme(logCort ~ cortTime,
+                 data = lmeFitDay5Dat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 control = list(opt = "optim"),
+                 random = ~cortTime|id)
+
+#extract fitted lme
+fittedLmeValuesDay5 <- fitted(lmeResidsDay5) %>%
+  tibble::enframe(., "id", "fittedLmeDay5") %>%
+  mutate(id = as.numeric(id))
+
+attr(fittedLmeValuesDay5$fittedLmeDay5, "label") <- NULL
+
+#cor result
+observedValuesDay5 <- observedValues %>%
+  filter(day == 5)
+
+cor.test(fittedLmeValuesDay5$fittedLmeDay5, observedValuesDay5$logCort, 
+         method = "spearman",
+         paired = T)
+
+##lme approach with days nested, cond on time
+lmeResids <- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 control = list(opt = "optim"),
+                 random = ~cortTime|id/day)
+
+#extract fitted lme
+fittedLmeValues <- fitted(lmeResids) %>%
+  tibble::enframe(., "id", "fittedLme")
+
+fittedLmeValues <- fittedLmeValues %>%
+  separate(id, c("id", "day"), "/") %>%
+  mutate(id = as.numeric(id), day = as.numeric(day))
+
+attr(fittedLmeValues$fittedLme, "label") <- NULL
+
+fitted3LevelDay2 <- fittedLmeValues %>%
+  filter(day == 2)
+
+cor.test(fitted3LevelDay2$fittedLme, observedValuesDay2$logCort, 
+         method = "spearman",
+         paired = T)
+
+fitted3LevelDay3 <- fittedLmeValues %>%
+  filter(day == 3)
+
+cor.test(fitted3LevelDay3$fittedLme, observedValuesDay3$logCort, 
+         method = "spearman",
+         paired = T)
+
+fitted4LevelDay4 <- fittedLmeValues %>%
+  filter(day == 4)
+
+cor.test(fitted4LevelDay4$fittedLme, observedValuesDay4$logCort, 
+         method = "spearman",
+         paired = T)
+
+fitted5LevelDay5 <- fittedLmeValues %>%
+  filter(day == 5)
+
+cor.test(fitted5LevelDay5$fittedLme, observedValuesDay5$logCort, 
+         method = "spearman",
+         paired = T)
+
+#cond ciiv least squares
+lsFittedHyp2Cond <- cortSlopeDat %>% 
+  group_by(id, day) %>%
+  add_count(name = "numberOfValuesPerIdDay") %>%
+  do(broom::tidy(lm(logCort ~ cortTime, data=., 
+             na.action = na.exclude)$fitted)) %>%
+  select(id, day, fittedLeastSquares = x) %>%
+  ungroup()
+
+lsFittedHyp2CondDay2 <- lsFittedHyp2Cond %>%
+  filter(day == 2)
+
+lsFittedHyp2CondDay3 <- lsFittedHyp2Cond %>%
+  filter(day == 3)
+
+lsFittedHyp2CondDay4 <- lsFittedHyp2Cond %>%
+  filter(day == 4)
+
+lsFittedHyp2CondDay5 <- lsFittedHyp2Cond %>%
+  filter(day == 5)
+
+cor.test(lsFittedHyp2CondDay2$fittedLeastSquares, observedValuesDay2$logCort, 
+         method = "spearman",
+         paired = T)
+cor.test(lsFittedHyp2CondDay3$fittedLeastSquares, observedValuesDay3$logCort, 
+         method = "spearman",
+         paired = T)
+cor.test(lsFittedHyp2CondDay4$fittedLeastSquares, observedValuesDay4$logCort, 
+         method = "spearman",
+         paired = T)
+cor.test(lsFittedHyp2CondDay5$fittedLeastSquares, observedValuesDay5$logCort, 
+         method = "spearman",
+         paired = T)
+```
+
+# Hypotheses 1a and 1b cIIV derivation: unconditional and conditional on time
+```{r, message=F, warning=F, results="hold"}
+#hyp 1 lmm uncond ciiv
+lmeSlopes <- gls(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude")
+
+lmeSlopes2 <- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~1|id)
+
+anova(lmeSlopes, lmeSlopes2)
+
+lmeResidsHyp1Unc <- resid(lmeSlopes2, type="response", level=1)
+lmeResidsHyp1Unc <- tibble::enframe(lmeResidsHyp1Unc, "id", "hyp1LmmUncCiiv")
+
+lmeResidsHyp1Unc <- lmeResidsHyp1Unc %>%
+  group_by(id) %>%
+  mutate(hyp1LmmUncCiiv = sd(hyp1LmmUncCiiv, na.rm = T)) %>%
+  ungroup() %>%
+  select(id, hyp1LmmUncCiiv) %>%
+  distinct() %>%
+  mutate(id = as.numeric(id))
+
+masterCortDat <- left_join(masterCortDat, lmeResidsHyp1Unc, by = "id")
+
+#hyp 1 lmm cond ciiv
+lmeSlopes2 <- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~1|id)
+
+lmeSlopes3 <- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~1|id)
+
+lmeSlopes4 <- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~cortTime|id)
+
+anova(lmeSlopes2, lmeSlopes3, lmeSlopes4)
+
+lmeResidsHyp1Cond <- resid(lmeSlopes4, type="response", level=1)
+lmeResidsHyp1Cond <- tibble::enframe(lmeResidsHyp1Cond, "id", "hyp1LmmCondCiiv")
+
+lmeResidsHyp1Cond <- lmeResidsHyp1Cond %>%
+  group_by(id) %>%
+  mutate(hyp1LmmCondCiiv = sd(hyp1LmmCondCiiv, na.rm = T)) %>%
+  ungroup() %>%
+  select(id, hyp1LmmCondCiiv) %>%
+  distinct() %>%
+  mutate(id = as.numeric(id))
+
+masterCortDat <- left_join(masterCortDat, lmeResidsHyp1Cond, by = "id")
+
+#hyp 1 unc ciiv least squares / not actually least-squares, just sd ## CHANGE NAME
+sdResidsHyp1Unc <- cortSlopeDat %>%
+  group_by(id) %>%
+  mutate(hyp1SdUncCiiv = sd(logCort, na.rm = T)) %>%
+  ungroup() %>%
+  select(id, hyp1SdUncCiiv) %>%
+  distinct()
+
+masterCortDat <- left_join(masterCortDat, sdResidsHyp1Unc, by = "id")
+
+# hyp1 cond ciiv least squares
+lsResidsHyp1Cond <- cortSlopeDat %>%
+  group_by(id) %>%
+  do(broom::tidy(lm(logCort ~ cortTime, data=., 
+             na.action = na.exclude)$residuals)) %>% #change predictor
+  mutate(hyp1LsCondCiiv = sd(x, na.rm = T)) %>%
+  select(., id, hyp1LsCondCiiv) %>%
+  distinct()
+
+masterCortDat <- left_join(masterCortDat, lsResidsHyp1Cond, by = "id")
+
+#cor 
+masterCortDat %>%
+  select(id, hyp1SdUncCiiv, hyp1LmmUncCiiv) %>%
+  distinct() %>%
+  na.omit() %>%
+  do(broom::tidy(cor.test(.$hyp1SdUncCiiv, .$hyp1LmmUncCiiv, 
+                          method = "spearman", paired = T)))
+
+masterCortDat %>%
+  select(id, hyp1LsCondCiiv, hyp1LmmCondCiiv) %>%
+  distinct() %>%
+  na.omit() %>%
+  do(broom::tidy(cor.test(.$hyp1LsCondCiiv, .$hyp1LmmCondCiiv, 
+                          method = "spearman", paired = T)))
+```
+
+# Hypotheses 2a and 2b cIIV derivation: unconditional and conditional on time
+```{r, message=F, warning=F, results="hold"}
+#lme approach, unconditional
+lmeResids <- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~1|id/day)
+
+lmeResids <- resid(lmeResids, type="response", level=2)
+lmeResids <- tibble::enframe(lmeResids, "id", "cIiv") # name this resid something
+
+lmeResids <- lmeResids %>%
+  separate(id, c("id", "day"), "/") 
+
+lmeResidsHyp2Unc <- lmeResids %>%
+  group_by(id, day) %>%
+  mutate(hyp2LmmUncCiiv = sd(cIiv, na.rm = T)) %>%
+  ungroup() %>%
+  select(id, day, hyp2LmmUncCiiv) %>%
+  distinct() %>%
+  mutate(id = as.numeric(id), day = as.numeric(day))
+
+masterCortDat <- left_join(masterCortDat, lmeResidsHyp2Unc, by = c("id", "day"))
+
+##lme approach with days nested, cond on time
+lmeResids <- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~1|id/day)
+
+lmeResids <- resid(lmeResids, type="response", level=2)
+lmeResids <- tibble::enframe(lmeResids, "id", "cIiv") # name this resid something
+
+lmeResids <- lmeResids %>%
+  separate(id, c("id", "day"), "/") 
+
+lmeResidsHyp2Cond <- lmeResids %>%
+  group_by(id, day) %>%
+  mutate(hyp2LmmCondCiiv = sd(cIiv, na.rm = T)) %>%
+  ungroup() %>%
+  select(id, day, hyp2LmmCondCiiv) %>%
+  distinct() %>%
+  mutate(id = as.numeric(id), day = as.numeric(day))
+
+masterCortDat <- left_join(masterCortDat, lmeResidsHyp2Cond, by = c("id", "day"))
+
+#unconditional ciiv least squares
+sdResidsHyp2Unc <- cortSlopeDat %>%
+  group_by(id, day) %>%
+  mutate(hyp2SdUncCiiv = sd(logCort)) %>%
+  ungroup() %>%
+  select(id, day, hyp2SdUncCiiv) %>%
+  distinct()
+
+masterCortDat <- left_join(masterCortDat, sdResidsHyp2Unc, by = c("id", "day"))
+
+#cond ciiv least squares
+lsResidsHyp2Cond <- cortSlopeDat %>%
+  group_by(id, day) %>%
+  add_count(name = "numberOfValuesPerIdDay") %>%
+  do(broom::tidy(lm(logCort ~ cortTime, data=., 
+             na.action = na.exclude)$residuals)) %>% 
+  mutate(hyp2LsCondCiiv = sd(x, na.rm = T)) %>%
+  ungroup() %>%
+  select(., id, day, hyp2LsCondCiiv) %>%
+  distinct()
+
+masterCortDat <- left_join(masterCortDat, lsResidsHyp2Cond, by = c("id", "day"))
+
+# NAs per slope derivation method
+masterCortDat %>%
+  summarise(sumLmmNA = sum(is.na(hyp2LmmCondCiiv)),
+            sumLsNA = sum(is.na(hyp2LsCondCiiv)))
+
+str(masterCortDat)
+```
+
+# Select cortisol variables for each hypothesis and remove duplicates
+```{r, message=F, warning=F, results="hold"}
+hyp1CortDat <- masterCortDat %>%
+  select(id, age, gender, medUseNone1Yes, car, aucTot, lmmCortSlope,
+         leastSquaresCortSlope, hyp1LmmUncCiiv, hyp1LmmCondCiiv,
+         hyp1SdUncCiiv, hyp1LsCondCiiv) %>%
+  distinct()
+
+str(hyp1CortDat)
+
+hyp2CortDat <- masterCortDat %>%
+  select(id, age, gender, medUseNone1Yes, day, hyp2LmmUncCiiv,
+         hyp2LmmCondCiiv, hyp2SdUncCiiv, hyp2LsCondCiiv) %>%
+  distinct()
+
+str(hyp2CortDat)
+```
+
+# Select emotion data and join with hypotheses 1 & 2 cortisol data
+```{r, message=F, warning=F, results="hold"}
+emoDat <- dailyDat %>%
+  select(id = M2ID, day = B2DDAY, dailyMeanPosAff = B2DPOSAV, dailyMeanNegAffect = B2DNEGAV, dailyInGoodSpirits = B2DC7, dailyCheerful = B2DC8, dailyExtremelyHappy = B2DC9, dailyCalmPeaceful = B2DC10, dailySatisfied = B2DC11, dailyFullOfLife = B2DC12, dailyCloseToOthers = B2DC21, dailyLikeYouBelong = B2DC22, dailyEnthusiastic = B2DC23, dailyAttentive = B2DC24, dailyProud = B2DC25, dailyActive = B2DC26, dailyConfident = B2DC27, dailyRestlessFidgety = B2DC1, dailyNervous = B2DC2, dailyWorthless = B2DC3, dailySoSadNoCheerUp = B2DC4, dailyEverythingAnEffort = B2DC5, dailyHopeless = B2DC6, dailyLonely = B2DC13, dailyAfraid = B2DC14, dailyJittery = B2DC15, dailyIrritable = B2DC16, dailyAshamed = B2DC17, dailyUpset = B2DC18, dailyAngry = B2DC19, dailyFrustrated = B2DC20) %>%
+  filter(day == 2 | day == 3 | day == 4 | day == 5)
+```
+
+# Select variables of interest from midus 2 data
+```{r, message=F, warning=F, results="hold"}
 midusDat <- read.table("/Users/Santi/Desktop/rProjects/dissertation/analysis/midusTwoData.tsv",
                   header = T,
                   sep = "\t",
                   stringsAsFactors = F)
-```
 
-# Select Variables of Interest from Midus 2 Data
-```{r}
 midusDat <- midusDat %>%
-  select(id = M2ID, ethnicity = B1PF7A, education = B1PB1, traitSoSadNoCheer = 
-B1SA24A, )
+  select(id = M2ID, ethnicity = B1PF7A, education = B1PB1, smoker = B1PA39, posPanas = B1SPOSPA, negPanas = B1SNEGPA, traitCheerful = B1SA26A, traitGoodSpirits = B1SA26B, traitExtremelyHappy = B1SA26C, traitCalmPeaceful = B1SA26D, traitSatisfied = B1SA26E, traitFullOfLife = B1SA26F, traitCloseOthers = B1SA26G, traitBelong = B1SA26H, traitEnthusiastic = B1SA26I, traitAttentive = B1SA26J, traitProud = B1SA26K, traitActive = B1SA26L, traitConfident = B1SA26M, traitSoSadNoCheer = B1SA24A, traitNervous = B1SA24B, traitRestless = B1SA24C, traitHopeless = B1SA24D, traitEverythingAnEffort = B1SA24E, traitWorthless = B1SA24F, traitLonely = B1SA24G, traitAfraid = B1SA24H, traitJittery = B1SA24I, traitIrritable = B1SA24J, traitAshamed = B1SA24K, traitUpset = B1SA24L, traitAngry = B1SA24M, traitFrustrated = B1SA24N)
 ```
 
+# Hypothesis 1 dataframe
+```{r, message=F, warning=F, results="hold"}
+hyp1Dat <- left_join(hyp1CortDat, midusDat, by = "id") %>%
+  select(id, age, gender, medUseNone1Yes, ethnicity, 
+         education, smoker, everything())
 
+str(hyp1Dat)
+hyp1Dat
+write.csv(hyp1Dat, "hyp1Dat.csv", row.names = F)
+```
 
+# Hypothesis 2 dataframe
+```{r, message=F, warning=F, results="hold"}
+hyp2Dat <- left_join(hyp2CortDat, emoDat, by = c("id", "day"))
+
+str(hyp2Dat)
+hyp2Dat
+write.csv(hyp2Dat, "hyp2Dat.csv", row.names = F)
+```
 
 
 
