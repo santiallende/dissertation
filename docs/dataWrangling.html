@@ -436,10 +436,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-14
+<strong>Last updated:</strong> 2020-05-17
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>dissertation/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -455,12 +455,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -559,10 +559,10 @@ analysis/midusTwoData.tsv
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreed7d4a9b0a5de0cc752bd39065c8bc9f366c48a0etargetblankd7d4a9ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/santiallende/dissertation/tree/d7d4a9b0a5de0cc752bd39065c8bc9f366c48a0e" target="_blank">d7d4a9b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtree0f046724f7aa8d2c01c769b20015cde819cccbc9targetblank0f04672a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/santiallende/dissertation/tree/0f046724f7aa8d2c01c769b20015cde819cccbc9" target="_blank">0f04672</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreed7d4a9b0a5de0cc752bd39065c8bc9f366c48a0etargetblankd7d4a9ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtree0f046724f7aa8d2c01c769b20015cde819cccbc9targetblank0f04672a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -570,6 +570,7 @@ Great! You are using Git for version control. Tracking code development and conn
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
     Ignored:    analysis/ICPSR_04652 3/.DS_Store
@@ -579,12 +580,24 @@ Ignored files:
     Ignored:    analysis/dataWrangling.nb.html
 
 Untracked files:
-    Untracked:  analysis/midusTwoData.tsv
-    Untracked:  analysis/refs.bib
+    Untracked:  analysis/hyp1Dat.csv
+    Untracked:  analysis/hyp2Dat.csv
+    Untracked:  analysis/lmeResidsPerDay.csv
+    Untracked:  analysis/manuscript copy.docx
+    Untracked:  analysis/manuscript.docx
+    Untracked:  analysis/manuscript.log
+    Untracked:  analysis/manuscript.pdf
+    Untracked:  analysis/manuscript.tex
+    Untracked:  analysis/manuscript/
+    Untracked:  analysis/~$nuscript.docx
+    Untracked:  analysis/~$ssertation_1.8.20.docx
+    Untracked:  hyp1Dat.csv
+    Untracked:  hyp2Dat.csv
 
 Unstaged changes:
-    Modified:   analysis/dataWrangling.Rmd
-    Modified:   analysis/manuscript.Rmd
+    Modified:   analysis/ICPSR_26841/DS0001/26841-0001-Documentation-saliva.pdf
+    Modified:   analysis/chapter1.Rmd
+    Modified:   analysis/refs.bib
 
 </code></pre>
 <p>
@@ -628,6 +641,57 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/santiallende/dissertation/blob/0f046724f7aa8d2c01c769b20015cde819cccbc9/analysis/dataWrangling.Rmd" target="_blank">0f04672</a>
+</td>
+<td>
+sallende
+</td>
+<td>
+2020-05-17
+</td>
+<td>
+complete
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/santiallende/dissertation/blob/cd4169294f29d25209f3ab04916eb5595f01e169/analysis/dataWrangling.Rmd" target="_blank">cd41692</a>
+</td>
+<td>
+sallende
+</td>
+<td>
+2020-04-14
+</td>
+<td>
+all changes
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/santiallende/dissertation/cd4169294f29d25209f3ab04916eb5595f01e169/docs/dataWrangling.html" target="_blank">cd41692</a>
+</td>
+<td>
+sallende
+</td>
+<td>
+2020-04-14
+</td>
+<td>
+all changes
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/santiallende/dissertation/blob/d7d4a9b0a5de0cc752bd39065c8bc9f366c48a0e/analysis/dataWrangling.Rmd" target="_blank">d7d4a9b</a>
 </td>
 <td>
@@ -648,50 +712,1232 @@ new files
 </div>
 </div>
 <div id="load-libraries" class="section level1">
-<h1>Load Libraries</h1>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>
-Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:stats&#39;:
-
-    filter, lag</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(tidyr)</code></pre>
-<pre><code>Warning: package &#39;tidyr&#39; was built under R version 3.5.2</code></pre>
+<h1>Load libraries</h1>
+<pre class="r"><code>library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(nlme)
+options(scipen=999)</code></pre>
 </div>
 <div id="load-daily-data" class="section level1">
-<h1>Load Daily Data</h1>
+<h1>Load daily data</h1>
 <pre class="r"><code>dailyDat &lt;- read.table(&quot;/Users/Santi/Desktop/rProjects/dissertation/analysis/data.tsv&quot;,
                   header = T,
                   sep = &quot;\t&quot;,
-                  stringsAsFactors = F)
+                  stringsAsFactors = F,
+                  na.strings = c(999994, 999995, 999996, 999998, 98.00))
 
 # 999994. UNRELIABLE
 # 999995. NOT DONE
 # 999996. EMPTY
 # 999998. REFUSED/MISSING</code></pre>
 </div>
-<div id="select-variables-of-interest-from-daily-data" class="section level1">
-<h1>Select Variables of Interest from Daily Data</h1>
-<pre class="r"><code>dailyDat &lt;- dailyDat %&gt;%
-  select(id = M2ID, gender = B1PGENDER, age = B1PAGE_M2, medUseNone1Yes = B2DMED10,
-         startWork = B2DA3AAP, endWork = B2DA3BAP, day = B2DDAY, dailyMeanPosAff = B2DPOSAV, dailyMeanNegAffect = B2DNEGAV, dailyInGoodSpirits = B2DC7, dailyCheerful = B2DC8, dailyExtremelyHappy = B2DC9, dailyCalmPeaceful = B2DC10, dailySatisfied = B2DC11, dailyFullOfLife =  B2DC12, dailyCloseToOthers = B2DC21, dailyLikeYouBelong = B2DC22, dailyEnthusiastic = B2DC23, dailyAttentive = B2DC24, dailyProud = B2DC25, dailyActive = B2DC26, dailyConfident = B2DC27, dailyRestlessFidgety = B2DC1, dailyNervous = B2DC2, dailyWorthless = B2DC3, dailySoSadNoCheerUp = B2DC4, dailyEverythingAnEffort = B2DC5, dailyHopeless = B2DC6, dailyLonely = B2DC13, dailyAfraid = B2DC14, dailyJittery = B2DC15, dailyIrritable = B2DC16, dailyAshamed = B2DC17, dailyUpset = B2DC18, dailyAngry = B2DC19, dailyFrustrated = B2DC20, wakeTime = B2DWAKE2, providedCort1yes2no = B2DCORT, wakeCortTime = B2DCORWT, wakeThirtyCortTime = B2DCORAT, noonCortTime = B2DCORLT, pmCortTime = B2DCORBT, wakeCortValue = B2DCORW, wakeThirtyCortValue = B2DCORA, noonCortValue = B2DCORL, pmCortValue = B2DCORB)</code></pre>
+<div id="select-cortisol-variables-of-interest-from-daily-data" class="section level1">
+<h1>Select cortisol variables of interest from daily data</h1>
+<pre class="r"><code>cortTimesDat &lt;- dailyDat %&gt;%
+  select(id = M2ID, gender = B1PGENDER, age = B1PAGE_M2, medUseNone1Yes = B2DMED10, startWork = B2DA3AAP, endWork = B2DA3BAP, providedCort1yes2no = B2DCORT, day = B2DDAY, wakeCort = B2DCORWT, wakeThirtyCort = B2DCORAT, noonCort = B2DCORLT, pmCort = B2DCORBT) %&gt;%
+  filter(providedCort1yes2no == 1) %&gt;%
+  filter(day == 2 | day == 3 | day == 4 | day == 5) %&gt;%
+  pivot_longer(9:12, names_to = &quot;cortTimeText&quot;, values_to = &quot;cortTime&quot;) 
+  
+cortValuesDat &lt;- dailyDat %&gt;%
+  select(id = M2ID, providedCort1yes2no = B2DCORT, day = B2DDAY, wakeCort = B2DCORW, wakeThirtyCort = B2DCORA, noonCort = B2DCORL, pmCort = B2DCORB) %&gt;%
+  filter(providedCort1yes2no == 1) %&gt;%
+  filter(day == 2 | day == 3 | day == 4 | day == 5) %&gt;%
+  pivot_longer(4:7, names_to = &quot;cortTimeText&quot;, values_to = &quot;cortNmol&quot;) %&gt;%
+  select(id, day, cortTimeText, cortNmol)
+
+cortDat &lt;- left_join(cortTimesDat, cortValuesDat, by = c(&quot;id&quot;, &quot;day&quot;, &quot;cortTimeText&quot;))
+
+str(cortDat)</code></pre>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   27776 obs. of  11 variables:
+ $ id                 : int  10005 10005 10005 10005 10005 10005 10005 10005 10005 10005 ...
+ $ gender             : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ age                : int  80 80 80 80 80 80 80 80 80 80 ...
+ $ medUseNone1Yes     : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ startWork          : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ endWork            : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ providedCort1yes2no: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ day                : int  2 2 2 2 3 3 3 3 4 4 ...
+ $ cortTimeText       : chr  &quot;wakeCort&quot; &quot;wakeThirtyCort&quot; &quot;noonCort&quot; &quot;pmCort&quot; ...
+ $ cortTime           : num  5 5.5 11.6 21.3 5.13 5.67 12.3 21 5.08 6.13 ...
+ $ cortNmol           : num  20.11 48.71 4.09 3.81 9.75 ...</code></pre>
 </div>
-<div id="load-midus-2-time-invariant-data" class="section level1">
-<h1>Load Midus 2 Time-invariant Data</h1>
+<div id="remove-nas-from-corttime-and-cortnmol" class="section level1">
+<h1>Remove NAs from cortTime and cortNmol</h1>
+<pre class="r"><code>naCortNmol &lt;- round((sum(is.na(cortDat$cortNmol)) / nrow(cortDat)) * 100, 2)
+naCortTime &lt;- round((sum(is.na(cortDat$cortTime)) / nrow(cortDat)) * 100, 2)
+
+masterCortDat &lt;- cortDat %&gt;%
+  filter(!is.na(cortNmol), !is.na(cortTime))
+
+str(masterCortDat)</code></pre>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   25924 obs. of  11 variables:
+ $ id                 : int  10005 10005 10005 10005 10005 10005 10005 10005 10005 10005 ...
+ $ gender             : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ age                : int  80 80 80 80 80 80 80 80 80 80 ...
+ $ medUseNone1Yes     : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ startWork          : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ endWork            : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ providedCort1yes2no: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ day                : int  2 2 2 2 3 3 3 3 4 4 ...
+ $ cortTimeText       : chr  &quot;wakeCort&quot; &quot;wakeThirtyCort&quot; &quot;noonCort&quot; &quot;pmCort&quot; ...
+ $ cortTime           : num  5 5.5 11.6 21.3 5.13 5.67 12.3 21 5.08 6.13 ...
+ $ cortNmol           : num  20.11 48.71 4.09 3.81 9.75 ...</code></pre>
+</div>
+<div id="remove-samples-collected-outside-of-24hr-window" class="section level1">
+<h1>Remove samples collected outside of 24hr window</h1>
+<pre class="r"><code>samplesOutside24hrWindow &lt;- masterCortDat %&gt;%
+  filter(cortTime &lt; 0.00 | cortTime &gt; 24.00) %&gt;%
+  nrow()
+#607 samples collected prior to beginning of of interview day or after end of interview day
+
+masterCortDat &lt;- masterCortDat %&gt;%
+  filter(cortTime &gt;= 0.00, cortTime &lt;= 24.00)
+
+str(masterCortDat)</code></pre>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   25317 obs. of  11 variables:
+ $ id                 : int  10005 10005 10005 10005 10005 10005 10005 10005 10005 10005 ...
+ $ gender             : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ age                : int  80 80 80 80 80 80 80 80 80 80 ...
+ $ medUseNone1Yes     : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ startWork          : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ endWork            : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ providedCort1yes2no: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ day                : int  2 2 2 2 3 3 3 3 4 4 ...
+ $ cortTimeText       : chr  &quot;wakeCort&quot; &quot;wakeThirtyCort&quot; &quot;noonCort&quot; &quot;pmCort&quot; ...
+ $ cortTime           : num  5 5.5 11.6 21.3 5.13 5.67 12.3 21 5.08 6.13 ...
+ $ cortNmol           : num  20.11 48.71 4.09 3.81 9.75 ...</code></pre>
+</div>
+<div id="remove-samples-with-cortnmol-60" class="section level1">
+<h1>Remove samples with cortNmol &gt; 60</h1>
+<pre class="r"><code>masterCortDat %&gt;%
+  filter(cortNmol &gt; 60)
+#381 greater than 60
+
+greaterThanSixty &lt;- round((nrow(subset(masterCortDat, cortNmol &gt; 60)) / nrow(masterCortDat)) * 100, 2)
+
+masterCortDat &lt;- masterCortDat %&gt;%
+  filter(cortNmol &lt;= 60)
+
+str(masterCortDat)</code></pre>
+<pre><code># A tibble: 381 x 11
+      id gender   age medUseNone1Yes startWork endWork providedCort1ye…   day
+   &lt;int&gt;  &lt;int&gt; &lt;int&gt;          &lt;int&gt;     &lt;int&gt;   &lt;int&gt;            &lt;int&gt; &lt;int&gt;
+ 1 10107      1    58              1         9       9                1     2
+ 2 10164      2    77              1         1       5                1     4
+ 3 10253      1    63              1         9       9                1     2
+ 4 10329      2    59              2         1       5                1     2
+ 5 10343      1    66              2         1       5                1     2
+ 6 10408      2    51              8         1       5                1     2
+ 7 10408      2    51              8         1       9                1     3
+ 8 10450      1    37              2         1       5                1     4
+ 9 10531      2    56              2         1       5                1     2
+10 10599      1    70              1         9       9                1     2
+# … with 371 more rows, and 3 more variables: cortTimeText &lt;chr&gt;,
+#   cortTime &lt;dbl&gt;, cortNmol &lt;dbl&gt;
+Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   24936 obs. of  11 variables:
+ $ id                 : int  10005 10005 10005 10005 10005 10005 10005 10005 10005 10005 ...
+ $ gender             : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ age                : int  80 80 80 80 80 80 80 80 80 80 ...
+ $ medUseNone1Yes     : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ startWork          : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ endWork            : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ providedCort1yes2no: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ day                : int  2 2 2 2 3 3 3 3 4 4 ...
+ $ cortTimeText       : chr  &quot;wakeCort&quot; &quot;wakeThirtyCort&quot; &quot;noonCort&quot; &quot;pmCort&quot; ...
+ $ cortTime           : num  5 5.5 11.6 21.3 5.13 5.67 12.3 21 5.08 6.13 ...
+ $ cortNmol           : num  20.11 48.71 4.09 3.81 9.75 ...</code></pre>
+</div>
+<div id="remove-waking-cortisol-samples-collected-before-0400h-or-after-1200h" class="section level1">
+<h1>Remove waking cortisol samples collected before 0400h or after 1200h</h1>
+<pre class="r"><code>earlyLateWakeCort &lt;- masterCortDat %&gt;%
+  filter(cortTimeText == &quot;wakeCort&quot;) %&gt;%
+  filter(cortTime &lt; 4.00 | cortTime &gt; 12) %&gt;%
+  nrow()
+#173 wake cort collected before 4am or after 12pm
+
+# df that contains wakeCortTime between 4 and 12
+wakeCortKeepMe &lt;- masterCortDat %&gt;%
+  filter(cortTimeText == &quot;wakeCort&quot;) %&gt;%
+  filter(between(cortTime, 4.00, 12.00)) 
+
+# remove all wakeCort rows from master dat
+masterCortDat &lt;- masterCortDat %&gt;%
+  filter(cortTimeText != &quot;wakeCort&quot;)
+
+# bind wakeCortKeepMe rows w/ masterCortDat rows
+masterCortDat &lt;- bind_rows(masterCortDat, wakeCortKeepMe)
+
+# arrange rows
+masterCortDat &lt;- masterCortDat %&gt;%
+  arrange(id, day, cortTime)
+
+str(masterCortDat)</code></pre>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   24763 obs. of  11 variables:
+ $ id                 : int  10005 10005 10005 10005 10005 10005 10005 10005 10005 10005 ...
+ $ gender             : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ age                : int  80 80 80 80 80 80 80 80 80 80 ...
+ $ medUseNone1Yes     : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ startWork          : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ endWork            : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ providedCort1yes2no: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ day                : int  2 2 2 2 3 3 3 3 4 4 ...
+ $ cortTimeText       : chr  &quot;wakeCort&quot; &quot;wakeThirtyCort&quot; &quot;noonCort&quot; &quot;pmCort&quot; ...
+ $ cortTime           : num  5 5.5 11.6 21.3 5.13 5.67 12.3 21 5.08 6.13 ...
+ $ cortNmol           : num  20.11 48.71 4.09 3.81 9.75 ...</code></pre>
+</div>
+<div id="number-of-1200h-values-that-are-10-nmoll-greater-than-the-wake-30-values" class="section level1">
+<h1>Number of 1200h Values that are 10 nmol/L greater than the wake + 30 values?</h1>
+<pre class="r"><code>erronLunchValues &lt;- masterCortDat %&gt;% 
+  mutate(dummy1 = case_when(
+    cortTimeText == &quot;wakeThirtyCort&quot; ~ 1,
+    cortTimeText == &quot;noonCort&quot; ~ 1,
+    TRUE ~ 0
+  )) %&gt;%
+  filter(dummy1 == 1) %&gt;%
+  arrange(id, day, cortTime) %&gt;%
+  group_by(id, day) %&gt;%
+  mutate(dummyDif = last(cortNmol) - first(cortNmol)) %&gt;%
+  mutate(assignDummy = case_when(
+    dummyDif &gt; 10 ~ 1,
+    TRUE ~ 0
+  )) %&gt;%
+  filter(assignDummy == 1) %&gt;%
+  nrow()
+# 166 samples
+
+nmolWakeNoon10 &lt;- masterCortDat %&gt;%
+  mutate(dummy1 = case_when(
+    cortTimeText == &quot;wakeThirtyCort&quot; ~ 1,
+    cortTimeText == &quot;noonCort&quot; ~ 1,
+    TRUE ~ 0
+  )) %&gt;%
+  filter(dummy1 == 1) %&gt;%
+  arrange(id, day, cortTime) %&gt;%
+  group_by(id, day) %&gt;%
+  mutate(dummyDif = last(cortNmol) - first(cortNmol)) %&gt;%
+  mutate(assignDummy = case_when(
+    dummyDif &gt; 10 ~ 1,
+    TRUE ~ 0
+  )) %&gt;%
+  filter(assignDummy == 1) %&gt;%
+  select(-dummy1, -dummyDif, -assignDummy)
+
+masterCortDat &lt;- anti_join(masterCortDat, nmolWakeNoon10)
+
+str(masterCortDat)</code></pre>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   24597 obs. of  11 variables:
+ $ id                 : int  10005 10005 10005 10005 10005 10005 10005 10005 10005 10005 ...
+ $ gender             : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ age                : int  80 80 80 80 80 80 80 80 80 80 ...
+ $ medUseNone1Yes     : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ startWork          : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ endWork            : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ providedCort1yes2no: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ day                : int  2 2 2 2 3 3 3 3 4 4 ...
+ $ cortTimeText       : chr  &quot;wakeCort&quot; &quot;wakeThirtyCort&quot; &quot;noonCort&quot; &quot;pmCort&quot; ...
+ $ cortTime           : num  5 5.5 11.6 21.3 5.13 5.67 12.3 21 5.08 6.13 ...
+ $ cortNmol           : num  20.11 48.71 4.09 3.81 9.75 ...</code></pre>
+</div>
+<div id="how-many-participants-are-using-medications-that-impact-hpa-axis-function" class="section level1">
+<h1>How many participants are using medications that impact HPA axis function,</h1>
+<p>#didn’t know or did not answer this question?</p>
+<pre class="r"><code>masterCortDat %&gt;%
+  filter(medUseNone1Yes == 2 | medUseNone1Yes == 8 | medUseNone1Yes == 9) %&gt;%
+  select(id) %&gt;%
+  distinct() %&gt;%
+  nrow()
+# 895 of 1731
+
+masterCortDat %&gt;%
+  select(id) %&gt;%
+  n_distinct()</code></pre>
+<pre><code>[1] 895
+[1] 1731</code></pre>
+</div>
+<div id="compute-natural-logarithm-of-cortisol" class="section level1">
+<h1>Compute natural logarithm of cortisol</h1>
+<pre class="r"><code>masterCortDat &lt;- masterCortDat %&gt;%
+  mutate(logCort = log(cortNmol))
+
+str(masterCortDat)</code></pre>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   24597 obs. of  12 variables:
+ $ id                 : int  10005 10005 10005 10005 10005 10005 10005 10005 10005 10005 ...
+ $ gender             : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ age                : int  80 80 80 80 80 80 80 80 80 80 ...
+ $ medUseNone1Yes     : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ startWork          : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ endWork            : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ providedCort1yes2no: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ day                : int  2 2 2 2 3 3 3 3 4 4 ...
+ $ cortTimeText       : chr  &quot;wakeCort&quot; &quot;wakeThirtyCort&quot; &quot;noonCort&quot; &quot;pmCort&quot; ...
+ $ cortTime           : num  5 5.5 11.6 21.3 5.13 5.67 12.3 21 5.08 6.13 ...
+ $ cortNmol           : num  20.11 48.71 4.09 3.81 9.75 ...
+ $ logCort            : num  3 3.89 1.41 1.34 2.28 ...</code></pre>
+</div>
+<div id="derive-car" class="section level1">
+<h1>Derive CAR</h1>
+<pre class="r"><code>masterCortDat &lt;- masterCortDat %&gt;%
+  group_by(id) %&gt;%
+  mutate(car = nth(logCort, 2) - nth(logCort, 1)) %&gt;%
+  ungroup()
+
+str(masterCortDat)</code></pre>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   24597 obs. of  13 variables:
+ $ id                 : int  10005 10005 10005 10005 10005 10005 10005 10005 10005 10005 ...
+ $ gender             : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ age                : int  80 80 80 80 80 80 80 80 80 80 ...
+ $ medUseNone1Yes     : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ startWork          : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ endWork            : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ providedCort1yes2no: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ day                : int  2 2 2 2 3 3 3 3 4 4 ...
+ $ cortTimeText       : chr  &quot;wakeCort&quot; &quot;wakeThirtyCort&quot; &quot;noonCort&quot; &quot;pmCort&quot; ...
+ $ cortTime           : num  5 5.5 11.6 21.3 5.13 5.67 12.3 21 5.08 6.13 ...
+ $ cortNmol           : num  20.11 48.71 4.09 3.81 9.75 ...
+ $ logCort            : num  3 3.89 1.41 1.34 2.28 ...
+ $ car                : num  0.885 0.885 0.885 0.885 0.885 ...</code></pre>
+</div>
+<div id="derive-auc" class="section level1">
+<h1>Derive AUC</h1>
+<pre class="r"><code>aucDat &lt;- masterCortDat %&gt;%
+  select(id, day, cortTimeText, cortTime, logCort) %&gt;%
+  filter(cortTimeText != &quot;wakeThirtyCort&quot;) %&gt;%
+  group_by(id, cortTimeText) %&gt;%
+  mutate(meanCortTime = mean(cortTime)) %&gt;%
+  mutate(meanLogCort = mean(logCort)) %&gt;%
+  ungroup() %&gt;%
+  filter(day == 2) %&gt;%
+  group_by(id) %&gt;%
+  mutate(duration = meanCortTime - lag(meanCortTime)) %&gt;%
+  mutate(auc = ((meanLogCort + lag(meanLogCort)) / 2) * duration ) %&gt;%
+  mutate(aucTot = sum(auc, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  group_by(id) %&gt;%
+  filter(any(n() == 3)) %&gt;%
+  select(id, aucTot) %&gt;%
+  distinct() 
+
+# check who has negative AUC and why??? aha - remove any(id) groups where n(timepoints) &lt; 3
+aucLessThanTimePoints &lt;- masterCortDat %&gt;%
+  select(id, day, cortTimeText, cortTime, logCort) %&gt;%
+  filter(cortTimeText != &quot;wakeThirtyCort&quot;) %&gt;%
+  group_by(id, cortTimeText) %&gt;%
+  mutate(meanCortTime = mean(cortTime)) %&gt;%
+  mutate(meanLogCort = mean(logCort)) %&gt;%
+  ungroup() %&gt;%
+  filter(day == 2) %&gt;%
+  group_by(id) %&gt;%
+  mutate(duration = meanCortTime - lag(meanCortTime)) %&gt;%
+  mutate(auc = ((meanLogCort + lag(meanLogCort)) / 2) * duration ) %&gt;%
+  mutate(aucTot = sum(auc, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  group_by(id) %&gt;%
+  filter(any(n() &lt; 3)) %&gt;%
+  select(id) %&gt;%
+  distinct() %&gt;%
+  ungroup()
+
+masterCortDat &lt;- left_join(masterCortDat, aucDat, by = &quot;id&quot;)
+
+str(masterCortDat)</code></pre>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   24597 obs. of  14 variables:
+ $ id                 : int  10005 10005 10005 10005 10005 10005 10005 10005 10005 10005 ...
+ $ gender             : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ age                : int  80 80 80 80 80 80 80 80 80 80 ...
+ $ medUseNone1Yes     : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ startWork          : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ endWork            : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ providedCort1yes2no: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ day                : int  2 2 2 2 3 3 3 3 4 4 ...
+ $ cortTimeText       : chr  &quot;wakeCort&quot; &quot;wakeThirtyCort&quot; &quot;noonCort&quot; &quot;pmCort&quot; ...
+ $ cortTime           : num  5 5.5 11.6 21.3 5.13 5.67 12.3 21 5.08 6.13 ...
+ $ cortNmol           : num  20.11 48.71 4.09 3.81 9.75 ...
+ $ logCort            : num  3 3.89 1.41 1.34 2.28 ...
+ $ car                : num  0.885 0.885 0.885 0.885 0.885 ...
+ $ aucTot             : num  26.5 26.5 26.5 26.5 26.5 ...</code></pre>
+</div>
+<div id="derive-slope" class="section level1">
+<h1>Derive slope</h1>
+<pre class="r"><code>cortSlopeDat &lt;- masterCortDat %&gt;%
+  select(id, day, cortTimeText, cortTime, logCort) %&gt;%
+  filter(cortTimeText != &quot;wakeThirtyCort&quot;)
+
+
+lmeSlopes &lt;- gls(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;)
+
+lmeSlopes2 &lt;- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~1|id)
+
+lmeSlopes3 &lt;- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~cortTime|id)
+
+anova(lmeSlopes, lmeSlopes2, lmeSlopes3)
+
+slopeDat &lt;- as.data.frame(coef(lmeSlopes3))
+
+slopeDat &lt;- slopeDat %&gt;%
+  tibble::rownames_to_column(&quot;id&quot;) %&gt;%
+  rename(lmmCortSlope = cortTime) %&gt;%
+  select(-&quot;(Intercept)&quot;) %&gt;%
+  mutate(lmmCortSlope = round(lmmCortSlope, 2)) %&gt;%
+  mutate(id = as.numeric(id))
+
+indRegSlope &lt;- cortSlopeDat %&gt;%
+  group_by(id) %&gt;% 
+  do(broom::tidy(lm(logCort ~ cortTime, data=.,
+             na.action = na.exclude))) %&gt;% #change predictor 
+  filter(., term == &quot;cortTime&quot;) %&gt;%
+  dplyr::select(., id, leastSquaresCortSlope = estimate) %&gt;%
+  mutate(leastSquaresCortSlope = round(leastSquaresCortSlope, 2))
+
+tTestJoin &lt;- left_join(indRegSlope, slopeDat, by = &quot;id&quot;)
+
+cor.test(tTestJoin$lmmCortSlope, tTestJoin$leastSquaresCortSlope,
+         paired = T) #.7869
+
+masterCortDat &lt;- left_join(masterCortDat, slopeDat, by = &quot;id&quot;)
+masterCortDat &lt;- left_join(masterCortDat, indRegSlope, by = &quot;id&quot;)
+
+str(masterCortDat)</code></pre>
+<pre><code>           Model df      AIC      BIC    logLik   Test   L.Ratio p-value
+lmeSlopes      1  2 55988.32 56003.95 -27992.16                         
+lmeSlopes2     2  4 41996.80 42028.05 -20994.40 1 vs 2 13995.525  &lt;.0001
+lmeSlopes3     3  6 39877.96 39924.85 -19932.98 2 vs 3  2122.837  &lt;.0001
+
+    Pearson&#39;s product-moment correlation
+
+data:  tTestJoin$lmmCortSlope and tTestJoin$leastSquaresCortSlope
+t = 52.979, df = 1726, p-value &lt; 0.00000000000000022
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.7682567 0.8042180
+sample estimates:
+      cor 
+0.7869045 
+
+Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   24597 obs. of  16 variables:
+ $ id                   : num  10005 10005 10005 10005 10005 ...
+ $ gender               : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ age                  : int  80 80 80 80 80 80 80 80 80 80 ...
+ $ medUseNone1Yes       : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ startWork            : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ endWork              : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ providedCort1yes2no  : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ day                  : int  2 2 2 2 3 3 3 3 4 4 ...
+ $ cortTimeText         : chr  &quot;wakeCort&quot; &quot;wakeThirtyCort&quot; &quot;noonCort&quot; &quot;pmCort&quot; ...
+ $ cortTime             : num  5 5.5 11.6 21.3 5.13 5.67 12.3 21 5.08 6.13 ...
+ $ cortNmol             : num  20.11 48.71 4.09 3.81 9.75 ...
+ $ logCort              : num  3 3.89 1.41 1.34 2.28 ...
+ $ car                  : num  0.885 0.885 0.885 0.885 0.885 ...
+ $ aucTot               : num  26.5 26.5 26.5 26.5 26.5 ...
+ $ lmmCortSlope         : num  -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 ...
+ $ leastSquaresCortSlope: num  -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 ...</code></pre>
+</div>
+<div id="nas-per-slope-derivation-method" class="section level1">
+<h1>NAs per slope derivation method</h1>
+<pre class="r"><code>masterCortDat %&gt;%
+  summarise(sumLmmNA = sum(is.na(lmmCortSlope)),
+            sumLsNA = sum(is.na(leastSquaresCortSlope)))</code></pre>
+<pre><code># A tibble: 1 x 2
+  sumLmmNA sumLsNA
+     &lt;int&gt;   &lt;int&gt;
+1        0       6</code></pre>
+</div>
+<div id="lmm-and-least-squares-association-with-observed-values-all-days" class="section level1">
+<h1>LMM and least-squares association with observed values: all days</h1>
+<pre class="r"><code>#extract observed
+observedValues &lt;- cortSlopeDat %&gt;%
+  select(id, logCort) %&gt;%
+  na.omit()
+
+#extract fitted lme
+fittedLmeValues &lt;- fitted(lmeSlopes3) %&gt;%
+  tibble::enframe(., &quot;id&quot;, &quot;fittedLme&quot;)
+
+#extract fitted least-squares
+fittedLeastSquaresValues &lt;- cortSlopeDat %&gt;%
+  group_by(id) %&gt;% 
+  do(broom::tidy(lm(logCort ~ cortTime, data=.,
+             na.action = na.exclude)$fitted)) %&gt;% #change predictor 
+  select(id, fittedLeastSquares = x)
+
+#compare
+cor.test(observedValues$logCort, fittedLmeValues$fittedLme, 
+         method = &quot;spearman&quot;,
+         paired = T) 
+
+cor.test(observedValues$logCort, fittedLeastSquaresValues$fittedLeastSquares, 
+         method = &quot;spearman&quot;,
+         paired = T)</code></pre>
+<pre><code>
+    Spearman&#39;s rank correlation rho
+
+data:  observedValues$logCort and fittedLmeValues$fittedLme
+S = 143560000000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.8592885 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  observedValues$logCort and fittedLeastSquaresValues$fittedLeastSquares
+S = 138680000000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.8640718 </code></pre>
+</div>
+<div id="lmm-and-least-squares-association-with-observed-values-each-day-cond-only" class="section level1">
+<h1>LMM and least-squares association with observed values: each day, cond only</h1>
+<pre class="r"><code>#extract observed
+observedValues &lt;- cortSlopeDat %&gt;%
+  dplyr::select(id, day, logCort) %&gt;%
+  na.omit()
+
+##lme approach separate days: day 2
+lmeFitDay2Dat &lt;- cortSlopeDat %&gt;%
+  filter(day == 2)
+
+lmeResidsDay2 &lt;- lme(logCort ~ cortTime,
+                 data = lmeFitDay2Dat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 control = list(opt = &quot;optim&quot;),
+                 random = ~cortTime|id)
+
+#extract fitted lme
+fittedLmeValuesDay2 &lt;- fitted(lmeResidsDay2) %&gt;%
+  tibble::enframe(., &quot;id&quot;, &quot;fittedLmeDay2&quot;) %&gt;%
+  mutate(id = as.numeric(id))
+
+attr(fittedLmeValuesDay2$fittedLmeDay2, &quot;label&quot;) &lt;- NULL
+
+#cor result
+observedValuesDay2 &lt;- observedValues %&gt;%
+  filter(day == 2)
+
+cor.test(fittedLmeValuesDay2$fittedLmeDay2, observedValuesDay2$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)
+
+##lme approach separate days: day 3
+lmeFitDay3Dat &lt;- cortSlopeDat %&gt;%
+  filter(day == 3)
+
+lmeResidsDay3 &lt;- lme(logCort ~ cortTime,
+                 data = lmeFitDay3Dat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 control = list(opt = &quot;optim&quot;),
+                 random = ~cortTime|id)
+
+#extract fitted lme
+fittedLmeValuesDay3 &lt;- fitted(lmeResidsDay3) %&gt;%
+  tibble::enframe(., &quot;id&quot;, &quot;fittedLmeDay3&quot;) %&gt;%
+  mutate(id = as.numeric(id))
+
+attr(fittedLmeValuesDay3$fittedLmeDay3, &quot;label&quot;) &lt;- NULL
+
+#cor result
+observedValuesDay3 &lt;- observedValues %&gt;%
+  filter(day == 3)
+
+cor.test(fittedLmeValuesDay3$fittedLmeDay3, observedValuesDay3$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)
+
+##lme approach separate days: day 4
+lmeFitDay4Dat &lt;- cortSlopeDat %&gt;%
+  filter(day == 4)
+
+lmeResidsDay4 &lt;- lme(logCort ~ cortTime,
+                 data = lmeFitDay4Dat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 control = list(opt = &quot;optim&quot;),
+                 random = ~cortTime|id)
+
+#extract fitted lme
+fittedLmeValuesDay4 &lt;- fitted(lmeResidsDay4) %&gt;%
+  tibble::enframe(., &quot;id&quot;, &quot;fittedLmeDay4&quot;) %&gt;%
+  mutate(id = as.numeric(id))
+
+attr(fittedLmeValuesDay4$fittedLmeDay4, &quot;label&quot;) &lt;- NULL
+
+#cor result
+observedValuesDay4 &lt;- observedValues %&gt;%
+  filter(day == 4)
+
+cor.test(fittedLmeValuesDay4$fittedLmeDay4, observedValuesDay4$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)
+
+##lme approach separate days: day 5
+lmeFitDay5Dat &lt;- cortSlopeDat %&gt;%
+  filter(day == 5)
+
+lmeResidsDay5 &lt;- lme(logCort ~ cortTime,
+                 data = lmeFitDay5Dat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 control = list(opt = &quot;optim&quot;),
+                 random = ~cortTime|id)
+
+#extract fitted lme
+fittedLmeValuesDay5 &lt;- fitted(lmeResidsDay5) %&gt;%
+  tibble::enframe(., &quot;id&quot;, &quot;fittedLmeDay5&quot;) %&gt;%
+  mutate(id = as.numeric(id))
+
+attr(fittedLmeValuesDay5$fittedLmeDay5, &quot;label&quot;) &lt;- NULL
+
+#cor result
+observedValuesDay5 &lt;- observedValues %&gt;%
+  filter(day == 5)
+
+cor.test(fittedLmeValuesDay5$fittedLmeDay5, observedValuesDay5$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)
+
+##lme approach with days nested, cond on time
+lmeResids &lt;- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 control = list(opt = &quot;optim&quot;),
+                 random = ~cortTime|id/day)
+
+#extract fitted lme
+fittedLmeValues &lt;- fitted(lmeResids) %&gt;%
+  tibble::enframe(., &quot;id&quot;, &quot;fittedLme&quot;)
+
+fittedLmeValues &lt;- fittedLmeValues %&gt;%
+  separate(id, c(&quot;id&quot;, &quot;day&quot;), &quot;/&quot;) %&gt;%
+  mutate(id = as.numeric(id), day = as.numeric(day))
+
+attr(fittedLmeValues$fittedLme, &quot;label&quot;) &lt;- NULL
+
+fitted3LevelDay2 &lt;- fittedLmeValues %&gt;%
+  filter(day == 2)
+
+cor.test(fitted3LevelDay2$fittedLme, observedValuesDay2$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)
+
+fitted3LevelDay3 &lt;- fittedLmeValues %&gt;%
+  filter(day == 3)
+
+cor.test(fitted3LevelDay3$fittedLme, observedValuesDay3$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)
+
+fitted4LevelDay4 &lt;- fittedLmeValues %&gt;%
+  filter(day == 4)
+
+cor.test(fitted4LevelDay4$fittedLme, observedValuesDay4$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)
+
+fitted5LevelDay5 &lt;- fittedLmeValues %&gt;%
+  filter(day == 5)
+
+cor.test(fitted5LevelDay5$fittedLme, observedValuesDay5$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)
+
+#cond ciiv least squares
+lsFittedHyp2Cond &lt;- cortSlopeDat %&gt;% 
+  group_by(id, day) %&gt;%
+  add_count(name = &quot;numberOfValuesPerIdDay&quot;) %&gt;%
+  do(broom::tidy(lm(logCort ~ cortTime, data=., 
+             na.action = na.exclude)$fitted)) %&gt;%
+  select(id, day, fittedLeastSquares = x) %&gt;%
+  ungroup()
+
+lsFittedHyp2CondDay2 &lt;- lsFittedHyp2Cond %&gt;%
+  filter(day == 2)
+
+lsFittedHyp2CondDay3 &lt;- lsFittedHyp2Cond %&gt;%
+  filter(day == 3)
+
+lsFittedHyp2CondDay4 &lt;- lsFittedHyp2Cond %&gt;%
+  filter(day == 4)
+
+lsFittedHyp2CondDay5 &lt;- lsFittedHyp2Cond %&gt;%
+  filter(day == 5)
+
+cor.test(lsFittedHyp2CondDay2$fittedLeastSquares, observedValuesDay2$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)
+cor.test(lsFittedHyp2CondDay3$fittedLeastSquares, observedValuesDay3$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)
+cor.test(lsFittedHyp2CondDay4$fittedLeastSquares, observedValuesDay4$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)
+cor.test(lsFittedHyp2CondDay5$fittedLeastSquares, observedValuesDay5$logCort, 
+         method = &quot;spearman&quot;,
+         paired = T)</code></pre>
+<pre><code>
+    Spearman&#39;s rank correlation rho
+
+data:  fittedLmeValuesDay2$fittedLmeDay2 and observedValuesDay2$logCort
+S = 1321600000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.9128084 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  fittedLmeValuesDay3$fittedLmeDay3 and observedValuesDay3$logCort
+S = 1392300000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.9175517 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  fittedLmeValuesDay4$fittedLmeDay4 and observedValuesDay4$logCort
+S = 1532900000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+     rho 
+0.908995 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  fittedLmeValuesDay5$fittedLmeDay5 and observedValuesDay5$logCort
+S = 1486000000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.9005749 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  fitted3LevelDay2$fittedLme and observedValuesDay2$logCort
+S = 1680100000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.8891516 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  fitted3LevelDay3$fittedLme and observedValuesDay3$logCort
+S = 1806300000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.8930382 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  fitted4LevelDay4$fittedLme and observedValuesDay4$logCort
+S = 1843900000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.8905309 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  fitted5LevelDay5$fittedLme and observedValuesDay5$logCort
+S = 1844500000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.8765907 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  lsFittedHyp2CondDay2$fittedLeastSquares and observedValuesDay2$logCort
+S = 752940000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.9503247 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  lsFittedHyp2CondDay3$fittedLeastSquares and observedValuesDay3$logCort
+S = 803020000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.9524491 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  lsFittedHyp2CondDay4$fittedLeastSquares and observedValuesDay4$logCort
+S = 830880000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.9506725 
+
+
+    Spearman&#39;s rank correlation rho
+
+data:  lsFittedHyp2CondDay5$fittedLeastSquares and observedValuesDay5$logCort
+S = 795500000, p-value &lt; 0.00000000000000022
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.9467741 </code></pre>
+</div>
+<div id="hypotheses-1a-and-1b-ciiv-derivation-unconditional-and-conditional-on-time" class="section level1">
+<h1>Hypotheses 1a and 1b cIIV derivation: unconditional and conditional on time</h1>
+<pre class="r"><code>#hyp 1 lmm uncond ciiv
+lmeSlopes &lt;- gls(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;)
+
+lmeSlopes2 &lt;- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~1|id)
+
+anova(lmeSlopes, lmeSlopes2)
+
+lmeResidsHyp1Unc &lt;- resid(lmeSlopes2, type=&quot;response&quot;, level=1)
+lmeResidsHyp1Unc &lt;- tibble::enframe(lmeResidsHyp1Unc, &quot;id&quot;, &quot;hyp1LmmUncCiiv&quot;)
+
+lmeResidsHyp1Unc &lt;- lmeResidsHyp1Unc %&gt;%
+  group_by(id) %&gt;%
+  mutate(hyp1LmmUncCiiv = sd(hyp1LmmUncCiiv, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  select(id, hyp1LmmUncCiiv) %&gt;%
+  distinct() %&gt;%
+  mutate(id = as.numeric(id))
+
+masterCortDat &lt;- left_join(masterCortDat, lmeResidsHyp1Unc, by = &quot;id&quot;)
+
+#hyp 1 lmm cond ciiv
+lmeSlopes2 &lt;- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~1|id)
+
+lmeSlopes3 &lt;- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~1|id)
+
+lmeSlopes4 &lt;- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~cortTime|id)
+
+anova(lmeSlopes2, lmeSlopes3, lmeSlopes4)
+
+lmeResidsHyp1Cond &lt;- resid(lmeSlopes4, type=&quot;response&quot;, level=1)
+lmeResidsHyp1Cond &lt;- tibble::enframe(lmeResidsHyp1Cond, &quot;id&quot;, &quot;hyp1LmmCondCiiv&quot;)
+
+lmeResidsHyp1Cond &lt;- lmeResidsHyp1Cond %&gt;%
+  group_by(id) %&gt;%
+  mutate(hyp1LmmCondCiiv = sd(hyp1LmmCondCiiv, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  select(id, hyp1LmmCondCiiv) %&gt;%
+  distinct() %&gt;%
+  mutate(id = as.numeric(id))
+
+masterCortDat &lt;- left_join(masterCortDat, lmeResidsHyp1Cond, by = &quot;id&quot;)
+
+#hyp 1 unc ciiv least squares / not actually least-squares, just sd ## CHANGE NAME
+sdResidsHyp1Unc &lt;- cortSlopeDat %&gt;%
+  group_by(id) %&gt;%
+  mutate(hyp1SdUncCiiv = sd(logCort, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  select(id, hyp1SdUncCiiv) %&gt;%
+  distinct()
+
+masterCortDat &lt;- left_join(masterCortDat, sdResidsHyp1Unc, by = &quot;id&quot;)
+
+# hyp1 cond ciiv least squares
+lsResidsHyp1Cond &lt;- cortSlopeDat %&gt;%
+  group_by(id) %&gt;%
+  do(broom::tidy(lm(logCort ~ cortTime, data=., 
+             na.action = na.exclude)$residuals)) %&gt;% #change predictor
+  mutate(hyp1LsCondCiiv = sd(x, na.rm = T)) %&gt;%
+  select(., id, hyp1LsCondCiiv) %&gt;%
+  distinct()
+
+masterCortDat &lt;- left_join(masterCortDat, lsResidsHyp1Cond, by = &quot;id&quot;)
+
+#cor 
+masterCortDat %&gt;%
+  select(id, hyp1SdUncCiiv, hyp1LmmUncCiiv) %&gt;%
+  distinct() %&gt;%
+  na.omit() %&gt;%
+  do(broom::tidy(cor.test(.$hyp1SdUncCiiv, .$hyp1LmmUncCiiv, 
+                          method = &quot;spearman&quot;, paired = T)))
+
+masterCortDat %&gt;%
+  select(id, hyp1LsCondCiiv, hyp1LmmCondCiiv) %&gt;%
+  distinct() %&gt;%
+  na.omit() %&gt;%
+  do(broom::tidy(cor.test(.$hyp1LsCondCiiv, .$hyp1LmmCondCiiv, 
+                          method = &quot;spearman&quot;, paired = T)))</code></pre>
+<pre><code>           Model df      AIC      BIC    logLik   Test  L.Ratio p-value
+lmeSlopes      1  2 55988.32 56003.95 -27992.16                        
+lmeSlopes2     2  3 55238.94 55262.39 -27616.47 1 vs 2 751.3794  &lt;.0001
+           Model df      AIC      BIC    logLik   Test   L.Ratio p-value
+lmeSlopes2     1  3 55238.94 55262.39 -27616.47                         
+lmeSlopes3     2  4 41996.80 42028.05 -20994.40 1 vs 2 13244.146  &lt;.0001
+lmeSlopes4     3  6 39877.96 39924.85 -19932.98 2 vs 3  2122.837  &lt;.0001
+# A tibble: 1 x 5
+  estimate    statistic p.value method                          alternative
+     &lt;dbl&gt;        &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                           &lt;chr&gt;      
+1     1.00 0.0000000956       0 Spearman&#39;s rank correlation rho two.sided  
+# A tibble: 1 x 5
+  estimate statistic p.value method                          alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                           &lt;chr&gt;      
+1    0.970 26265941.       0 Spearman&#39;s rank correlation rho two.sided  </code></pre>
+</div>
+<div id="hypotheses-2a-and-2b-ciiv-derivation-unconditional-and-conditional-on-time" class="section level1">
+<h1>Hypotheses 2a and 2b cIIV derivation: unconditional and conditional on time</h1>
+<pre class="r"><code>#lme approach, unconditional
+lmeResids &lt;- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~1|id/day)
+
+lmeResids &lt;- resid(lmeResids, type=&quot;response&quot;, level=2)
+lmeResids &lt;- tibble::enframe(lmeResids, &quot;id&quot;, &quot;cIiv&quot;) # name this resid something
+
+lmeResids &lt;- lmeResids %&gt;%
+  separate(id, c(&quot;id&quot;, &quot;day&quot;), &quot;/&quot;) 
+
+lmeResidsHyp2Unc &lt;- lmeResids %&gt;%
+  group_by(id, day) %&gt;%
+  mutate(hyp2LmmUncCiiv = sd(cIiv, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  select(id, day, hyp2LmmUncCiiv) %&gt;%
+  distinct() %&gt;%
+  mutate(id = as.numeric(id), day = as.numeric(day))
+
+masterCortDat &lt;- left_join(masterCortDat, lmeResidsHyp2Unc, by = c(&quot;id&quot;, &quot;day&quot;))
+
+##lme approach with days nested, cond on time
+lmeResids &lt;- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~1|id/day)
+
+lmeResids &lt;- resid(lmeResids, type=&quot;response&quot;, level=2)
+lmeResids &lt;- tibble::enframe(lmeResids, &quot;id&quot;, &quot;cIiv&quot;) # name this resid something
+
+lmeResids &lt;- lmeResids %&gt;%
+  separate(id, c(&quot;id&quot;, &quot;day&quot;), &quot;/&quot;) 
+
+lmeResidsHyp2Cond &lt;- lmeResids %&gt;%
+  group_by(id, day) %&gt;%
+  mutate(hyp2LmmCondCiiv = sd(cIiv, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  select(id, day, hyp2LmmCondCiiv) %&gt;%
+  distinct() %&gt;%
+  mutate(id = as.numeric(id), day = as.numeric(day))
+
+masterCortDat &lt;- left_join(masterCortDat, lmeResidsHyp2Cond, by = c(&quot;id&quot;, &quot;day&quot;))
+
+#unconditional ciiv least squares
+sdResidsHyp2Unc &lt;- cortSlopeDat %&gt;%
+  group_by(id, day) %&gt;%
+  mutate(hyp2SdUncCiiv = sd(logCort)) %&gt;%
+  ungroup() %&gt;%
+  select(id, day, hyp2SdUncCiiv) %&gt;%
+  distinct()
+
+masterCortDat &lt;- left_join(masterCortDat, sdResidsHyp2Unc, by = c(&quot;id&quot;, &quot;day&quot;))
+
+#cond ciiv least squares
+lsResidsHyp2Cond &lt;- cortSlopeDat %&gt;%
+  group_by(id, day) %&gt;%
+  add_count(name = &quot;numberOfValuesPerIdDay&quot;) %&gt;%
+  do(broom::tidy(lm(logCort ~ cortTime, data=., 
+             na.action = na.exclude)$residuals)) %&gt;% 
+  mutate(hyp2LsCondCiiv = sd(x, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  select(., id, day, hyp2LsCondCiiv) %&gt;%
+  distinct()
+
+masterCortDat &lt;- left_join(masterCortDat, lsResidsHyp2Cond, by = c(&quot;id&quot;, &quot;day&quot;))
+
+# NAs per slope derivation method
+masterCortDat %&gt;%
+  summarise(sumLmmNA = sum(is.na(hyp2LmmCondCiiv)),
+            sumLsNA = sum(is.na(hyp2LsCondCiiv)))
+
+str(masterCortDat)</code></pre>
+<pre><code># A tibble: 1 x 2
+  sumLmmNA sumLsNA
+     &lt;int&gt;   &lt;int&gt;
+1      404     404
+Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   24597 obs. of  24 variables:
+ $ id                   : num  10005 10005 10005 10005 10005 ...
+ $ gender               : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ age                  : int  80 80 80 80 80 80 80 80 80 80 ...
+ $ medUseNone1Yes       : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ startWork            : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ endWork              : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ providedCort1yes2no  : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ day                  : num  2 2 2 2 3 3 3 3 4 4 ...
+ $ cortTimeText         : chr  &quot;wakeCort&quot; &quot;wakeThirtyCort&quot; &quot;noonCort&quot; &quot;pmCort&quot; ...
+ $ cortTime             : num  5 5.5 11.6 21.3 5.13 5.67 12.3 21 5.08 6.13 ...
+ $ cortNmol             : num  20.11 48.71 4.09 3.81 9.75 ...
+ $ logCort              : num  3 3.89 1.41 1.34 2.28 ...
+ $ car                  : num  0.885 0.885 0.885 0.885 0.885 ...
+ $ aucTot               : num  26.5 26.5 26.5 26.5 26.5 ...
+ $ lmmCortSlope         : num  -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 ...
+ $ leastSquaresCortSlope: num  -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 -0.1 ...
+ $ hyp1LmmUncCiiv       : num  0.833 0.833 0.833 0.833 0.833 ...
+ $ hyp1LmmCondCiiv      : num  0.454 0.454 0.454 0.454 0.454 ...
+ $ hyp1SdUncCiiv        : num  0.833 0.833 0.833 0.833 0.833 ...
+ $ hyp1LsCondCiiv       : num  0.453 0.453 0.453 0.453 0.453 ...
+ $ hyp2LmmUncCiiv       : num  0.941 0.941 0.941 0.941 1.009 ...
+ $ hyp2LmmCondCiiv      : num  0.554 0.554 0.554 0.554 0.112 ...
+ $ hyp2SdUncCiiv        : num  0.941 0.941 0.941 0.941 1.009 ...
+ $ hyp2LsCondCiiv       : num  0.5275 0.5275 0.5275 0.5275 0.0717 ...</code></pre>
+</div>
+<div id="select-cortisol-variables-for-each-hypothesis-and-remove-duplicates" class="section level1">
+<h1>Select cortisol variables for each hypothesis and remove duplicates</h1>
+<pre class="r"><code>hyp1CortDat &lt;- masterCortDat %&gt;%
+  select(id, age, gender, medUseNone1Yes, car, aucTot, lmmCortSlope,
+         leastSquaresCortSlope, hyp1LmmUncCiiv, hyp1LmmCondCiiv,
+         hyp1SdUncCiiv, hyp1LsCondCiiv) %&gt;%
+  distinct()
+
+str(hyp1CortDat)
+
+hyp2CortDat &lt;- masterCortDat %&gt;%
+  select(id, age, gender, medUseNone1Yes, day, hyp2LmmUncCiiv,
+         hyp2LmmCondCiiv, hyp2SdUncCiiv, hyp2LsCondCiiv) %&gt;%
+  distinct()
+
+str(hyp2CortDat)</code></pre>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   1731 obs. of  12 variables:
+ $ id                   : num  10005 10019 10023 10028 10037 ...
+ $ age                  : int  80 51 78 63 42 49 43 45 58 48 ...
+ $ gender               : int  2 1 2 2 1 1 2 2 1 2 ...
+ $ medUseNone1Yes       : int  1 1 8 1 1 2 8 2 2 1 ...
+ $ car                  : num  0.885 -0.565 -0.444 -0.155 0.167 ...
+ $ aucTot               : num  26.5 26.6 NA 27.2 31.2 ...
+ $ lmmCortSlope         : num  -0.1 -0.11 -0.08 -0.12 -0.02 -0.14 -0.11 -0.12 -0.16 -0.12 ...
+ $ leastSquaresCortSlope: num  -0.1 -0.11 0.12 -0.13 0.01 -0.14 -0.09 -0.12 -0.18 -0.13 ...
+ $ hyp1LmmUncCiiv       : num  0.833 0.953 0.5 1.046 0.491 ...
+ $ hyp1LmmCondCiiv      : num  0.454 0.649 0.764 0.439 0.523 ...
+ $ hyp1SdUncCiiv        : num  0.833 0.953 0.5 1.046 0.491 ...
+ $ hyp1LsCondCiiv       : num  0.453 0.649 0.222 0.437 0.49 ...
+Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   6697 obs. of  9 variables:
+ $ id             : num  10005 10005 10005 10005 10019 ...
+ $ age            : int  80 80 80 80 51 51 51 51 78 78 ...
+ $ gender         : int  2 2 2 2 1 1 1 1 2 2 ...
+ $ medUseNone1Yes : int  1 1 1 1 1 1 1 1 8 8 ...
+ $ day            : num  2 3 4 5 2 3 4 5 2 3 ...
+ $ hyp2LmmUncCiiv : num  0.941 1.009 0.872 0.852 0.774 ...
+ $ hyp2LmmCondCiiv: num  0.554 0.112 0.396 0.599 0.533 ...
+ $ hyp2SdUncCiiv  : num  0.941 1.009 0.872 0.852 0.774 ...
+ $ hyp2LsCondCiiv : num  0.5275 0.0717 0.3631 0.5063 0.4366 ...</code></pre>
+</div>
+<div id="select-emotion-data-and-join-with-hypotheses-1-2-cortisol-data" class="section level1">
+<h1>Select emotion data and join with hypotheses 1 &amp; 2 cortisol data</h1>
+<pre class="r"><code>emoDat &lt;- dailyDat %&gt;%
+  select(id = M2ID, day = B2DDAY, dailyMeanPosAff = B2DPOSAV, dailyMeanNegAffect = B2DNEGAV, dailyInGoodSpirits = B2DC7, dailyCheerful = B2DC8, dailyExtremelyHappy = B2DC9, dailyCalmPeaceful = B2DC10, dailySatisfied = B2DC11, dailyFullOfLife = B2DC12, dailyCloseToOthers = B2DC21, dailyLikeYouBelong = B2DC22, dailyEnthusiastic = B2DC23, dailyAttentive = B2DC24, dailyProud = B2DC25, dailyActive = B2DC26, dailyConfident = B2DC27, dailyRestlessFidgety = B2DC1, dailyNervous = B2DC2, dailyWorthless = B2DC3, dailySoSadNoCheerUp = B2DC4, dailyEverythingAnEffort = B2DC5, dailyHopeless = B2DC6, dailyLonely = B2DC13, dailyAfraid = B2DC14, dailyJittery = B2DC15, dailyIrritable = B2DC16, dailyAshamed = B2DC17, dailyUpset = B2DC18, dailyAngry = B2DC19, dailyFrustrated = B2DC20) %&gt;%
+  filter(day == 2 | day == 3 | day == 4 | day == 5)</code></pre>
+</div>
+<div id="select-variables-of-interest-from-midus-2-data" class="section level1">
+<h1>Select variables of interest from midus 2 data</h1>
 <pre class="r"><code>midusDat &lt;- read.table(&quot;/Users/Santi/Desktop/rProjects/dissertation/analysis/midusTwoData.tsv&quot;,
                   header = T,
                   sep = &quot;\t&quot;,
-                  stringsAsFactors = F)</code></pre>
+                  stringsAsFactors = F)
+
+midusDat &lt;- midusDat %&gt;%
+  select(id = M2ID, ethnicity = B1PF7A, education = B1PB1, smoker = B1PA39, posPanas = B1SPOSPA, negPanas = B1SNEGPA, traitCheerful = B1SA26A, traitGoodSpirits = B1SA26B, traitExtremelyHappy = B1SA26C, traitCalmPeaceful = B1SA26D, traitSatisfied = B1SA26E, traitFullOfLife = B1SA26F, traitCloseOthers = B1SA26G, traitBelong = B1SA26H, traitEnthusiastic = B1SA26I, traitAttentive = B1SA26J, traitProud = B1SA26K, traitActive = B1SA26L, traitConfident = B1SA26M, traitSoSadNoCheer = B1SA24A, traitNervous = B1SA24B, traitRestless = B1SA24C, traitHopeless = B1SA24D, traitEverythingAnEffort = B1SA24E, traitWorthless = B1SA24F, traitLonely = B1SA24G, traitAfraid = B1SA24H, traitJittery = B1SA24I, traitIrritable = B1SA24J, traitAshamed = B1SA24K, traitUpset = B1SA24L, traitAngry = B1SA24M, traitFrustrated = B1SA24N)</code></pre>
 </div>
-<div id="select-variables-of-interest-from-midus-2-data" class="section level1">
-<h1>Select Variables of Interest from Midus 2 Data</h1>
-<pre class="r"><code>midusDat &lt;- midusDat %&gt;%
-  select(id = M2ID, ethnicity = B1PF7A, education = B1PB1, traitSoSadNoCheer = 
-B1SA24A, )</code></pre>
+<div id="hypothesis-1-dataframe" class="section level1">
+<h1>Hypothesis 1 dataframe</h1>
+<pre class="r"><code>hyp1Dat &lt;- left_join(hyp1CortDat, midusDat, by = &quot;id&quot;) %&gt;%
+  select(id, age, gender, medUseNone1Yes, ethnicity, 
+         education, smoker, everything())
+
+str(hyp1Dat)
+hyp1Dat
+write.csv(hyp1Dat, &quot;hyp1Dat.csv&quot;, row.names = F)</code></pre>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   1731 obs. of  44 variables:
+ $ id                     : num  10005 10019 10023 10028 10037 ...
+ $ age                    : int  80 51 78 63 42 49 43 45 58 48 ...
+ $ gender                 : int  2 1 2 2 1 1 2 2 1 2 ...
+ $ medUseNone1Yes         : int  1 1 8 1 1 2 8 2 2 1 ...
+ $ ethnicity              : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ education              : int  3 9 7 9 6 7 6 5 10 11 ...
+ $ smoker                 : int  9 9 2 9 2 2 9 9 9 9 ...
+ $ car                    : num  0.885 -0.565 -0.444 -0.155 0.167 ...
+ $ aucTot                 : num  26.5 26.6 NA 27.2 31.2 ...
+ $ lmmCortSlope           : num  -0.1 -0.11 -0.08 -0.12 -0.02 -0.14 -0.11 -0.12 -0.16 -0.12 ...
+ $ leastSquaresCortSlope  : num  -0.1 -0.11 0.12 -0.13 0.01 -0.14 -0.09 -0.12 -0.18 -0.13 ...
+ $ hyp1LmmUncCiiv         : num  0.833 0.953 0.5 1.046 0.491 ...
+ $ hyp1LmmCondCiiv        : num  0.454 0.649 0.764 0.439 0.523 ...
+ $ hyp1SdUncCiiv          : num  0.833 0.953 0.5 1.046 0.491 ...
+ $ hyp1LsCondCiiv         : num  0.453 0.649 0.222 0.437 0.49 ...
+ $ posPanas               : num  4.75 3.5 3 5 2.75 4.75 3.25 3 4 4 ...
+ $ negPanas               : num  1 1.8 1.2 1.2 2.4 1.25 1.8 1.4 1.8 1 ...
+ $ traitCheerful          : int  1 2 2 1 3 2 2 3 2 2 ...
+ $ traitGoodSpirits       : int  1 2 2 1 3 2 2 3 2 2 ...
+ $ traitExtremelyHappy    : int  2 4 4 2 4 4 3 4 3 2 ...
+ $ traitCalmPeaceful      : int  2 3 2 2 4 2 3 2 3 2 ...
+ $ traitSatisfied         : int  1 4 2 2 5 3 4 2 2 2 ...
+ $ traitFullOfLife        : int  1 4 4 1 4 3 3 4 2 2 ...
+ $ traitCloseOthers       : int  1 2 3 1 4 3 8 2 2 2 ...
+ $ traitBelong            : int  1 4 2 1 4 3 3 2 2 2 ...
+ $ traitEnthusiastic      : int  1 3 4 1 3 1 3 3 2 2 ...
+ $ traitAttentive         : int  1 2 3 1 3 1 2 2 2 2 ...
+ $ traitProud             : int  2 3 2 1 4 2 3 4 2 2 ...
+ $ traitActive            : int  1 2 3 1 3 1 3 3 2 2 ...
+ $ traitConfident         : int  1 2 2 1 4 2 3 2 2 2 ...
+ $ traitSoSadNoCheer      : int  5 5 5 5 4 5 5 5 4 5 ...
+ $ traitNervous           : int  5 4 5 5 4 5 4 5 4 5 ...
+ $ traitRestless          : int  5 4 5 5 4 5 3 5 4 4 ...
+ $ traitHopeless          : int  5 5 5 5 4 5 5 5 5 5 ...
+ $ traitEverythingAnEffort: int  5 4 4 5 4 5 4 4 3 5 ...
+ $ traitWorthless         : int  5 8 5 5 4 5 5 5 5 5 ...
+ $ traitLonely            : int  5 2 3 5 4 5 5 5 5 5 ...
+ $ traitAfraid            : int  5 5 5 5 4 5 5 5 4 5 ...
+ $ traitJittery           : int  5 5 5 5 4 5 4 5 4 5 ...
+ $ traitIrritable         : int  5 3 5 5 3 8 4 4 4 5 ...
+ $ traitAshamed           : int  5 5 5 5 3 5 5 5 5 5 ...
+ $ traitUpset             : int  5 3 4 4 4 4 3 4 4 5 ...
+ $ traitAngry             : int  5 4 3 4 4 4 3 4 4 5 ...
+ $ traitFrustrated        : int  5 3 4 5 4 5 3 4 3 4 ...
+# A tibble: 1,731 x 44
+      id   age gender medUseNone1Yes ethnicity education smoker     car aucTot
+   &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;          &lt;int&gt;     &lt;int&gt;     &lt;int&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+ 1 10005    80      2              1         1         3      9  0.885   26.5 
+ 2 10019    51      1              1         1         9      9 -0.565   26.6 
+ 3 10023    78      2              8         1         7      2 -0.444   NA   
+ 4 10028    63      2              1         1         9      9 -0.155   27.2 
+ 5 10037    42      1              1         1         6      2  0.167   31.2 
+ 6 10040    49      1              2         1         7      2  0.120   27.4 
+ 7 10046    43      2              8         1         6      9  1.26     5.91
+ 8 10047    45      2              2         1         5      9  1.30    21.2 
+ 9 10060    58      1              2         1        10      9  0.0878  24.4 
+10 10063    48      2              1         1        11      9 -0.192   30.7 
+# … with 1,721 more rows, and 35 more variables: lmmCortSlope &lt;dbl&gt;,
+#   leastSquaresCortSlope &lt;dbl&gt;, hyp1LmmUncCiiv &lt;dbl&gt;, hyp1LmmCondCiiv &lt;dbl&gt;,
+#   hyp1SdUncCiiv &lt;dbl&gt;, hyp1LsCondCiiv &lt;dbl&gt;, posPanas &lt;dbl&gt;, negPanas &lt;dbl&gt;,
+#   traitCheerful &lt;int&gt;, traitGoodSpirits &lt;int&gt;, traitExtremelyHappy &lt;int&gt;,
+#   traitCalmPeaceful &lt;int&gt;, traitSatisfied &lt;int&gt;, traitFullOfLife &lt;int&gt;,
+#   traitCloseOthers &lt;int&gt;, traitBelong &lt;int&gt;, traitEnthusiastic &lt;int&gt;,
+#   traitAttentive &lt;int&gt;, traitProud &lt;int&gt;, traitActive &lt;int&gt;,
+#   traitConfident &lt;int&gt;, traitSoSadNoCheer &lt;int&gt;, traitNervous &lt;int&gt;,
+#   traitRestless &lt;int&gt;, traitHopeless &lt;int&gt;, traitEverythingAnEffort &lt;int&gt;,
+#   traitWorthless &lt;int&gt;, traitLonely &lt;int&gt;, traitAfraid &lt;int&gt;,
+#   traitJittery &lt;int&gt;, traitIrritable &lt;int&gt;, traitAshamed &lt;int&gt;,
+#   traitUpset &lt;int&gt;, traitAngry &lt;int&gt;, traitFrustrated &lt;int&gt;</code></pre>
+</div>
+<div id="hypothesis-2-dataframe" class="section level1">
+<h1>Hypothesis 2 dataframe</h1>
+<pre class="r"><code>hyp2Dat &lt;- left_join(hyp2CortDat, emoDat, by = c(&quot;id&quot;, &quot;day&quot;))
+
+str(hyp2Dat)
+hyp2Dat
+write.csv(hyp2Dat, &quot;hyp2Dat.csv&quot;, row.names = F)</code></pre>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   6697 obs. of  38 variables:
+ $ id                     : num  10005 10005 10005 10005 10019 ...
+ $ age                    : int  80 80 80 80 51 51 51 51 78 78 ...
+ $ gender                 : int  2 2 2 2 1 1 1 1 2 2 ...
+ $ medUseNone1Yes         : int  1 1 1 1 1 1 1 1 8 8 ...
+ $ day                    : num  2 3 4 5 2 3 4 5 2 3 ...
+ $ hyp2LmmUncCiiv         : num  0.941 1.009 0.872 0.852 0.774 ...
+ $ hyp2LmmCondCiiv        : num  0.554 0.112 0.396 0.599 0.533 ...
+ $ hyp2SdUncCiiv          : num  0.941 1.009 0.872 0.852 0.774 ...
+ $ hyp2LsCondCiiv         : num  0.5275 0.0717 0.3631 0.5063 0.4366 ...
+ $ dailyMeanPosAff        : num  3.9 4 4 3.8 8 2.3 2.7 2.2 8 3 ...
+ $ dailyMeanNegAffect     : num  0 0.07 0 0 8 0.14 0 0 8 0 ...
+ $ dailyInGoodSpirits     : int  4 4 4 4 8 3 3 3 8 4 ...
+ $ dailyCheerful          : int  4 4 4 4 8 3 3 3 8 4 ...
+ $ dailyExtremelyHappy    : int  3 4 4 4 8 1 2 0 8 3 ...
+ $ dailyCalmPeaceful      : int  4 4 4 1 8 1 3 0 8 2 ...
+ $ dailySatisfied         : int  4 4 4 4 8 3 3 3 8 4 ...
+ $ dailyFullOfLife        : int  4 4 4 4 8 2 3 2 8 2 ...
+ $ dailyCloseToOthers     : int  4 4 4 4 8 3 3 3 8 4 ...
+ $ dailyLikeYouBelong     : int  4 4 4 4 8 3 3 3 8 4 ...
+ $ dailyEnthusiastic      : int  4 4 4 4 8 3 3 3 8 2 ...
+ $ dailyAttentive         : int  4 4 4 4 8 3 3 3 8 2 ...
+ $ dailyProud             : int  4 4 4 4 8 0 1 0 8 2 ...
+ $ dailyActive            : int  4 4 4 4 8 2 2 2 8 2 ...
+ $ dailyConfident         : int  4 4 4 4 8 3 3 3 8 4 ...
+ $ dailyRestlessFidgety   : int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailyNervous           : int  0 1 0 0 8 0 0 0 8 0 ...
+ $ dailyWorthless         : int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailySoSadNoCheerUp    : int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailyEverythingAnEffort: int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailyHopeless          : int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailyLonely            : int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailyAfraid            : int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailyJittery           : int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailyIrritable         : int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailyAshamed           : int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailyUpset             : int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailyAngry             : int  0 0 0 0 8 0 0 0 8 0 ...
+ $ dailyFrustrated        : int  0 0 0 0 8 2 0 0 8 0 ...
+# A tibble: 6,697 x 38
+      id   age gender medUseNone1Yes   day hyp2LmmUncCiiv hyp2LmmCondCiiv
+   &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;          &lt;int&gt; &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;
+ 1 10005    80      2              1     2          0.941           0.554
+ 2 10005    80      2              1     3          1.01            0.112
+ 3 10005    80      2              1     4          0.872           0.396
+ 4 10005    80      2              1     5          0.852           0.599
+ 5 10019    51      1              1     2          0.774           0.533
+ 6 10019    51      1              1     3          1.14            0.629
+ 7 10019    51      1              1     4          0.716           0.429
+ 8 10019    51      1              1     5          1.17            0.781
+ 9 10023    78      2              8     2         NA              NA    
+10 10023    78      2              8     3          0.706           1.22 
+# … with 6,687 more rows, and 31 more variables: hyp2SdUncCiiv &lt;dbl&gt;,
+#   hyp2LsCondCiiv &lt;dbl&gt;, dailyMeanPosAff &lt;dbl&gt;, dailyMeanNegAffect &lt;dbl&gt;,
+#   dailyInGoodSpirits &lt;int&gt;, dailyCheerful &lt;int&gt;, dailyExtremelyHappy &lt;int&gt;,
+#   dailyCalmPeaceful &lt;int&gt;, dailySatisfied &lt;int&gt;, dailyFullOfLife &lt;int&gt;,
+#   dailyCloseToOthers &lt;int&gt;, dailyLikeYouBelong &lt;int&gt;,
+#   dailyEnthusiastic &lt;int&gt;, dailyAttentive &lt;int&gt;, dailyProud &lt;int&gt;,
+#   dailyActive &lt;int&gt;, dailyConfident &lt;int&gt;, dailyRestlessFidgety &lt;int&gt;,
+#   dailyNervous &lt;int&gt;, dailyWorthless &lt;int&gt;, dailySoSadNoCheerUp &lt;int&gt;,
+#   dailyEverythingAnEffort &lt;int&gt;, dailyHopeless &lt;int&gt;, dailyLonely &lt;int&gt;,
+#   dailyAfraid &lt;int&gt;, dailyJittery &lt;int&gt;, dailyIrritable &lt;int&gt;,
+#   dailyAshamed &lt;int&gt;, dailyUpset &lt;int&gt;, dailyAngry &lt;int&gt;,
+#   dailyFrustrated &lt;int&gt;</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -715,18 +1961,22 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] tidyr_1.0.2     dplyr_0.8.4     workflowr_1.6.0
+[1] nlme_3.1-145    ggplot2_3.3.0   tidyr_1.0.2     dplyr_0.8.4    
+[5] workflowr_1.6.0
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.3       knitr_1.28       whisker_0.3-2    magrittr_1.5    
- [5] tidyselect_0.2.5 R6_2.4.1         rlang_0.4.5      stringr_1.4.0   
- [9] highr_0.8        tools_3.5.1      xfun_0.12        git2r_0.26.1    
-[13] htmltools_0.3.6  yaml_2.2.1       digest_0.6.25    rprojroot_1.3-2 
-[17] assertthat_0.2.1 lifecycle_0.2.0  tibble_2.1.3     crayon_1.3.4    
-[21] purrr_0.3.2      later_0.7.4      vctrs_0.2.4      promises_1.0.1  
-[25] fs_1.3.1         glue_1.3.2       evaluate_0.14    rmarkdown_1.13  
-[29] stringi_1.4.6    pillar_1.4.3     compiler_3.5.1   backports_1.1.4 
-[33] httpuv_1.4.5     pkgconfig_2.0.3 </code></pre>
+ [1] Rcpp_1.0.4       compiler_3.5.1   pillar_1.4.3     later_0.7.4     
+ [5] git2r_0.26.1     highr_0.8        tools_3.5.1      digest_0.6.25   
+ [9] lattice_0.20-35  evaluate_0.14    tibble_2.1.3     lifecycle_0.2.0 
+[13] gtable_0.3.0     pkgconfig_2.0.3  rlang_0.4.5      cli_2.0.2       
+[17] yaml_2.2.1       xfun_0.12        withr_2.1.2      stringr_1.4.0   
+[21] knitr_1.28       generics_0.0.2   fs_1.3.1         vctrs_0.2.4     
+[25] rprojroot_1.3-2  grid_3.5.1       tidyselect_1.0.0 glue_1.3.2      
+[29] R6_2.4.1         fansi_0.4.1      rmarkdown_1.13   purrr_0.3.3     
+[33] magrittr_1.5     whisker_0.3-2    ellipsis_0.3.0   backports_1.1.4 
+[37] scales_1.1.0     promises_1.0.1   htmltools_0.3.6  assertthat_0.2.1
+[41] colorspace_1.3-2 httpuv_1.4.5     utf8_1.1.4       stringi_1.4.6   
+[45] munsell_0.5.0    broom_0.5.2      crayon_1.3.4    </code></pre>
 </div>
 </div>
 
