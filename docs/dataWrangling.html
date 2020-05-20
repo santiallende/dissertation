@@ -381,10 +381,10 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="thoughtLog.html">Thought Log</a>
+  <a href="dataWrangling.html">Data Wrangling</a>
 </li>
 <li>
-  <a href="dataWrangling.html">Data Wrangling</a>
+  <a href="dataInspection.html">Data Inspection</a>
 </li>
 <li>
   <a href="analysis.html">Analysis</a>
@@ -436,7 +436,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-17
+<strong>Last updated:</strong> 2020-05-20
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -559,10 +559,10 @@ analysis/midusTwoData.tsv
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreebb32000dd20e51b35099a960554a5baee1a724e9targetblankbb32000a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/santiallende/dissertation/tree/bb32000dd20e51b35099a960554a5baee1a724e9" target="_blank">bb32000</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtree71f05062062919c2c7c485007e90db6fe5101fe4targetblank71f0506a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/santiallende/dissertation/tree/71f05062062919c2c7c485007e90db6fe5101fe4" target="_blank">71f0506</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreebb32000dd20e51b35099a960554a5baee1a724e9targetblankbb32000a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtree71f05062062919c2c7c485007e90db6fe5101fe4targetblank71f0506a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -577,6 +577,7 @@ Ignored files:
     Ignored:    analysis/ICPSR_04652 3/DS0001/.DS_Store
     Ignored:    analysis/ICPSR_26841/.DS_Store
     Ignored:    analysis/ICPSR_26841/DS0001/.DS_Store
+    Ignored:    analysis/dataInspection.nb.html
     Ignored:    analysis/dataWrangling.nb.html
 
 Untracked files:
@@ -634,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/santiallende/dissertation/blob/71f05062062919c2c7c485007e90db6fe5101fe4/analysis/dataWrangling.Rmd" target="_blank">71f0506</a>
+</td>
+<td>
+sallende
+</td>
+<td>
+2020-05-20
+</td>
+<td>
+wflow_publish(c(“analysis/index.Rmd”, "analysis/_site.yml",
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/santiallende/dissertation/5f61d3bc389ec50017c7ac10a64f9de6c662c272/docs/dataWrangling.html" target="_blank">5f61d3b</a>
+</td>
+<td>
+sallende
+</td>
+<td>
+2020-05-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1232,6 +1267,120 @@ sample estimates:
       rho 
 0.8640718 </code></pre>
 </div>
+<div id="hypotheses-1a-and-1b-ciiv-derivation-unconditional-and-conditional-on-time" class="section level1">
+<h1>Hypotheses 1a and 1b cIIV derivation: unconditional and conditional on time</h1>
+<pre class="r"><code>#hyp 1 lmm uncond ciiv
+lmeSlopes &lt;- gls(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;)
+
+lmeSlopes2 &lt;- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~1|id)
+
+anova(lmeSlopes, lmeSlopes2)
+
+lmeResidsHyp1Unc &lt;- resid(lmeSlopes2, type=&quot;response&quot;, level=1)
+lmeResidsHyp1Unc &lt;- tibble::enframe(lmeResidsHyp1Unc, &quot;id&quot;, &quot;hyp1LmmUncCiiv&quot;)
+
+lmeResidsHyp1Unc &lt;- lmeResidsHyp1Unc %&gt;%
+  group_by(id) %&gt;%
+  mutate(hyp1LmmUncCiiv = sd(hyp1LmmUncCiiv, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  select(id, hyp1LmmUncCiiv) %&gt;%
+  distinct() %&gt;%
+  mutate(id = as.numeric(id))
+
+masterCortDat &lt;- left_join(masterCortDat, lmeResidsHyp1Unc, by = &quot;id&quot;)
+
+#hyp 1 lmm cond ciiv
+lmeSlopes2 &lt;- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~1|id)
+
+lmeSlopes3 &lt;- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~1|id)
+
+lmeSlopes4 &lt;- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~cortTime|id)
+
+anova(lmeSlopes2, lmeSlopes3, lmeSlopes4)
+
+lmeResidsHyp1Cond &lt;- resid(lmeSlopes4, type=&quot;response&quot;, level=1)
+lmeResidsHyp1Cond &lt;- tibble::enframe(lmeResidsHyp1Cond, &quot;id&quot;, &quot;hyp1LmmCondCiiv&quot;)
+
+lmeResidsHyp1Cond &lt;- lmeResidsHyp1Cond %&gt;%
+  group_by(id) %&gt;%
+  mutate(hyp1LmmCondCiiv = sd(hyp1LmmCondCiiv, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  select(id, hyp1LmmCondCiiv) %&gt;%
+  distinct() %&gt;%
+  mutate(id = as.numeric(id))
+
+masterCortDat &lt;- left_join(masterCortDat, lmeResidsHyp1Cond, by = &quot;id&quot;)
+
+#hyp 1 unc ciiv least squares / not actually least-squares, just sd ## CHANGE NAME
+sdResidsHyp1Unc &lt;- cortSlopeDat %&gt;%
+  group_by(id) %&gt;%
+  mutate(hyp1SdUncCiiv = sd(logCort, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  select(id, hyp1SdUncCiiv) %&gt;%
+  distinct()
+
+masterCortDat &lt;- left_join(masterCortDat, sdResidsHyp1Unc, by = &quot;id&quot;)
+
+# hyp1 cond ciiv least squares
+lsResidsHyp1Cond &lt;- cortSlopeDat %&gt;%
+  group_by(id) %&gt;%
+  do(broom::tidy(lm(logCort ~ cortTime, data=., 
+             na.action = na.exclude)$residuals)) %&gt;% #change predictor
+  mutate(hyp1LsCondCiiv = sd(x, na.rm = T)) %&gt;%
+  select(., id, hyp1LsCondCiiv) %&gt;%
+  distinct()
+
+masterCortDat &lt;- left_join(masterCortDat, lsResidsHyp1Cond, by = &quot;id&quot;)
+
+#cor 
+masterCortDat %&gt;%
+  select(id, hyp1SdUncCiiv, hyp1LmmUncCiiv) %&gt;%
+  distinct() %&gt;%
+  na.omit() %&gt;%
+  do(broom::tidy(cor.test(.$hyp1SdUncCiiv, .$hyp1LmmUncCiiv, 
+                          method = &quot;spearman&quot;, paired = T)))
+
+masterCortDat %&gt;%
+  select(id, hyp1LsCondCiiv, hyp1LmmCondCiiv) %&gt;%
+  distinct() %&gt;%
+  na.omit() %&gt;%
+  do(broom::tidy(cor.test(.$hyp1LsCondCiiv, .$hyp1LmmCondCiiv, 
+                          method = &quot;spearman&quot;, paired = T)))</code></pre>
+<pre><code>           Model df      AIC      BIC    logLik   Test  L.Ratio p-value
+lmeSlopes      1  2 55988.32 56003.95 -27992.16                        
+lmeSlopes2     2  3 55238.94 55262.39 -27616.47 1 vs 2 751.3794  &lt;.0001
+           Model df      AIC      BIC    logLik   Test   L.Ratio p-value
+lmeSlopes2     1  3 55238.94 55262.39 -27616.47                         
+lmeSlopes3     2  4 41996.80 42028.05 -20994.40 1 vs 2 13244.146  &lt;.0001
+lmeSlopes4     3  6 39877.96 39924.85 -19932.98 2 vs 3  2122.837  &lt;.0001
+# A tibble: 1 x 5
+  estimate    statistic p.value method                          alternative
+     &lt;dbl&gt;        &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                           &lt;chr&gt;      
+1     1.00 0.0000000956       0 Spearman&#39;s rank correlation rho two.sided  
+# A tibble: 1 x 5
+  estimate statistic p.value method                          alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                           &lt;chr&gt;      
+1    0.970 26265941.       0 Spearman&#39;s rank correlation rho two.sided  </code></pre>
+</div>
 <div id="lmm-and-least-squares-association-with-observed-values-each-day-cond-only" class="section level1">
 <h1>LMM and least-squares association with observed values: each day, cond only</h1>
 <pre class="r"><code>#extract observed
@@ -1542,120 +1691,6 @@ sample estimates:
       rho 
 0.9467741 </code></pre>
 </div>
-<div id="hypotheses-1a-and-1b-ciiv-derivation-unconditional-and-conditional-on-time" class="section level1">
-<h1>Hypotheses 1a and 1b cIIV derivation: unconditional and conditional on time</h1>
-<pre class="r"><code>#hyp 1 lmm uncond ciiv
-lmeSlopes &lt;- gls(logCort ~ 1,
-                 data = cortSlopeDat,
-                 method = &quot;ML&quot;,
-                 na.action = &quot;na.exclude&quot;)
-
-lmeSlopes2 &lt;- lme(logCort ~ 1,
-                 data = cortSlopeDat,
-                 method = &quot;ML&quot;,
-                 na.action = &quot;na.exclude&quot;,
-                 random = ~1|id)
-
-anova(lmeSlopes, lmeSlopes2)
-
-lmeResidsHyp1Unc &lt;- resid(lmeSlopes2, type=&quot;response&quot;, level=1)
-lmeResidsHyp1Unc &lt;- tibble::enframe(lmeResidsHyp1Unc, &quot;id&quot;, &quot;hyp1LmmUncCiiv&quot;)
-
-lmeResidsHyp1Unc &lt;- lmeResidsHyp1Unc %&gt;%
-  group_by(id) %&gt;%
-  mutate(hyp1LmmUncCiiv = sd(hyp1LmmUncCiiv, na.rm = T)) %&gt;%
-  ungroup() %&gt;%
-  select(id, hyp1LmmUncCiiv) %&gt;%
-  distinct() %&gt;%
-  mutate(id = as.numeric(id))
-
-masterCortDat &lt;- left_join(masterCortDat, lmeResidsHyp1Unc, by = &quot;id&quot;)
-
-#hyp 1 lmm cond ciiv
-lmeSlopes2 &lt;- lme(logCort ~ 1,
-                 data = cortSlopeDat,
-                 method = &quot;ML&quot;,
-                 na.action = &quot;na.exclude&quot;,
-                 random = ~1|id)
-
-lmeSlopes3 &lt;- lme(logCort ~ cortTime,
-                 data = cortSlopeDat,
-                 method = &quot;ML&quot;,
-                 na.action = &quot;na.exclude&quot;,
-                 random = ~1|id)
-
-lmeSlopes4 &lt;- lme(logCort ~ cortTime,
-                 data = cortSlopeDat,
-                 method = &quot;ML&quot;,
-                 na.action = &quot;na.exclude&quot;,
-                 random = ~cortTime|id)
-
-anova(lmeSlopes2, lmeSlopes3, lmeSlopes4)
-
-lmeResidsHyp1Cond &lt;- resid(lmeSlopes4, type=&quot;response&quot;, level=1)
-lmeResidsHyp1Cond &lt;- tibble::enframe(lmeResidsHyp1Cond, &quot;id&quot;, &quot;hyp1LmmCondCiiv&quot;)
-
-lmeResidsHyp1Cond &lt;- lmeResidsHyp1Cond %&gt;%
-  group_by(id) %&gt;%
-  mutate(hyp1LmmCondCiiv = sd(hyp1LmmCondCiiv, na.rm = T)) %&gt;%
-  ungroup() %&gt;%
-  select(id, hyp1LmmCondCiiv) %&gt;%
-  distinct() %&gt;%
-  mutate(id = as.numeric(id))
-
-masterCortDat &lt;- left_join(masterCortDat, lmeResidsHyp1Cond, by = &quot;id&quot;)
-
-#hyp 1 unc ciiv least squares / not actually least-squares, just sd ## CHANGE NAME
-sdResidsHyp1Unc &lt;- cortSlopeDat %&gt;%
-  group_by(id) %&gt;%
-  mutate(hyp1SdUncCiiv = sd(logCort, na.rm = T)) %&gt;%
-  ungroup() %&gt;%
-  select(id, hyp1SdUncCiiv) %&gt;%
-  distinct()
-
-masterCortDat &lt;- left_join(masterCortDat, sdResidsHyp1Unc, by = &quot;id&quot;)
-
-# hyp1 cond ciiv least squares
-lsResidsHyp1Cond &lt;- cortSlopeDat %&gt;%
-  group_by(id) %&gt;%
-  do(broom::tidy(lm(logCort ~ cortTime, data=., 
-             na.action = na.exclude)$residuals)) %&gt;% #change predictor
-  mutate(hyp1LsCondCiiv = sd(x, na.rm = T)) %&gt;%
-  select(., id, hyp1LsCondCiiv) %&gt;%
-  distinct()
-
-masterCortDat &lt;- left_join(masterCortDat, lsResidsHyp1Cond, by = &quot;id&quot;)
-
-#cor 
-masterCortDat %&gt;%
-  select(id, hyp1SdUncCiiv, hyp1LmmUncCiiv) %&gt;%
-  distinct() %&gt;%
-  na.omit() %&gt;%
-  do(broom::tidy(cor.test(.$hyp1SdUncCiiv, .$hyp1LmmUncCiiv, 
-                          method = &quot;spearman&quot;, paired = T)))
-
-masterCortDat %&gt;%
-  select(id, hyp1LsCondCiiv, hyp1LmmCondCiiv) %&gt;%
-  distinct() %&gt;%
-  na.omit() %&gt;%
-  do(broom::tidy(cor.test(.$hyp1LsCondCiiv, .$hyp1LmmCondCiiv, 
-                          method = &quot;spearman&quot;, paired = T)))</code></pre>
-<pre><code>           Model df      AIC      BIC    logLik   Test  L.Ratio p-value
-lmeSlopes      1  2 55988.32 56003.95 -27992.16                        
-lmeSlopes2     2  3 55238.94 55262.39 -27616.47 1 vs 2 751.3794  &lt;.0001
-           Model df      AIC      BIC    logLik   Test   L.Ratio p-value
-lmeSlopes2     1  3 55238.94 55262.39 -27616.47                         
-lmeSlopes3     2  4 41996.80 42028.05 -20994.40 1 vs 2 13244.146  &lt;.0001
-lmeSlopes4     3  6 39877.96 39924.85 -19932.98 2 vs 3  2122.837  &lt;.0001
-# A tibble: 1 x 5
-  estimate    statistic p.value method                          alternative
-     &lt;dbl&gt;        &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                           &lt;chr&gt;      
-1     1.00 0.0000000956       0 Spearman&#39;s rank correlation rho two.sided  
-# A tibble: 1 x 5
-  estimate statistic p.value method                          alternative
-     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                           &lt;chr&gt;      
-1    0.970 26265941.       0 Spearman&#39;s rank correlation rho two.sided  </code></pre>
-</div>
 <div id="hypotheses-2a-and-2b-ciiv-derivation-unconditional-and-conditional-on-time" class="section level1">
 <h1>Hypotheses 2a and 2b cIIV derivation: unconditional and conditional on time</h1>
 <pre class="r"><code>#lme approach, unconditional
@@ -1806,7 +1841,7 @@ Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   6697 obs. of
 <div id="select-emotion-data-and-join-with-hypotheses-1-2-cortisol-data" class="section level1">
 <h1>Select emotion data and join with hypotheses 1 &amp; 2 cortisol data</h1>
 <pre class="r"><code>emoDat &lt;- dailyDat %&gt;%
-  select(id = M2ID, day = B2DDAY, dailyMeanPosAff = B2DPOSAV, dailyMeanNegAffect = B2DNEGAV, dailyInGoodSpirits = B2DC7, dailyCheerful = B2DC8, dailyExtremelyHappy = B2DC9, dailyCalmPeaceful = B2DC10, dailySatisfied = B2DC11, dailyFullOfLife = B2DC12, dailyCloseToOthers = B2DC21, dailyLikeYouBelong = B2DC22, dailyEnthusiastic = B2DC23, dailyAttentive = B2DC24, dailyProud = B2DC25, dailyActive = B2DC26, dailyConfident = B2DC27, dailyRestlessFidgety = B2DC1, dailyNervous = B2DC2, dailyWorthless = B2DC3, dailySoSadNoCheerUp = B2DC4, dailyEverythingAnEffort = B2DC5, dailyHopeless = B2DC6, dailyLonely = B2DC13, dailyAfraid = B2DC14, dailyJittery = B2DC15, dailyIrritable = B2DC16, dailyAshamed = B2DC17, dailyUpset = B2DC18, dailyAngry = B2DC19, dailyFrustrated = B2DC20) %&gt;%
+  select(id = M2ID, day = B2DDAY, numberOfStressors = B2DN_STR, stressorNegAffSum = B2DSNEGS, stressorNegAffMean = B2DSNEGA, stressorSeveritySum = B2DSSEVS, stressorSeverityMean = B2DSSEVA,  dailyMeanPosAff = B2DPOSAV, dailyMeanNegAff = B2DNEGAV, stressorControlSum = B2DSCOTS, stressorControlMean = B2DSCOTA, numberOfPhysicalSx = B2DN_SYM, physicalSxSeverity = B2DSYMAV, dailyInGoodSpirits = B2DC7, dailyCheerful = B2DC8, dailyExtremelyHappy = B2DC9, dailyCalmPeaceful = B2DC10, dailySatisfied = B2DC11, dailyFullOfLife = B2DC12, dailyCloseToOthers = B2DC21, dailyLikeYouBelong = B2DC22, dailyEnthusiastic = B2DC23, dailyAttentive = B2DC24, dailyProud = B2DC25, dailyActive = B2DC26, dailyConfident = B2DC27, dailyRestlessFidgety = B2DC1, dailyNervous = B2DC2, dailyWorthless = B2DC3, dailySoSadNoCheerUp = B2DC4, dailyEverythingAnEffort = B2DC5, dailyHopeless = B2DC6, dailyLonely = B2DC13, dailyAfraid = B2DC14, dailyJittery = B2DC15, dailyIrritable = B2DC16, dailyAshamed = B2DC17, dailyUpset = B2DC18, dailyAngry = B2DC19, dailyFrustrated = B2DC20) %&gt;%
   filter(day == 2 | day == 3 | day == 4 | day == 5)</code></pre>
 </div>
 <div id="select-variables-of-interest-from-midus-2-data" class="section level1">
@@ -1817,7 +1852,11 @@ Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   6697 obs. of
                   stringsAsFactors = F)
 
 midusDat &lt;- midusDat %&gt;%
-  select(id = M2ID, ethnicity = B1PF7A, education = B1PB1, smoker = B1PA39, posPanas = B1SPOSPA, negPanas = B1SNEGPA, traitCheerful = B1SA26A, traitGoodSpirits = B1SA26B, traitExtremelyHappy = B1SA26C, traitCalmPeaceful = B1SA26D, traitSatisfied = B1SA26E, traitFullOfLife = B1SA26F, traitCloseOthers = B1SA26G, traitBelong = B1SA26H, traitEnthusiastic = B1SA26I, traitAttentive = B1SA26J, traitProud = B1SA26K, traitActive = B1SA26L, traitConfident = B1SA26M, traitSoSadNoCheer = B1SA24A, traitNervous = B1SA24B, traitRestless = B1SA24C, traitHopeless = B1SA24D, traitEverythingAnEffort = B1SA24E, traitWorthless = B1SA24F, traitLonely = B1SA24G, traitAfraid = B1SA24H, traitJittery = B1SA24I, traitIrritable = B1SA24J, traitAshamed = B1SA24K, traitUpset = B1SA24L, traitAngry = B1SA24M, traitFrustrated = B1SA24N)</code></pre>
+  select(id = M2ID, ethnicity = B1PF7A, education = B1PB1, smoker = B1PA39,
+         dep = B1PDEPRE, gad = B1PANXIE, somaticAmplification = B1SAMPLI, neuroticism = B1SNEURO,
+         extraversion = B1SEXTRA, opennessToExp = B1SOPEN, conscientiousness = B1SCONS1, agreeableness = B1SAGREE, agency = B1SAGENC, perceivedControl = B1SCTRL, sympathy = B1SSYMP, gernativity = B1SGENER,
+         spirituality = B1SSPIRI, religiousIdent = B1SRELID, religiousPractice = B1SRELPR, religiousSupport = B1SRELSU, religiousSpiritualCoping = B1SRELCA, dailySpiritualExperiences = B1SSPRTE, mindfulnessDueToRelSpir = B1SMNDFU, mentalHealthTx = B1SUSEMH,
+         posPanas = B1SPOSPA, negPanas = B1SNEGPA, traitCheerful = B1SA26A, traitGoodSpirits = B1SA26B, traitExtremelyHappy = B1SA26C, traitCalmPeaceful = B1SA26D, traitSatisfied = B1SA26E, traitFullOfLife = B1SA26F, traitCloseOthers = B1SA26G, traitBelong = B1SA26H, traitEnthusiastic = B1SA26I, traitAttentive = B1SA26J, traitProud = B1SA26K, traitActive = B1SA26L, traitConfident = B1SA26M, traitSoSadNoCheer = B1SA24A, traitNervous = B1SA24B, traitRestless = B1SA24C, traitHopeless = B1SA24D, traitEverythingAnEffort = B1SA24E, traitWorthless = B1SA24F, traitLonely = B1SA24G, traitAfraid = B1SA24H, traitJittery = B1SA24I, traitIrritable = B1SA24J, traitAshamed = B1SA24K, traitUpset = B1SA24L, traitAngry = B1SA24M, traitFrustrated = B1SA24N)</code></pre>
 </div>
 <div id="hypothesis-1-dataframe" class="section level1">
 <h1>Hypothesis 1 dataframe</h1>
@@ -1828,52 +1867,72 @@ midusDat &lt;- midusDat %&gt;%
 str(hyp1Dat)
 hyp1Dat
 write.csv(hyp1Dat, &quot;hyp1Dat.csv&quot;, row.names = F)</code></pre>
-<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   1731 obs. of  44 variables:
- $ id                     : num  10005 10019 10023 10028 10037 ...
- $ age                    : int  80 51 78 63 42 49 43 45 58 48 ...
- $ gender                 : int  2 1 2 2 1 1 2 2 1 2 ...
- $ medUseNone1Yes         : int  1 1 8 1 1 2 8 2 2 1 ...
- $ ethnicity              : int  1 1 1 1 1 1 1 1 1 1 ...
- $ education              : int  3 9 7 9 6 7 6 5 10 11 ...
- $ smoker                 : int  9 9 2 9 2 2 9 9 9 9 ...
- $ car                    : num  0.885 -0.565 -0.444 -0.155 0.167 ...
- $ aucTot                 : num  26.5 26.6 NA 27.2 31.2 ...
- $ lmmCortSlope           : num  -0.1 -0.11 -0.08 -0.12 -0.02 -0.14 -0.11 -0.12 -0.16 -0.12 ...
- $ leastSquaresCortSlope  : num  -0.1 -0.11 0.12 -0.13 0.01 -0.14 -0.09 -0.12 -0.18 -0.13 ...
- $ hyp1LmmUncCiiv         : num  0.833 0.953 0.5 1.046 0.491 ...
- $ hyp1LmmCondCiiv        : num  0.454 0.649 0.764 0.439 0.523 ...
- $ hyp1SdUncCiiv          : num  0.833 0.953 0.5 1.046 0.491 ...
- $ hyp1LsCondCiiv         : num  0.453 0.649 0.222 0.437 0.49 ...
- $ posPanas               : num  4.75 3.5 3 5 2.75 4.75 3.25 3 4 4 ...
- $ negPanas               : num  1 1.8 1.2 1.2 2.4 1.25 1.8 1.4 1.8 1 ...
- $ traitCheerful          : int  1 2 2 1 3 2 2 3 2 2 ...
- $ traitGoodSpirits       : int  1 2 2 1 3 2 2 3 2 2 ...
- $ traitExtremelyHappy    : int  2 4 4 2 4 4 3 4 3 2 ...
- $ traitCalmPeaceful      : int  2 3 2 2 4 2 3 2 3 2 ...
- $ traitSatisfied         : int  1 4 2 2 5 3 4 2 2 2 ...
- $ traitFullOfLife        : int  1 4 4 1 4 3 3 4 2 2 ...
- $ traitCloseOthers       : int  1 2 3 1 4 3 8 2 2 2 ...
- $ traitBelong            : int  1 4 2 1 4 3 3 2 2 2 ...
- $ traitEnthusiastic      : int  1 3 4 1 3 1 3 3 2 2 ...
- $ traitAttentive         : int  1 2 3 1 3 1 2 2 2 2 ...
- $ traitProud             : int  2 3 2 1 4 2 3 4 2 2 ...
- $ traitActive            : int  1 2 3 1 3 1 3 3 2 2 ...
- $ traitConfident         : int  1 2 2 1 4 2 3 2 2 2 ...
- $ traitSoSadNoCheer      : int  5 5 5 5 4 5 5 5 4 5 ...
- $ traitNervous           : int  5 4 5 5 4 5 4 5 4 5 ...
- $ traitRestless          : int  5 4 5 5 4 5 3 5 4 4 ...
- $ traitHopeless          : int  5 5 5 5 4 5 5 5 5 5 ...
- $ traitEverythingAnEffort: int  5 4 4 5 4 5 4 4 3 5 ...
- $ traitWorthless         : int  5 8 5 5 4 5 5 5 5 5 ...
- $ traitLonely            : int  5 2 3 5 4 5 5 5 5 5 ...
- $ traitAfraid            : int  5 5 5 5 4 5 5 5 4 5 ...
- $ traitJittery           : int  5 5 5 5 4 5 4 5 4 5 ...
- $ traitIrritable         : int  5 3 5 5 3 8 4 4 4 5 ...
- $ traitAshamed           : int  5 5 5 5 3 5 5 5 5 5 ...
- $ traitUpset             : int  5 3 4 4 4 4 3 4 4 5 ...
- $ traitAngry             : int  5 4 3 4 4 4 3 4 4 5 ...
- $ traitFrustrated        : int  5 3 4 5 4 5 3 4 3 4 ...
-# A tibble: 1,731 x 44
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   1731 obs. of  64 variables:
+ $ id                       : num  10005 10019 10023 10028 10037 ...
+ $ age                      : int  80 51 78 63 42 49 43 45 58 48 ...
+ $ gender                   : int  2 1 2 2 1 1 2 2 1 2 ...
+ $ medUseNone1Yes           : int  1 1 8 1 1 2 8 2 2 1 ...
+ $ ethnicity                : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ education                : int  3 9 7 9 6 7 6 5 10 11 ...
+ $ smoker                   : int  9 9 2 9 2 2 9 9 9 9 ...
+ $ car                      : num  0.885 -0.565 -0.444 -0.155 0.167 ...
+ $ aucTot                   : num  26.5 26.6 NA 27.2 31.2 ...
+ $ lmmCortSlope             : num  -0.1 -0.11 -0.08 -0.12 -0.02 -0.14 -0.11 -0.12 -0.16 -0.12 ...
+ $ leastSquaresCortSlope    : num  -0.1 -0.11 0.12 -0.13 0.01 -0.14 -0.09 -0.12 -0.18 -0.13 ...
+ $ hyp1LmmUncCiiv           : num  0.833 0.953 0.5 1.046 0.491 ...
+ $ hyp1LmmCondCiiv          : num  0.454 0.649 0.764 0.439 0.523 ...
+ $ hyp1SdUncCiiv            : num  0.833 0.953 0.5 1.046 0.491 ...
+ $ hyp1LsCondCiiv           : num  0.453 0.649 0.222 0.437 0.49 ...
+ $ dep                      : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ gad                      : int  0 0 0 0 0 5 0 0 0 0 ...
+ $ somaticAmplification     : num  2 1.8 3 1.6 2.4 1.8 2.4 2.8 2.2 1.8 ...
+ $ neuroticism              : num  1.25 1.5 1.75 1.25 3.33 ...
+ $ extraversion             : num  3.6 3.4 3.6 3.8 2 3.2 3.6 3 3 3.8 ...
+ $ opennessToExp            : num  2.57 3.14 3.57 4 8 ...
+ $ conscientiousness        : num  3.75 3.25 3.5 4 2 3.75 3.5 4 3.25 4 ...
+ $ agreeableness            : num  3.2 3.6 4 4 2.33 ...
+ $ agency                   : num  2.4 2.4 2 2.6 2 3 2.6 3.6 2.6 3.4 ...
+ $ perceivedControl         : num  6.58 5.25 4.67 5.17 4.75 ...
+ $ sympathy                 : num  6.25 3.5 4.75 6.5 2.5 4.75 4 4 5.25 4.75 ...
+ $ gernativity              : num  16 17 23 24 15 15 11 17 19 20 ...
+ $ spirituality             : int  2 7 8 7 4 8 6 6 5 6 ...
+ $ religiousIdent           : num  7 27 12 19 17 22 19 12 8 14 ...
+ $ religiousPractice        : num  3 16 8 9 5 5 8 6 3 5 ...
+ $ religiousSupport         : num  98 15 99 14 10 99 12 99 99 99 ...
+ $ religiousSpiritualCoping : int  2 7 8 5 4 2 6 5 2 4 ...
+ $ dailySpiritualExperiences: num  20 19 17 14 10 15 10 10 19 15 ...
+ $ mindfulnessDueToRelSpir  : num  98 32 37 31 33 37 29 25 45 34 ...
+ $ mentalHealthTx           : int  0 6 0 0 0 0 0 0 4 0 ...
+ $ posPanas                 : num  4.75 3.5 3 5 2.75 4.75 3.25 3 4 4 ...
+ $ negPanas                 : num  1 1.8 1.2 1.2 2.4 1.25 1.8 1.4 1.8 1 ...
+ $ traitCheerful            : int  1 2 2 1 3 2 2 3 2 2 ...
+ $ traitGoodSpirits         : int  1 2 2 1 3 2 2 3 2 2 ...
+ $ traitExtremelyHappy      : int  2 4 4 2 4 4 3 4 3 2 ...
+ $ traitCalmPeaceful        : int  2 3 2 2 4 2 3 2 3 2 ...
+ $ traitSatisfied           : int  1 4 2 2 5 3 4 2 2 2 ...
+ $ traitFullOfLife          : int  1 4 4 1 4 3 3 4 2 2 ...
+ $ traitCloseOthers         : int  1 2 3 1 4 3 8 2 2 2 ...
+ $ traitBelong              : int  1 4 2 1 4 3 3 2 2 2 ...
+ $ traitEnthusiastic        : int  1 3 4 1 3 1 3 3 2 2 ...
+ $ traitAttentive           : int  1 2 3 1 3 1 2 2 2 2 ...
+ $ traitProud               : int  2 3 2 1 4 2 3 4 2 2 ...
+ $ traitActive              : int  1 2 3 1 3 1 3 3 2 2 ...
+ $ traitConfident           : int  1 2 2 1 4 2 3 2 2 2 ...
+ $ traitSoSadNoCheer        : int  5 5 5 5 4 5 5 5 4 5 ...
+ $ traitNervous             : int  5 4 5 5 4 5 4 5 4 5 ...
+ $ traitRestless            : int  5 4 5 5 4 5 3 5 4 4 ...
+ $ traitHopeless            : int  5 5 5 5 4 5 5 5 5 5 ...
+ $ traitEverythingAnEffort  : int  5 4 4 5 4 5 4 4 3 5 ...
+ $ traitWorthless           : int  5 8 5 5 4 5 5 5 5 5 ...
+ $ traitLonely              : int  5 2 3 5 4 5 5 5 5 5 ...
+ $ traitAfraid              : int  5 5 5 5 4 5 5 5 4 5 ...
+ $ traitJittery             : int  5 5 5 5 4 5 4 5 4 5 ...
+ $ traitIrritable           : int  5 3 5 5 3 8 4 4 4 5 ...
+ $ traitAshamed             : int  5 5 5 5 3 5 5 5 5 5 ...
+ $ traitUpset               : int  5 3 4 4 4 4 3 4 4 5 ...
+ $ traitAngry               : int  5 4 3 4 4 4 3 4 4 5 ...
+ $ traitFrustrated          : int  5 3 4 5 4 5 3 4 3 4 ...
+# A tibble: 1,731 x 64
       id   age gender medUseNone1Yes ethnicity education smoker     car aucTot
    &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;          &lt;int&gt;     &lt;int&gt;     &lt;int&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;
  1 10005    80      2              1         1         3      9  0.885   26.5 
@@ -1886,90 +1945,110 @@ write.csv(hyp1Dat, &quot;hyp1Dat.csv&quot;, row.names = F)</code></pre>
  8 10047    45      2              2         1         5      9  1.30    21.2 
  9 10060    58      1              2         1        10      9  0.0878  24.4 
 10 10063    48      2              1         1        11      9 -0.192   30.7 
-# … with 1,721 more rows, and 35 more variables: lmmCortSlope &lt;dbl&gt;,
+# … with 1,721 more rows, and 55 more variables: lmmCortSlope &lt;dbl&gt;,
 #   leastSquaresCortSlope &lt;dbl&gt;, hyp1LmmUncCiiv &lt;dbl&gt;, hyp1LmmCondCiiv &lt;dbl&gt;,
-#   hyp1SdUncCiiv &lt;dbl&gt;, hyp1LsCondCiiv &lt;dbl&gt;, posPanas &lt;dbl&gt;, negPanas &lt;dbl&gt;,
-#   traitCheerful &lt;int&gt;, traitGoodSpirits &lt;int&gt;, traitExtremelyHappy &lt;int&gt;,
-#   traitCalmPeaceful &lt;int&gt;, traitSatisfied &lt;int&gt;, traitFullOfLife &lt;int&gt;,
-#   traitCloseOthers &lt;int&gt;, traitBelong &lt;int&gt;, traitEnthusiastic &lt;int&gt;,
-#   traitAttentive &lt;int&gt;, traitProud &lt;int&gt;, traitActive &lt;int&gt;,
-#   traitConfident &lt;int&gt;, traitSoSadNoCheer &lt;int&gt;, traitNervous &lt;int&gt;,
-#   traitRestless &lt;int&gt;, traitHopeless &lt;int&gt;, traitEverythingAnEffort &lt;int&gt;,
-#   traitWorthless &lt;int&gt;, traitLonely &lt;int&gt;, traitAfraid &lt;int&gt;,
-#   traitJittery &lt;int&gt;, traitIrritable &lt;int&gt;, traitAshamed &lt;int&gt;,
-#   traitUpset &lt;int&gt;, traitAngry &lt;int&gt;, traitFrustrated &lt;int&gt;</code></pre>
+#   hyp1SdUncCiiv &lt;dbl&gt;, hyp1LsCondCiiv &lt;dbl&gt;, dep &lt;int&gt;, gad &lt;int&gt;,
+#   somaticAmplification &lt;dbl&gt;, neuroticism &lt;dbl&gt;, extraversion &lt;dbl&gt;,
+#   opennessToExp &lt;dbl&gt;, conscientiousness &lt;dbl&gt;, agreeableness &lt;dbl&gt;,
+#   agency &lt;dbl&gt;, perceivedControl &lt;dbl&gt;, sympathy &lt;dbl&gt;, gernativity &lt;dbl&gt;,
+#   spirituality &lt;int&gt;, religiousIdent &lt;dbl&gt;, religiousPractice &lt;dbl&gt;,
+#   religiousSupport &lt;dbl&gt;, religiousSpiritualCoping &lt;int&gt;,
+#   dailySpiritualExperiences &lt;dbl&gt;, mindfulnessDueToRelSpir &lt;dbl&gt;,
+#   mentalHealthTx &lt;int&gt;, posPanas &lt;dbl&gt;, negPanas &lt;dbl&gt;, traitCheerful &lt;int&gt;,
+#   traitGoodSpirits &lt;int&gt;, traitExtremelyHappy &lt;int&gt;, traitCalmPeaceful &lt;int&gt;,
+#   traitSatisfied &lt;int&gt;, traitFullOfLife &lt;int&gt;, traitCloseOthers &lt;int&gt;,
+#   traitBelong &lt;int&gt;, traitEnthusiastic &lt;int&gt;, traitAttentive &lt;int&gt;,
+#   traitProud &lt;int&gt;, traitActive &lt;int&gt;, traitConfident &lt;int&gt;,
+#   traitSoSadNoCheer &lt;int&gt;, traitNervous &lt;int&gt;, traitRestless &lt;int&gt;,
+#   traitHopeless &lt;int&gt;, traitEverythingAnEffort &lt;int&gt;, traitWorthless &lt;int&gt;,
+#   traitLonely &lt;int&gt;, traitAfraid &lt;int&gt;, traitJittery &lt;int&gt;,
+#   traitIrritable &lt;int&gt;, traitAshamed &lt;int&gt;, traitUpset &lt;int&gt;,
+#   traitAngry &lt;int&gt;, traitFrustrated &lt;int&gt;</code></pre>
 </div>
 <div id="hypothesis-2-dataframe" class="section level1">
 <h1>Hypothesis 2 dataframe</h1>
 <pre class="r"><code>hyp2Dat &lt;- left_join(hyp2CortDat, emoDat, by = c(&quot;id&quot;, &quot;day&quot;))
+hyp2Dat &lt;- left_join(hyp2Dat, midusDat, by = &quot;id&quot;)
 
-str(hyp2Dat)
-hyp2Dat
+hyp2Dat &lt;- hyp2Dat %&gt;%
+  group_by(id) %&gt;%
+  mutate(personMeanLmmCiiv = mean(hyp2LmmCondCiiv)) %&gt;%
+  mutate(wpLmmCiiv = hyp2LmmCondCiiv - personMeanLmmCiiv) %&gt;%
+  ungroup() %&gt;%
+  mutate(bpLmmCiiv = personMeanLmmCiiv - 0.6135463)
+
+hyp2Dat &lt;- hyp2Dat %&gt;%
+  group_by(id) %&gt;%
+  mutate(personMeanLsCiiv = mean(hyp2LsCondCiiv)) %&gt;%
+  mutate(wpLsCiiv = hyp2LsCondCiiv - personMeanLsCiiv) %&gt;%
+  ungroup() %&gt;%
+  mutate(bpLsCiiv = personMeanLsCiiv - 0.2810024)
+  
+# hyp2Dat %&gt;%
+#   select(id, hyp2LsCondCiiv) %&gt;%
+#   distinct() %&gt;%
+#   summarise(mean(hyp2LsCondCiiv, na.rm = T))
+
+hyp2Dat &lt;- hyp2Dat %&gt;%
+  select(id, age, gender, ethnicity, education, smoker, 
+         medUseNone1Yes, day, everything())
+
+names(hyp2Dat)
+
 write.csv(hyp2Dat, &quot;hyp2Dat.csv&quot;, row.names = F)</code></pre>
-<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   6697 obs. of  38 variables:
- $ id                     : num  10005 10005 10005 10005 10019 ...
- $ age                    : int  80 80 80 80 51 51 51 51 78 78 ...
- $ gender                 : int  2 2 2 2 1 1 1 1 2 2 ...
- $ medUseNone1Yes         : int  1 1 1 1 1 1 1 1 8 8 ...
- $ day                    : num  2 3 4 5 2 3 4 5 2 3 ...
- $ hyp2LmmUncCiiv         : num  0.941 1.009 0.872 0.852 0.774 ...
- $ hyp2LmmCondCiiv        : num  0.554 0.112 0.396 0.599 0.533 ...
- $ hyp2SdUncCiiv          : num  0.941 1.009 0.872 0.852 0.774 ...
- $ hyp2LsCondCiiv         : num  0.5275 0.0717 0.3631 0.5063 0.4366 ...
- $ dailyMeanPosAff        : num  3.9 4 4 3.8 8 2.3 2.7 2.2 8 3 ...
- $ dailyMeanNegAffect     : num  0 0.07 0 0 8 0.14 0 0 8 0 ...
- $ dailyInGoodSpirits     : int  4 4 4 4 8 3 3 3 8 4 ...
- $ dailyCheerful          : int  4 4 4 4 8 3 3 3 8 4 ...
- $ dailyExtremelyHappy    : int  3 4 4 4 8 1 2 0 8 3 ...
- $ dailyCalmPeaceful      : int  4 4 4 1 8 1 3 0 8 2 ...
- $ dailySatisfied         : int  4 4 4 4 8 3 3 3 8 4 ...
- $ dailyFullOfLife        : int  4 4 4 4 8 2 3 2 8 2 ...
- $ dailyCloseToOthers     : int  4 4 4 4 8 3 3 3 8 4 ...
- $ dailyLikeYouBelong     : int  4 4 4 4 8 3 3 3 8 4 ...
- $ dailyEnthusiastic      : int  4 4 4 4 8 3 3 3 8 2 ...
- $ dailyAttentive         : int  4 4 4 4 8 3 3 3 8 2 ...
- $ dailyProud             : int  4 4 4 4 8 0 1 0 8 2 ...
- $ dailyActive            : int  4 4 4 4 8 2 2 2 8 2 ...
- $ dailyConfident         : int  4 4 4 4 8 3 3 3 8 4 ...
- $ dailyRestlessFidgety   : int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailyNervous           : int  0 1 0 0 8 0 0 0 8 0 ...
- $ dailyWorthless         : int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailySoSadNoCheerUp    : int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailyEverythingAnEffort: int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailyHopeless          : int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailyLonely            : int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailyAfraid            : int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailyJittery           : int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailyIrritable         : int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailyAshamed           : int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailyUpset             : int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailyAngry             : int  0 0 0 0 8 0 0 0 8 0 ...
- $ dailyFrustrated        : int  0 0 0 0 8 2 0 0 8 0 ...
-# A tibble: 6,697 x 38
-      id   age gender medUseNone1Yes   day hyp2LmmUncCiiv hyp2LmmCondCiiv
-   &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;          &lt;int&gt; &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;
- 1 10005    80      2              1     2          0.941           0.554
- 2 10005    80      2              1     3          1.01            0.112
- 3 10005    80      2              1     4          0.872           0.396
- 4 10005    80      2              1     5          0.852           0.599
- 5 10019    51      1              1     2          0.774           0.533
- 6 10019    51      1              1     3          1.14            0.629
- 7 10019    51      1              1     4          0.716           0.429
- 8 10019    51      1              1     5          1.17            0.781
- 9 10023    78      2              8     2         NA              NA    
-10 10023    78      2              8     3          0.706           1.22 
-# … with 6,687 more rows, and 31 more variables: hyp2SdUncCiiv &lt;dbl&gt;,
-#   hyp2LsCondCiiv &lt;dbl&gt;, dailyMeanPosAff &lt;dbl&gt;, dailyMeanNegAffect &lt;dbl&gt;,
-#   dailyInGoodSpirits &lt;int&gt;, dailyCheerful &lt;int&gt;, dailyExtremelyHappy &lt;int&gt;,
-#   dailyCalmPeaceful &lt;int&gt;, dailySatisfied &lt;int&gt;, dailyFullOfLife &lt;int&gt;,
-#   dailyCloseToOthers &lt;int&gt;, dailyLikeYouBelong &lt;int&gt;,
-#   dailyEnthusiastic &lt;int&gt;, dailyAttentive &lt;int&gt;, dailyProud &lt;int&gt;,
-#   dailyActive &lt;int&gt;, dailyConfident &lt;int&gt;, dailyRestlessFidgety &lt;int&gt;,
-#   dailyNervous &lt;int&gt;, dailyWorthless &lt;int&gt;, dailySoSadNoCheerUp &lt;int&gt;,
-#   dailyEverythingAnEffort &lt;int&gt;, dailyHopeless &lt;int&gt;, dailyLonely &lt;int&gt;,
-#   dailyAfraid &lt;int&gt;, dailyJittery &lt;int&gt;, dailyIrritable &lt;int&gt;,
-#   dailyAshamed &lt;int&gt;, dailyUpset &lt;int&gt;, dailyAngry &lt;int&gt;,
-#   dailyFrustrated &lt;int&gt;</code></pre>
+<pre><code>  [1] &quot;id&quot;                        &quot;age&quot;                      
+  [3] &quot;gender&quot;                    &quot;ethnicity&quot;                
+  [5] &quot;education&quot;                 &quot;smoker&quot;                   
+  [7] &quot;medUseNone1Yes&quot;            &quot;day&quot;                      
+  [9] &quot;hyp2LmmUncCiiv&quot;            &quot;hyp2LmmCondCiiv&quot;          
+ [11] &quot;hyp2SdUncCiiv&quot;             &quot;hyp2LsCondCiiv&quot;           
+ [13] &quot;numberOfStressors&quot;         &quot;stressorNegAffSum&quot;        
+ [15] &quot;stressorNegAffMean&quot;        &quot;stressorSeveritySum&quot;      
+ [17] &quot;stressorSeverityMean&quot;      &quot;dailyMeanPosAff&quot;          
+ [19] &quot;dailyMeanNegAff&quot;           &quot;stressorControlSum&quot;       
+ [21] &quot;stressorControlMean&quot;       &quot;numberOfPhysicalSx&quot;       
+ [23] &quot;physicalSxSeverity&quot;        &quot;dailyInGoodSpirits&quot;       
+ [25] &quot;dailyCheerful&quot;             &quot;dailyExtremelyHappy&quot;      
+ [27] &quot;dailyCalmPeaceful&quot;         &quot;dailySatisfied&quot;           
+ [29] &quot;dailyFullOfLife&quot;           &quot;dailyCloseToOthers&quot;       
+ [31] &quot;dailyLikeYouBelong&quot;        &quot;dailyEnthusiastic&quot;        
+ [33] &quot;dailyAttentive&quot;            &quot;dailyProud&quot;               
+ [35] &quot;dailyActive&quot;               &quot;dailyConfident&quot;           
+ [37] &quot;dailyRestlessFidgety&quot;      &quot;dailyNervous&quot;             
+ [39] &quot;dailyWorthless&quot;            &quot;dailySoSadNoCheerUp&quot;      
+ [41] &quot;dailyEverythingAnEffort&quot;   &quot;dailyHopeless&quot;            
+ [43] &quot;dailyLonely&quot;               &quot;dailyAfraid&quot;              
+ [45] &quot;dailyJittery&quot;              &quot;dailyIrritable&quot;           
+ [47] &quot;dailyAshamed&quot;              &quot;dailyUpset&quot;               
+ [49] &quot;dailyAngry&quot;                &quot;dailyFrustrated&quot;          
+ [51] &quot;dep&quot;                       &quot;gad&quot;                      
+ [53] &quot;somaticAmplification&quot;      &quot;neuroticism&quot;              
+ [55] &quot;extraversion&quot;              &quot;opennessToExp&quot;            
+ [57] &quot;conscientiousness&quot;         &quot;agreeableness&quot;            
+ [59] &quot;agency&quot;                    &quot;perceivedControl&quot;         
+ [61] &quot;sympathy&quot;                  &quot;gernativity&quot;              
+ [63] &quot;spirituality&quot;              &quot;religiousIdent&quot;           
+ [65] &quot;religiousPractice&quot;         &quot;religiousSupport&quot;         
+ [67] &quot;religiousSpiritualCoping&quot;  &quot;dailySpiritualExperiences&quot;
+ [69] &quot;mindfulnessDueToRelSpir&quot;   &quot;mentalHealthTx&quot;           
+ [71] &quot;posPanas&quot;                  &quot;negPanas&quot;                 
+ [73] &quot;traitCheerful&quot;             &quot;traitGoodSpirits&quot;         
+ [75] &quot;traitExtremelyHappy&quot;       &quot;traitCalmPeaceful&quot;        
+ [77] &quot;traitSatisfied&quot;            &quot;traitFullOfLife&quot;          
+ [79] &quot;traitCloseOthers&quot;          &quot;traitBelong&quot;              
+ [81] &quot;traitEnthusiastic&quot;         &quot;traitAttentive&quot;           
+ [83] &quot;traitProud&quot;                &quot;traitActive&quot;              
+ [85] &quot;traitConfident&quot;            &quot;traitSoSadNoCheer&quot;        
+ [87] &quot;traitNervous&quot;              &quot;traitRestless&quot;            
+ [89] &quot;traitHopeless&quot;             &quot;traitEverythingAnEffort&quot;  
+ [91] &quot;traitWorthless&quot;            &quot;traitLonely&quot;              
+ [93] &quot;traitAfraid&quot;               &quot;traitJittery&quot;             
+ [95] &quot;traitIrritable&quot;            &quot;traitAshamed&quot;             
+ [97] &quot;traitUpset&quot;                &quot;traitAngry&quot;               
+ [99] &quot;traitFrustrated&quot;           &quot;personMeanLmmCiiv&quot;        
+[101] &quot;wpLmmCiiv&quot;                 &quot;bpLmmCiiv&quot;                
+[103] &quot;personMeanLsCiiv&quot;          &quot;wpLsCiiv&quot;                 
+[105] &quot;bpLsCiiv&quot;                 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Data Inspection</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Dissertation</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="dataWrangling.html">Data Wrangling</a>
+</li>
+<li>
+  <a href="dataInspection.html">Data Inspection</a>
+</li>
+<li>
+  <a href="analysis.html">Analysis</a>
+</li>
+<li>
+  <a href="manuscript.html">Manuscript</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Data Inspection</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-05-20
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>dissertation/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200414code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200414)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200414code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200414)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtree71f05062062919c2c7c485007e90db6fe5101fe4targetblank71f0506a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/santiallende/dissertation/tree/71f05062062919c2c7c485007e90db6fe5101fe4" target="_blank">71f0506</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtree71f05062062919c2c7c485007e90db6fe5101fe4targetblank71f0506a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/ICPSR_04652 3/.DS_Store
+    Ignored:    analysis/ICPSR_04652 3/DS0001/.DS_Store
+    Ignored:    analysis/ICPSR_26841/.DS_Store
+    Ignored:    analysis/ICPSR_26841/DS0001/.DS_Store
+    Ignored:    analysis/dataInspection.nb.html
+    Ignored:    analysis/dataWrangling.nb.html
+
+Untracked files:
+    Untracked:  analysis/hyp1Dat.csv
+    Untracked:  analysis/hyp2Dat.csv
+    Untracked:  analysis/lmeResidsPerDay.csv
+    Untracked:  analysis/manuscript copy.docx
+    Untracked:  analysis/manuscript.docx
+    Untracked:  analysis/manuscript.log
+    Untracked:  analysis/manuscript.pdf
+    Untracked:  analysis/manuscript.tex
+    Untracked:  analysis/manuscript/
+    Untracked:  analysis/~$nuscript.docx
+    Untracked:  analysis/~$ssertation_1.8.20.docx
+    Untracked:  hyp1Dat.csv
+    Untracked:  hyp2Dat.csv
+
+Unstaged changes:
+    Modified:   analysis/ICPSR_26841/DS0001/26841-0001-Documentation-saliva.pdf
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/santiallende/dissertation/blob/71f05062062919c2c7c485007e90db6fe5101fe4/analysis/dataInspection.Rmd" target="_blank">71f0506</a>
+</td>
+<td>
+sallende
+</td>
+<td>
+2020-05-20
+</td>
+<td>
+wflow_publish(c(“analysis/index.Rmd”, "analysis/_site.yml",
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<p>Load libraries</p>
+<pre class="r"><code>library(tidyverse)
+options(scipen=999)</code></pre>
+<div id="load-data" class="section level1">
+<h1>Load data</h1>
+<pre class="r"><code>hyp1Dat &lt;- read_csv(&quot;hyp1dat.csv&quot;)
+hyp2Dat &lt;- read_csv(&quot;hyp2Dat.csv&quot;)</code></pre>
+</div>
+<div id="assign-na-for-missing-do-not-know-inapplicable-panas-daily-vars" class="section level1">
+<h1>Assign NA for missing, do not know, inapplicable: panas, daily vars</h1>
+<pre class="r"><code>hyp1Dat &lt;- hyp1Dat %&gt;%
+  mutate_at(vars(negPanas, posPanas), ~na_if(., 8))
+
+hyp2Dat &lt;- hyp2Dat %&gt;%
+  #filter(dailyMeanNegAff &lt;= 4)
+  mutate_at(vars(contains(&quot;daily&quot;)), ~na_if(., 7)) %&gt;%
+  mutate_at(vars(contains(&quot;daily&quot;)), ~na_if(., 8)) %&gt;%
+  mutate_at(vars(contains(&quot;daily&quot;)), ~na_if(., 9))
+
+#need to assign na for rest of vars</code></pre>
+</div>
+<div id="summary-of-hypothesis-1-data" class="section level1">
+<h1>Summary of hypothesis 1 data</h1>
+<div id="summary-of-factor-variables" class="section level2">
+<h2>Summary of factor variables</h2>
+<pre class="r"><code># convert to factors
+hyp1Dat &lt;- hyp1Dat %&gt;%
+  mutate(gender = factor(gender, levels = c(1, 2), 
+                         labels = c(&quot;male&quot;, &quot;female&quot;))) %&gt;%
+  mutate(medUseNone1Yes = factor(medUseNone1Yes, levels = c(1, 2, 8),
+                                 labels = c(&quot;yes&quot;, &quot;no&quot;, &quot;missing&quot;))) %&gt;%
+  mutate(ethnicity = factor(ethnicity, levels = c(1, 2, 3, 4, 6, 7, 8),
+                            labels = c(&quot;caucasian&quot;, &quot;africanAmerican&quot;,
+                                       &quot;nativeAmerican&quot;, &quot;asian&quot;, &quot;other&quot;,
+                                       &quot;dontKnow&quot;, &quot;refused&quot;))) %&gt;%
+  mutate(education = factor(education, levels = c(1, 2, 3, 4, 5, 6, 7, 8, 9,
+                                                  10, 11, 12, 97),
+                            labels = c(&quot;grades16&quot;, &quot;grades78&quot;, &quot;grades\n912NoGed&quot;,
+                                       &quot;ged&quot;, &quot;hsGrad&quot;, &quot;college\n12YrNoDegree&quot;,
+                                       &quot;college\n3OrMore\nYrNoDegree&quot;,
+                                       &quot;college\n2YrGrad&quot;, &quot;college\n4YrGrad&quot;,
+                                       &quot;some\nGradSchl&quot;, &quot;master\nDegree&quot;,
+                                       &quot;doctoral\nDegree&quot;, &quot;dontKnow&quot;))) %&gt;%
+  mutate(smoker = factor(smoker, levels = c(1, 2, 9), 
+                         labels = c(&quot;yes&quot;, &quot;no&quot;, &quot;inapp&quot;)))</code></pre>
+<div id="gender" class="section level3">
+<h3>Gender</h3>
+<pre class="r"><code># gender
+hyp1Dat %&gt;%
+  group_by(gender) %&gt;%
+  ggplot(., aes(gender)) +
+    geom_bar(aes(fill = gender)) +
+    geom_text(stat=&#39;count&#39;, aes(label = scales::percent(round(prop.table(stat(count)), 3))), vjust=-.50, 
+              color = &quot;gray29&quot;, size = 3)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="medication-use" class="section level3">
+<h3>Medication Use</h3>
+<pre class="r"><code># medication use
+hyp1Dat %&gt;%
+  group_by(medUseNone1Yes) %&gt;%
+  ggplot(., aes(medUseNone1Yes)) +
+    geom_bar(aes(fill = medUseNone1Yes)) +
+    geom_text(stat=&#39;count&#39;, aes(label = scales::percent(round(prop.table(stat(count)), 4))), vjust=-.50, 
+              color = &quot;gray29&quot;, size = 3)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ethnicity" class="section level3">
+<h3>Ethnicity</h3>
+<pre class="r"><code># ethnicity
+hyp1Dat %&gt;%
+  group_by(ethnicity) %&gt;%
+  ggplot(., aes(ethnicity)) +
+    geom_bar(aes(fill = ethnicity)) +
+    geom_text(stat=&#39;count&#39;, aes(label = scales::percent(round(prop.table(stat(count)), 3))), vjust=-.50, 
+              color = &quot;gray29&quot;, size = 3) +
+    theme(axis.text.x = element_text(angle = 10))</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="education" class="section level3">
+<h3>Education</h3>
+<pre class="r"><code># education
+hyp1Dat %&gt;%
+  mutate(education = factor(education, levels = c(&quot;hsGrad&quot;, &quot;college\n4YrGrad&quot;,
+                                       &quot;college\n12YrNoDegree&quot;, &quot;master\nDegree&quot;,
+                                       &quot;NA&quot;, &quot;college\n2YrGrad&quot;, &quot;doctoral\nDegree&quot;,
+                                       &quot;college\n3OrMore\nYrNoDegree&quot;,
+                                       &quot;some\nGradSchl&quot;, &quot;grades\n912NoGed&quot;,
+                                       &quot;grades78&quot;, &quot;ged&quot;, &quot;grades16&quot;, 
+                                       &quot;dontKnow&quot;))) %&gt;%
+  group_by(education) %&gt;%
+  ggplot(., aes(education)) +
+    geom_bar(aes(fill = education)) +
+    geom_text(stat=&#39;count&#39;, aes(label = scales::percent(round(prop.table(stat(count)), 4))), vjust=-.50, 
+              color = &quot;gray29&quot;, size = 2.5) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  ylim(0, 400)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="smoker-status" class="section level3">
+<h3>Smoker Status</h3>
+<pre class="r"><code># smoker
+ggplot(hyp1Dat, aes(smoker)) +
+  geom_bar(aes(fill = smoker)) +
+  geom_text(stat=&#39;count&#39;, aes(label = scales::percent(prop.table(stat(count)))), vjust=-.50, 
+              color = &quot;gray29&quot;) </code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="summary-of-numeric-variables" class="section level1">
+<h1>Summary of numeric variables</h1>
+<pre class="r"><code>hyp1Dat %&gt;%
+  summarise_if(is.numeric,
+               funs(sum(is.na(.)))) %&gt;%
+  pivot_longer(1:39, names_to = &quot;summaryStats&quot;, values_to = &quot;numberOfNAs&quot;) %&gt;% print(n = Inf)</code></pre>
+<pre style="max-height: 500px;"><code># A tibble: 39 x 22
+   traitBelong traitEnthusiast… traitAttentive traitProud traitActive
+         &lt;int&gt;            &lt;int&gt;          &lt;int&gt;      &lt;int&gt;       &lt;int&gt;
+ 1         167              167            167        167         167
+ 2         167              167            167        167         167
+ 3         167              167            167        167         167
+ 4         167              167            167        167         167
+ 5         167              167            167        167         167
+ 6         167              167            167        167         167
+ 7         167              167            167        167         167
+ 8         167              167            167        167         167
+ 9         167              167            167        167         167
+10         167              167            167        167         167
+11         167              167            167        167         167
+12         167              167            167        167         167
+13         167              167            167        167         167
+14         167              167            167        167         167
+15         167              167            167        167         167
+16         167              167            167        167         167
+17         167              167            167        167         167
+18         167              167            167        167         167
+19         167              167            167        167         167
+20         167              167            167        167         167
+21         167              167            167        167         167
+22         167              167            167        167         167
+23         167              167            167        167         167
+24         167              167            167        167         167
+25         167              167            167        167         167
+26         167              167            167        167         167
+27         167              167            167        167         167
+28         167              167            167        167         167
+29         167              167            167        167         167
+30         167              167            167        167         167
+31         167              167            167        167         167
+32         167              167            167        167         167
+33         167              167            167        167         167
+34         167              167            167        167         167
+35         167              167            167        167         167
+36         167              167            167        167         167
+37         167              167            167        167         167
+38         167              167            167        167         167
+39         167              167            167        167         167
+# … with 17 more variables: traitConfident &lt;int&gt;, traitSoSadNoCheer &lt;int&gt;,
+#   traitNervous &lt;int&gt;, traitRestless &lt;int&gt;, traitHopeless &lt;int&gt;,
+#   traitEverythingAnEffort &lt;int&gt;, traitWorthless &lt;int&gt;, traitLonely &lt;int&gt;,
+#   traitAfraid &lt;int&gt;, traitJittery &lt;int&gt;, traitIrritable &lt;int&gt;,
+#   traitAshamed &lt;int&gt;, traitUpset &lt;int&gt;, traitAngry &lt;int&gt;,
+#   traitFrustrated &lt;int&gt;, summaryStats &lt;chr&gt;, numberOfNAs &lt;int&gt;</code></pre>
+<pre class="r"><code>hyp1Dat %&gt;%
+  summarise_if(is.numeric,
+               lst(mean, median, sd, min, max),
+               na.rm = T) %&gt;%
+  pivot_longer(1:195, names_to = &quot;summaryStats&quot;, values_to = &quot;values&quot;) %&gt;% 
+  print(n = Inf) %&gt;%
+  separate(summaryStats, c(&quot;variable&quot;, &quot;stat&quot;), &quot;_&quot;) %&gt;%
+  arrange(variable)</code></pre>
+<pre style="max-height: 500px;"><code># A tibble: 195 x 102
+    agency_min perceivedContro… sympathy_min gernativity_min spirituality_min
+         &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
+  1          1             1.08         1.75               6                2
+  2          1             1.08         1.75               6                2
+  3          1             1.08         1.75               6                2
+  4          1             1.08         1.75               6                2
+  5          1             1.08         1.75               6                2
+  6          1             1.08         1.75               6                2
+  7          1             1.08         1.75               6                2
+  8          1             1.08         1.75               6                2
+  9          1             1.08         1.75               6                2
+ 10          1             1.08         1.75               6                2
+ 11          1             1.08         1.75               6                2
+ 12          1             1.08         1.75               6                2
+ 13          1             1.08         1.75               6                2
+ 14          1             1.08         1.75               6                2
+ 15          1             1.08         1.75               6                2
+ 16          1             1.08         1.75               6                2
+ 17          1             1.08         1.75               6                2
+ 18          1             1.08         1.75               6                2
+ 19          1             1.08         1.75               6                2
+ 20          1             1.08         1.75               6                2
+ 21          1             1.08         1.75               6                2
+ 22          1             1.08         1.75               6                2
+ 23          1             1.08         1.75               6                2
+ 24          1             1.08         1.75               6                2
+ 25          1             1.08         1.75               6                2
+ 26          1             1.08         1.75               6                2
+ 27          1             1.08         1.75               6                2
+ 28          1             1.08         1.75               6                2
+ 29          1             1.08         1.75               6                2
+ 30          1             1.08         1.75               6                2
+ 31          1             1.08         1.75               6                2
+ 32          1             1.08         1.75               6                2
+ 33          1             1.08         1.75               6                2
+ 34          1             1.08         1.75               6                2
+ 35          1             1.08         1.75               6                2
+ 36          1             1.08         1.75               6                2
+ 37          1             1.08         1.75               6                2
+ 38          1             1.08         1.75               6                2
+ 39          1             1.08         1.75               6                2
+ 40          1             1.08         1.75               6                2
+ 41          1             1.08         1.75               6                2
+ 42          1             1.08         1.75               6                2
+ 43          1             1.08         1.75               6                2
+ 44          1             1.08         1.75               6                2
+ 45          1             1.08         1.75               6                2
+ 46          1             1.08         1.75               6                2
+ 47          1             1.08         1.75               6                2
+ 48          1             1.08         1.75               6                2
+ 49          1             1.08         1.75               6                2
+ 50          1             1.08         1.75               6                2
+ 51          1             1.08         1.75               6                2
+ 52          1             1.08         1.75               6                2
+ 53          1             1.08         1.75               6                2
+ 54          1             1.08         1.75               6                2
+ 55          1             1.08         1.75               6                2
+ 56          1             1.08         1.75               6                2
+ 57          1             1.08         1.75               6                2
+ 58          1             1.08         1.75               6                2
+ 59          1             1.08         1.75               6                2
+ 60          1             1.08         1.75               6                2
+ 61          1             1.08         1.75               6                2
+ 62          1             1.08         1.75               6                2
+ 63          1             1.08         1.75               6                2
+ 64          1             1.08         1.75               6                2
+ 65          1             1.08         1.75               6                2
+ 66          1             1.08         1.75               6                2
+ 67          1             1.08         1.75               6                2
+ 68          1             1.08         1.75               6                2
+ 69          1             1.08         1.75               6                2
+ 70          1             1.08         1.75               6                2
+ 71          1             1.08         1.75               6                2
+ 72          1             1.08         1.75               6                2
+ 73          1             1.08         1.75               6                2
+ 74          1             1.08         1.75               6                2
+ 75          1             1.08         1.75               6                2
+ 76          1             1.08         1.75               6                2
+ 77          1             1.08         1.75               6                2
+ 78          1             1.08         1.75               6                2
+ 79          1             1.08         1.75               6                2
+ 80          1             1.08         1.75               6                2
+ 81          1             1.08         1.75               6                2
+ 82          1             1.08         1.75               6                2
+ 83          1             1.08         1.75               6                2
+ 84          1             1.08         1.75               6                2
+ 85          1             1.08         1.75               6                2
+ 86          1             1.08         1.75               6                2
+ 87          1             1.08         1.75               6                2
+ 88          1             1.08         1.75               6                2
+ 89          1             1.08         1.75               6                2
+ 90          1             1.08         1.75               6                2
+ 91          1             1.08         1.75               6                2
+ 92          1             1.08         1.75               6                2
+ 93          1             1.08         1.75               6                2
+ 94          1             1.08         1.75               6                2
+ 95          1             1.08         1.75               6                2
+ 96          1             1.08         1.75               6                2
+ 97          1             1.08         1.75               6                2
+ 98          1             1.08         1.75               6                2
+ 99          1             1.08         1.75               6                2
+100          1             1.08         1.75               6                2
+101          1             1.08         1.75               6                2
+102          1             1.08         1.75               6                2
+103          1             1.08         1.75               6                2
+104          1             1.08         1.75               6                2
+105          1             1.08         1.75               6                2
+106          1             1.08         1.75               6                2
+107          1             1.08         1.75               6                2
+108          1             1.08         1.75               6                2
+109          1             1.08         1.75               6                2
+110          1             1.08         1.75               6                2
+111          1             1.08         1.75               6                2
+112          1             1.08         1.75               6                2
+113          1             1.08         1.75               6                2
+114          1             1.08         1.75               6                2
+115          1             1.08         1.75               6                2
+116          1             1.08         1.75               6                2
+117          1             1.08         1.75               6                2
+118          1             1.08         1.75               6                2
+119          1             1.08         1.75               6                2
+120          1             1.08         1.75               6                2
+121          1             1.08         1.75               6                2
+122          1             1.08         1.75               6                2
+123          1             1.08         1.75               6                2
+124          1             1.08         1.75               6                2
+125          1             1.08         1.75               6                2
+126          1             1.08         1.75               6                2
+127          1             1.08         1.75               6                2
+128          1             1.08         1.75               6                2
+129          1             1.08         1.75               6                2
+130          1             1.08         1.75               6                2
+131          1             1.08         1.75               6                2
+132          1             1.08         1.75               6                2
+133          1             1.08         1.75               6                2
+134          1             1.08         1.75               6                2
+135          1             1.08         1.75               6                2
+136          1             1.08         1.75               6                2
+137          1             1.08         1.75               6                2
+138          1             1.08         1.75               6                2
+139          1             1.08         1.75               6                2
+140          1             1.08         1.75               6                2
+141          1             1.08         1.75               6                2
+142          1             1.08         1.75               6                2
+143          1             1.08         1.75               6                2
+144          1             1.08         1.75               6                2
+145          1             1.08         1.75               6                2
+146          1             1.08         1.75               6                2
+147          1             1.08         1.75               6                2
+148          1             1.08         1.75               6                2
+149          1             1.08         1.75               6                2
+150          1             1.08         1.75               6                2
+151          1             1.08         1.75               6                2
+152          1             1.08         1.75               6                2
+153          1             1.08         1.75               6                2
+154          1             1.08         1.75               6                2
+155          1             1.08         1.75               6                2
+156          1             1.08         1.75               6                2
+157          1             1.08         1.75               6                2
+158          1             1.08         1.75               6                2
+159          1             1.08         1.75               6                2
+160          1             1.08         1.75               6                2
+161          1             1.08         1.75               6                2
+162          1             1.08         1.75               6                2
+163          1             1.08         1.75               6                2
+164          1             1.08         1.75               6                2
+165          1             1.08         1.75               6                2
+166          1             1.08         1.75               6                2
+167          1             1.08         1.75               6                2
+168          1             1.08         1.75               6                2
+169          1             1.08         1.75               6                2
+170          1             1.08         1.75               6                2
+171          1             1.08         1.75               6                2
+172          1             1.08         1.75               6                2
+173          1             1.08         1.75               6                2
+174          1             1.08         1.75               6                2
+175          1             1.08         1.75               6                2
+176          1             1.08         1.75               6                2
+177          1             1.08         1.75               6                2
+178          1             1.08         1.75               6                2
+179          1             1.08         1.75               6                2
+180          1             1.08         1.75               6                2
+181          1             1.08         1.75               6                2
+182          1             1.08         1.75               6                2
+183          1             1.08         1.75               6                2
+184          1             1.08         1.75               6                2
+185          1             1.08         1.75               6                2
+186          1             1.08         1.75               6                2
+187          1             1.08         1.75               6                2
+188          1             1.08         1.75               6                2
+189          1             1.08         1.75               6                2
+190          1             1.08         1.75               6                2
+191          1             1.08         1.75               6                2
+192          1             1.08         1.75               6                2
+193          1             1.08         1.75               6                2
+194          1             1.08         1.75               6                2
+195          1             1.08         1.75               6                2
+# … with 97 more variables: religiousIdent_min &lt;dbl&gt;,
+#   religiousPractice_min &lt;dbl&gt;, religiousSupport_min &lt;dbl&gt;,
+#   religiousSpiritualCoping_min &lt;dbl&gt;, dailySpiritualExperiences_min &lt;dbl&gt;,
+#   mindfulnessDueToRelSpir_min &lt;dbl&gt;, mentalHealthTx_min &lt;dbl&gt;,
+#   posPanas_min &lt;dbl&gt;, negPanas_min &lt;dbl&gt;, traitCheerful_min &lt;dbl&gt;,
+#   traitGoodSpirits_min &lt;dbl&gt;, traitExtremelyHappy_min &lt;dbl&gt;,
+#   traitCalmPeaceful_min &lt;dbl&gt;, traitSatisfied_min &lt;dbl&gt;,
+#   traitFullOfLife_min &lt;dbl&gt;, traitCloseOthers_min &lt;dbl&gt;,
+#   traitBelong_min &lt;dbl&gt;, traitEnthusiastic_min &lt;dbl&gt;,
+#   traitAttentive_min &lt;dbl&gt;, traitProud_min &lt;dbl&gt;, traitActive_min &lt;dbl&gt;,
+#   traitConfident_min &lt;dbl&gt;, traitSoSadNoCheer_min &lt;dbl&gt;,
+#   traitNervous_min &lt;dbl&gt;, traitRestless_min &lt;dbl&gt;, traitHopeless_min &lt;dbl&gt;,
+#   traitEverythingAnEffort_min &lt;dbl&gt;, traitWorthless_min &lt;dbl&gt;,
+#   traitLonely_min &lt;dbl&gt;, traitAfraid_min &lt;dbl&gt;, traitJittery_min &lt;dbl&gt;,
+#   traitIrritable_min &lt;dbl&gt;, traitAshamed_min &lt;dbl&gt;, traitUpset_min &lt;dbl&gt;,
+#   traitAngry_min &lt;dbl&gt;, traitFrustrated_min &lt;dbl&gt;, id_max &lt;dbl&gt;,
+#   age_max &lt;dbl&gt;, car_max &lt;dbl&gt;, aucTot_max &lt;dbl&gt;, lmmCortSlope_max &lt;dbl&gt;,
+#   leastSquaresCortSlope_max &lt;dbl&gt;, hyp1LmmUncCiiv_max &lt;dbl&gt;,
+#   hyp1LmmCondCiiv_max &lt;dbl&gt;, hyp1SdUncCiiv_max &lt;dbl&gt;,
+#   hyp1LsCondCiiv_max &lt;dbl&gt;, dep_max &lt;dbl&gt;, gad_max &lt;dbl&gt;,
+#   somaticAmplification_max &lt;dbl&gt;, neuroticism_max &lt;dbl&gt;,
+#   extraversion_max &lt;dbl&gt;, opennessToExp_max &lt;dbl&gt;,
+#   conscientiousness_max &lt;dbl&gt;, agreeableness_max &lt;dbl&gt;, agency_max &lt;dbl&gt;,
+#   perceivedControl_max &lt;dbl&gt;, sympathy_max &lt;dbl&gt;, gernativity_max &lt;dbl&gt;,
+#   spirituality_max &lt;dbl&gt;, religiousIdent_max &lt;dbl&gt;,
+#   religiousPractice_max &lt;dbl&gt;, religiousSupport_max &lt;dbl&gt;,
+#   religiousSpiritualCoping_max &lt;dbl&gt;, dailySpiritualExperiences_max &lt;dbl&gt;,
+#   mindfulnessDueToRelSpir_max &lt;dbl&gt;, mentalHealthTx_max &lt;dbl&gt;,
+#   posPanas_max &lt;dbl&gt;, negPanas_max &lt;dbl&gt;, traitCheerful_max &lt;dbl&gt;,
+#   traitGoodSpirits_max &lt;dbl&gt;, traitExtremelyHappy_max &lt;dbl&gt;,
+#   traitCalmPeaceful_max &lt;dbl&gt;, traitSatisfied_max &lt;dbl&gt;,
+#   traitFullOfLife_max &lt;dbl&gt;, traitCloseOthers_max &lt;dbl&gt;,
+#   traitBelong_max &lt;dbl&gt;, traitEnthusiastic_max &lt;dbl&gt;,
+#   traitAttentive_max &lt;dbl&gt;, traitProud_max &lt;dbl&gt;, traitActive_max &lt;dbl&gt;,
+#   traitConfident_max &lt;dbl&gt;, traitSoSadNoCheer_max &lt;dbl&gt;,
+#   traitNervous_max &lt;dbl&gt;, traitRestless_max &lt;dbl&gt;, traitHopeless_max &lt;dbl&gt;,
+#   traitEverythingAnEffort_max &lt;dbl&gt;, traitWorthless_max &lt;dbl&gt;,
+#   traitLonely_max &lt;dbl&gt;, traitAfraid_max &lt;dbl&gt;, traitJittery_max &lt;dbl&gt;,
+#   traitIrritable_max &lt;dbl&gt;, traitAshamed_max &lt;dbl&gt;, traitUpset_max &lt;dbl&gt;,
+#   traitAngry_max &lt;dbl&gt;, traitFrustrated_max &lt;dbl&gt;, summaryStats &lt;chr&gt;,
+#   values &lt;dbl&gt;</code></pre>
+<pre style="max-height: 500px;"><code># A tibble: 195 x 103
+   agency_min perceivedContro… sympathy_min gernativity_min spirituality_min
+        &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
+ 1          1             1.08         1.75               6                2
+ 2          1             1.08         1.75               6                2
+ 3          1             1.08         1.75               6                2
+ 4          1             1.08         1.75               6                2
+ 5          1             1.08         1.75               6                2
+ 6          1             1.08         1.75               6                2
+ 7          1             1.08         1.75               6                2
+ 8          1             1.08         1.75               6                2
+ 9          1             1.08         1.75               6                2
+10          1             1.08         1.75               6                2
+# … with 185 more rows, and 98 more variables: religiousIdent_min &lt;dbl&gt;,
+#   religiousPractice_min &lt;dbl&gt;, religiousSupport_min &lt;dbl&gt;,
+#   religiousSpiritualCoping_min &lt;dbl&gt;, dailySpiritualExperiences_min &lt;dbl&gt;,
+#   mindfulnessDueToRelSpir_min &lt;dbl&gt;, mentalHealthTx_min &lt;dbl&gt;,
+#   posPanas_min &lt;dbl&gt;, negPanas_min &lt;dbl&gt;, traitCheerful_min &lt;dbl&gt;,
+#   traitGoodSpirits_min &lt;dbl&gt;, traitExtremelyHappy_min &lt;dbl&gt;,
+#   traitCalmPeaceful_min &lt;dbl&gt;, traitSatisfied_min &lt;dbl&gt;,
+#   traitFullOfLife_min &lt;dbl&gt;, traitCloseOthers_min &lt;dbl&gt;,
+#   traitBelong_min &lt;dbl&gt;, traitEnthusiastic_min &lt;dbl&gt;,
+#   traitAttentive_min &lt;dbl&gt;, traitProud_min &lt;dbl&gt;, traitActive_min &lt;dbl&gt;,
+#   traitConfident_min &lt;dbl&gt;, traitSoSadNoCheer_min &lt;dbl&gt;,
+#   traitNervous_min &lt;dbl&gt;, traitRestless_min &lt;dbl&gt;, traitHopeless_min &lt;dbl&gt;,
+#   traitEverythingAnEffort_min &lt;dbl&gt;, traitWorthless_min &lt;dbl&gt;,
+#   traitLonely_min &lt;dbl&gt;, traitAfraid_min &lt;dbl&gt;, traitJittery_min &lt;dbl&gt;,
+#   traitIrritable_min &lt;dbl&gt;, traitAshamed_min &lt;dbl&gt;, traitUpset_min &lt;dbl&gt;,
+#   traitAngry_min &lt;dbl&gt;, traitFrustrated_min &lt;dbl&gt;, id_max &lt;dbl&gt;,
+#   age_max &lt;dbl&gt;, car_max &lt;dbl&gt;, aucTot_max &lt;dbl&gt;, lmmCortSlope_max &lt;dbl&gt;,
+#   leastSquaresCortSlope_max &lt;dbl&gt;, hyp1LmmUncCiiv_max &lt;dbl&gt;,
+#   hyp1LmmCondCiiv_max &lt;dbl&gt;, hyp1SdUncCiiv_max &lt;dbl&gt;,
+#   hyp1LsCondCiiv_max &lt;dbl&gt;, dep_max &lt;dbl&gt;, gad_max &lt;dbl&gt;,
+#   somaticAmplification_max &lt;dbl&gt;, neuroticism_max &lt;dbl&gt;,
+#   extraversion_max &lt;dbl&gt;, opennessToExp_max &lt;dbl&gt;,
+#   conscientiousness_max &lt;dbl&gt;, agreeableness_max &lt;dbl&gt;, agency_max &lt;dbl&gt;,
+#   perceivedControl_max &lt;dbl&gt;, sympathy_max &lt;dbl&gt;, gernativity_max &lt;dbl&gt;,
+#   spirituality_max &lt;dbl&gt;, religiousIdent_max &lt;dbl&gt;,
+#   religiousPractice_max &lt;dbl&gt;, religiousSupport_max &lt;dbl&gt;,
+#   religiousSpiritualCoping_max &lt;dbl&gt;, dailySpiritualExperiences_max &lt;dbl&gt;,
+#   mindfulnessDueToRelSpir_max &lt;dbl&gt;, mentalHealthTx_max &lt;dbl&gt;,
+#   posPanas_max &lt;dbl&gt;, negPanas_max &lt;dbl&gt;, traitCheerful_max &lt;dbl&gt;,
+#   traitGoodSpirits_max &lt;dbl&gt;, traitExtremelyHappy_max &lt;dbl&gt;,
+#   traitCalmPeaceful_max &lt;dbl&gt;, traitSatisfied_max &lt;dbl&gt;,
+#   traitFullOfLife_max &lt;dbl&gt;, traitCloseOthers_max &lt;dbl&gt;,
+#   traitBelong_max &lt;dbl&gt;, traitEnthusiastic_max &lt;dbl&gt;,
+#   traitAttentive_max &lt;dbl&gt;, traitProud_max &lt;dbl&gt;, traitActive_max &lt;dbl&gt;,
+#   traitConfident_max &lt;dbl&gt;, traitSoSadNoCheer_max &lt;dbl&gt;,
+#   traitNervous_max &lt;dbl&gt;, traitRestless_max &lt;dbl&gt;, traitHopeless_max &lt;dbl&gt;,
+#   traitEverythingAnEffort_max &lt;dbl&gt;, traitWorthless_max &lt;dbl&gt;,
+#   traitLonely_max &lt;dbl&gt;, traitAfraid_max &lt;dbl&gt;, traitJittery_max &lt;dbl&gt;,
+#   traitIrritable_max &lt;dbl&gt;, traitAshamed_max &lt;dbl&gt;, traitUpset_max &lt;dbl&gt;,
+#   traitAngry_max &lt;dbl&gt;, traitFrustrated_max &lt;dbl&gt;, variable &lt;chr&gt;,
+#   stat &lt;chr&gt;, values &lt;dbl&gt;</code></pre>
+<div id="correlation-matrix-of-cortisol-variables" class="section level3">
+<h3>Correlation matrix of cortisol variables</h3>
+<pre class="r"><code>hyp1Dat %&gt;%
+  select(car, aucTot, lmmCortSlope, hyp1LmmUncCiiv, hyp1LmmCondCiiv) %&gt;%
+  GGally::ggpairs(.)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="histogram-of-lmm-ciiv-conditional-on-time" class="section level3">
+<h3>Histogram of LMM cIIV, conditional on time</h3>
+<pre class="r"><code>ggplot(hyp1Dat, aes(hyp1LmmCondCiiv)) +
+  geom_histogram(binwidth = .1)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="histogram-of-positive-and-negative-panas" class="section level3">
+<h3>Histogram of positive and negative PANAS</h3>
+<pre class="r"><code>ggplot(hyp1Dat, aes(negPanas)) +
+  geom_histogram(binwidth = .3)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>
+ggplot(hyp1Dat, aes(posPanas)) +
+  geom_histogram(binwidth = .3)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="summary-of-hypothesis-2-data" class="section level1">
+<h1>Summary of hypothesis 2 data</h1>
+<pre class="r"><code>hyp2Dat %&gt;%
+  group_by(day) %&gt;%
+  summarise(meanPosAffectPerDay = mean(dailyMeanPosAff, na.rm = T),
+            meanNegAffectPerDay = mean(dailyMeanNegAff, na.rm = T))
+# A tibble: 4 x 3
+    day meanPosAffectPerDay meanNegAffectPerDay
+  &lt;dbl&gt;               &lt;dbl&gt;               &lt;dbl&gt;
+1     2                2.74               0.218
+2     3                2.77               0.186
+3     4                2.76               0.190
+4     5                2.77               0.157</code></pre>
+<div id="histograms-of-day-2-positive-and-negative-affect" class="section level2">
+<h2>Histograms of day 2 positive and negative affect</h2>
+<pre class="r"><code>hyp2Dat %&gt;%
+  filter(day == 2) %&gt;%
+  ggplot(aes(dailyMeanPosAff)) +
+  geom_histogram(binwidth = .3)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>
+hyp2Dat %&gt;%
+  filter(day == 2) %&gt;%
+  ggplot(aes(dailyMeanNegAff)) +
+  geom_histogram(binwidth = .1)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="histograms-of-day-3-positive-and-negative-affect" class="section level2">
+<h2>Histograms of day 3 positive and negative affect</h2>
+<pre class="r"><code>hyp2Dat %&gt;%
+  filter(day == 3) %&gt;%
+  ggplot(aes(dailyMeanPosAff)) +
+  geom_histogram(binwidth = .3)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>
+hyp2Dat %&gt;%
+  filter(day == 3) %&gt;%
+  ggplot(aes(dailyMeanNegAff)) +
+  geom_histogram(binwidth = .1)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="histograms-of-day-4-positive-and-negative-affect" class="section level2">
+<h2>Histograms of day 4 positive and negative affect</h2>
+<pre class="r"><code>hyp2Dat %&gt;%
+  filter(day == 4) %&gt;%
+  ggplot(aes(dailyMeanPosAff)) +
+  geom_histogram(binwidth = .1)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>
+hyp2Dat %&gt;%
+  filter(day == 4) %&gt;%
+  ggplot(aes(dailyMeanNegAff)) +
+  geom_histogram(binwidth = .1)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-17-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="histograms-of-day-4-positive-and-negative-affect-1" class="section level2">
+<h2>Histograms of day 4 positive and negative affect</h2>
+<pre class="r"><code>hyp2Dat %&gt;%
+  filter(day == 4) %&gt;%
+  ggplot(aes(dailyMeanPosAff)) +
+  geom_histogram(binwidth = .1)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>
+hyp2Dat %&gt;%
+  filter(day == 4) %&gt;%
+  ggplot(aes(dailyMeanNegAff)) +
+  geom_histogram(binwidth = .1)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="histograms-of-day-5-positive-and-negative-affect" class="section level2">
+<h2>Histograms of day 5 positive and negative affect</h2>
+<pre class="r"><code>hyp2Dat %&gt;%
+  filter(day == 5) %&gt;%
+  ggplot(aes(dailyMeanPosAff)) +
+  geom_histogram(binwidth = .1)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>
+hyp2Dat %&gt;%
+  filter(day == 5) %&gt;%
+  ggplot(aes(dailyMeanNegAff)) +
+  geom_histogram(binwidth = .1)</code></pre>
+<p><img src="figure/dataInspection.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Sierra 10.12.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] forcats_0.5.0   stringr_1.4.0   dplyr_0.8.4     purrr_0.3.3    
+ [5] readr_1.3.1     tidyr_1.0.2     tibble_2.1.3    ggplot2_3.3.0  
+ [9] tidyverse_1.2.1 workflowr_1.6.0
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.0.0   xfun_0.12          haven_2.2.0        lattice_0.20-35   
+ [5] colorspace_1.3-2   vctrs_0.2.4        generics_0.0.2     htmltools_0.3.6   
+ [9] yaml_2.2.1         utf8_1.1.4         rlang_0.4.5        later_0.7.4       
+[13] pillar_1.4.3       withr_2.1.2        glue_1.3.2         RColorBrewer_1.1-2
+[17] modelr_0.1.2       readxl_1.3.1       plyr_1.8.6         lifecycle_0.2.0   
+[21] munsell_0.5.0      gtable_0.3.0       cellranger_1.1.0   rvest_0.3.2       
+[25] evaluate_0.14      GGally_1.5.0       labeling_0.3       knitr_1.28        
+[29] httpuv_1.4.5       fansi_0.4.1        broom_0.5.2        Rcpp_1.0.4        
+[33] promises_1.0.1     backports_1.1.4    scales_1.1.0       jsonlite_1.6      
+[37] farver_2.0.3       fs_1.3.1           hms_0.5.3          digest_0.6.25     
+[41] stringi_1.4.6      grid_3.5.1         rprojroot_1.3-2    cli_2.0.2         
+[45] tools_3.5.1        magrittr_1.5       crayon_1.3.4       whisker_0.3-2     
+[49] pkgconfig_2.0.3    ellipsis_0.3.0     xml2_1.2.0         lubridate_1.7.4   
+[53] reshape_0.8.7      assertthat_0.2.1   rmarkdown_1.13     httr_1.3.1        
+[57] rstudioapi_0.11    R6_2.4.1           nlme_3.1-145       git2r_0.26.1      
+[61] compiler_3.5.1    </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
