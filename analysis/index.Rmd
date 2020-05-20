@@ -8,19 +8,12 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Key Dates
+## Abstract
 
-| Proposal due dates                                                                                                 | Final defense due dates                                        |
-|--------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| June 30 - (of year 3) 1st draft of proposal must be submitted to portal (to be reviewed by dissertation committee) | Feb 1 - 1st draft of final defense must be submitted to portal |
-| September 1 - final draft due to committee                                                                         | April 1 -final draft due to Chair                             |
-| September 15 -deadline to propose to be able to apply for internship                                              | May 15 - deadline to defend to be able to walk at graduation   |
+The hypothalamic-pituitary adrenal (HPA) axis is intricately associated with psychological and physical health. Psychological outcomes linked to faulty HPA-axis function include chronic fatigue syndrome, burnout syndrome, sleep disorders, suicide risk, depression, generalized anxiety disorder, posttraumatic stress disorder, fibromyalgia, schizophrenia, bipolar disorders and obsessive-compulsive disorder. Physical outcomes associated with faulty HPA-axis function include tumor progression, cancer survival, congestive heart failure, hypertension, obesity, hyperglycemia, insulin resistance and hyperlipidemia. Hypothalamic-pituitary adrenal (HPA) axis function is commonly measured via cortisol, a glucocorticoid steroid hormone, which is critical to the function of musculoskeletal, cardiovascular, respiratory, endocrine and nervous systems. 
 
-Structure of lit review/personal dates:
+In field research, cortisol is assayed from saliva, which is reliably correlated with free, unbound plasma cortisol. Endogenous cortisol exhibits two distinct rhythms: (1) a circadian ryhthm, which peaks 30-minutes post-wake and reaches a nadir at night and (2) an ultradian rhythm, which peaks approximately once per hour. Three commonly derived measures of diurnal salivary cortisol include: (1) the cortisol awakening response, (2) diurnal salivary cortisol slope and (3) area under the curve. However, a seldom examined measure of salivary cortisol that may provide unique information is cortisol intraindividual secretory variability (cIIV).
 
-1) Intro/summary of chapters (~2 pgs; intend to complete by 11/30) 
-2) Cort, phys systems and stress (~6 pgs; intend to complete by 12/08) 
-3) DCS primary in lit / end with evening cort statement (~6 pgs; intend to complete by 12/15) 
-4) Evening cort findings (~5 pgs; intend to complete by 12/22) 
-5) IIV affect, health, DCS - none on PM cort - discuss analytic methods/LPA not used (~6 pgs; intend to complete by 12/29) 
-6) Present aims (~1pg; intend to complete by 01/5)
+Cortisol intraindividual secretory variability has only been examined in the context of depressive and bipolar disorders. Studies have yet to examine cIIV in nonclinical affect presentations. Thus, the primary aim of the present study was to examine whether cIIV is associated with global and daily measures of positive and negative affect in a nonclinical sample. A secondary exploratory aim of the present study was to examine whether person-level profiles of salivary cortisol measures, including the CAR, AUC, DCS and cIIV, are associated with positive and negative affect.
+
+

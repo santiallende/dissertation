@@ -3,10 +3,10 @@ output_dir: ../docs
 navbar:
   title: "Dissertation"
   left:
-  - text: Thought Log
-    href: thoughtLog.html
   - text: Data Wrangling
     href: dataWrangling.html
+  - text: Data Inspection
+    href: dataInspection.html
   - text: Analysis
     href: analysis.html
   - text: Manuscript

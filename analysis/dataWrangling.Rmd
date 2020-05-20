@@ -321,6 +321,107 @@ cor.test(observedValues$logCort, fittedLeastSquaresValues$fittedLeastSquares,
          method = "spearman",
          paired = T)
 ```
+
+# Hypotheses 1a and 1b cIIV derivation: unconditional and conditional on time
+```{r, message=F, warning=F, results="hold"}
+#hyp 1 lmm uncond ciiv
+lmeSlopes <- gls(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude")
+
+lmeSlopes2 <- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~1|id)
+
+anova(lmeSlopes, lmeSlopes2)
+
+lmeResidsHyp1Unc <- resid(lmeSlopes2, type="response", level=1)
+lmeResidsHyp1Unc <- tibble::enframe(lmeResidsHyp1Unc, "id", "hyp1LmmUncCiiv")
+
+lmeResidsHyp1Unc <- lmeResidsHyp1Unc %>%
+  group_by(id) %>%
+  mutate(hyp1LmmUncCiiv = sd(hyp1LmmUncCiiv, na.rm = T)) %>%
+  ungroup() %>%
+  select(id, hyp1LmmUncCiiv) %>%
+  distinct() %>%
+  mutate(id = as.numeric(id))
+
+masterCortDat <- left_join(masterCortDat, lmeResidsHyp1Unc, by = "id")
+
+#hyp 1 lmm cond ciiv
+lmeSlopes2 <- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~1|id)
+
+lmeSlopes3 <- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~1|id)
+
+lmeSlopes4 <- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~cortTime|id)
+
+anova(lmeSlopes2, lmeSlopes3, lmeSlopes4)
+
+lmeResidsHyp1Cond <- resid(lmeSlopes4, type="response", level=1)
+lmeResidsHyp1Cond <- tibble::enframe(lmeResidsHyp1Cond, "id", "hyp1LmmCondCiiv")
+
+lmeResidsHyp1Cond <- lmeResidsHyp1Cond %>%
+  group_by(id) %>%
+  mutate(hyp1LmmCondCiiv = sd(hyp1LmmCondCiiv, na.rm = T)) %>%
+  ungroup() %>%
+  select(id, hyp1LmmCondCiiv) %>%
+  distinct() %>%
+  mutate(id = as.numeric(id))
+
+masterCortDat <- left_join(masterCortDat, lmeResidsHyp1Cond, by = "id")
+
+#hyp 1 unc ciiv least squares / not actually least-squares, just sd ## CHANGE NAME
+sdResidsHyp1Unc <- cortSlopeDat %>%
+  group_by(id) %>%
+  mutate(hyp1SdUncCiiv = sd(logCort, na.rm = T)) %>%
+  ungroup() %>%
+  select(id, hyp1SdUncCiiv) %>%
+  distinct()
+
+masterCortDat <- left_join(masterCortDat, sdResidsHyp1Unc, by = "id")
+
+# hyp1 cond ciiv least squares
+lsResidsHyp1Cond <- cortSlopeDat %>%
+  group_by(id) %>%
+  do(broom::tidy(lm(logCort ~ cortTime, data=., 
+             na.action = na.exclude)$residuals)) %>% #change predictor
+  mutate(hyp1LsCondCiiv = sd(x, na.rm = T)) %>%
+  select(., id, hyp1LsCondCiiv) %>%
+  distinct()
+
+masterCortDat <- left_join(masterCortDat, lsResidsHyp1Cond, by = "id")
+
+#cor 
+masterCortDat %>%
+  select(id, hyp1SdUncCiiv, hyp1LmmUncCiiv) %>%
+  distinct() %>%
+  na.omit() %>%
+  do(broom::tidy(cor.test(.$hyp1SdUncCiiv, .$hyp1LmmUncCiiv, 
+                          method = "spearman", paired = T)))
+
+masterCortDat %>%
+  select(id, hyp1LsCondCiiv, hyp1LmmCondCiiv) %>%
+  distinct() %>%
+  na.omit() %>%
+  do(broom::tidy(cor.test(.$hyp1LsCondCiiv, .$hyp1LmmCondCiiv, 
+                          method = "spearman", paired = T)))
+```
+
 # LMM and least-squares association with observed values: each day, cond only
 ```{r, message=F, warning=F, results="hold"}
 #extract observed
@@ -513,106 +614,6 @@ cor.test(lsFittedHyp2CondDay5$fittedLeastSquares, observedValuesDay5$logCort,
          paired = T)
 ```
 
-# Hypotheses 1a and 1b cIIV derivation: unconditional and conditional on time
-```{r, message=F, warning=F, results="hold"}
-#hyp 1 lmm uncond ciiv
-lmeSlopes <- gls(logCort ~ 1,
-                 data = cortSlopeDat,
-                 method = "ML",
-                 na.action = "na.exclude")
-
-lmeSlopes2 <- lme(logCort ~ 1,
-                 data = cortSlopeDat,
-                 method = "ML",
-                 na.action = "na.exclude",
-                 random = ~1|id)
-
-anova(lmeSlopes, lmeSlopes2)
-
-lmeResidsHyp1Unc <- resid(lmeSlopes2, type="response", level=1)
-lmeResidsHyp1Unc <- tibble::enframe(lmeResidsHyp1Unc, "id", "hyp1LmmUncCiiv")
-
-lmeResidsHyp1Unc <- lmeResidsHyp1Unc %>%
-  group_by(id) %>%
-  mutate(hyp1LmmUncCiiv = sd(hyp1LmmUncCiiv, na.rm = T)) %>%
-  ungroup() %>%
-  select(id, hyp1LmmUncCiiv) %>%
-  distinct() %>%
-  mutate(id = as.numeric(id))
-
-masterCortDat <- left_join(masterCortDat, lmeResidsHyp1Unc, by = "id")
-
-#hyp 1 lmm cond ciiv
-lmeSlopes2 <- lme(logCort ~ 1,
-                 data = cortSlopeDat,
-                 method = "ML",
-                 na.action = "na.exclude",
-                 random = ~1|id)
-
-lmeSlopes3 <- lme(logCort ~ cortTime,
-                 data = cortSlopeDat,
-                 method = "ML",
-                 na.action = "na.exclude",
-                 random = ~1|id)
-
-lmeSlopes4 <- lme(logCort ~ cortTime,
-                 data = cortSlopeDat,
-                 method = "ML",
-                 na.action = "na.exclude",
-                 random = ~cortTime|id)
-
-anova(lmeSlopes2, lmeSlopes3, lmeSlopes4)
-
-lmeResidsHyp1Cond <- resid(lmeSlopes4, type="response", level=1)
-lmeResidsHyp1Cond <- tibble::enframe(lmeResidsHyp1Cond, "id", "hyp1LmmCondCiiv")
-
-lmeResidsHyp1Cond <- lmeResidsHyp1Cond %>%
-  group_by(id) %>%
-  mutate(hyp1LmmCondCiiv = sd(hyp1LmmCondCiiv, na.rm = T)) %>%
-  ungroup() %>%
-  select(id, hyp1LmmCondCiiv) %>%
-  distinct() %>%
-  mutate(id = as.numeric(id))
-
-masterCortDat <- left_join(masterCortDat, lmeResidsHyp1Cond, by = "id")
-
-#hyp 1 unc ciiv least squares / not actually least-squares, just sd ## CHANGE NAME
-sdResidsHyp1Unc <- cortSlopeDat %>%
-  group_by(id) %>%
-  mutate(hyp1SdUncCiiv = sd(logCort, na.rm = T)) %>%
-  ungroup() %>%
-  select(id, hyp1SdUncCiiv) %>%
-  distinct()
-
-masterCortDat <- left_join(masterCortDat, sdResidsHyp1Unc, by = "id")
-
-# hyp1 cond ciiv least squares
-lsResidsHyp1Cond <- cortSlopeDat %>%
-  group_by(id) %>%
-  do(broom::tidy(lm(logCort ~ cortTime, data=., 
-             na.action = na.exclude)$residuals)) %>% #change predictor
-  mutate(hyp1LsCondCiiv = sd(x, na.rm = T)) %>%
-  select(., id, hyp1LsCondCiiv) %>%
-  distinct()
-
-masterCortDat <- left_join(masterCortDat, lsResidsHyp1Cond, by = "id")
-
-#cor 
-masterCortDat %>%
-  select(id, hyp1SdUncCiiv, hyp1LmmUncCiiv) %>%
-  distinct() %>%
-  na.omit() %>%
-  do(broom::tidy(cor.test(.$hyp1SdUncCiiv, .$hyp1LmmUncCiiv, 
-                          method = "spearman", paired = T)))
-
-masterCortDat %>%
-  select(id, hyp1LsCondCiiv, hyp1LmmCondCiiv) %>%
-  distinct() %>%
-  na.omit() %>%
-  do(broom::tidy(cor.test(.$hyp1LsCondCiiv, .$hyp1LmmCondCiiv, 
-                          method = "spearman", paired = T)))
-```
-
 # Hypotheses 2a and 2b cIIV derivation: unconditional and conditional on time
 ```{r, message=F, warning=F, results="hold"}
 #lme approach, unconditional
@@ -713,7 +714,7 @@ str(hyp2CortDat)
 # Select emotion data and join with hypotheses 1 & 2 cortisol data
 ```{r, message=F, warning=F, results="hold"}
 emoDat <- dailyDat %>%
-  select(id = M2ID, day = B2DDAY, dailyMeanPosAff = B2DPOSAV, dailyMeanNegAffect = B2DNEGAV, dailyInGoodSpirits = B2DC7, dailyCheerful = B2DC8, dailyExtremelyHappy = B2DC9, dailyCalmPeaceful = B2DC10, dailySatisfied = B2DC11, dailyFullOfLife = B2DC12, dailyCloseToOthers = B2DC21, dailyLikeYouBelong = B2DC22, dailyEnthusiastic = B2DC23, dailyAttentive = B2DC24, dailyProud = B2DC25, dailyActive = B2DC26, dailyConfident = B2DC27, dailyRestlessFidgety = B2DC1, dailyNervous = B2DC2, dailyWorthless = B2DC3, dailySoSadNoCheerUp = B2DC4, dailyEverythingAnEffort = B2DC5, dailyHopeless = B2DC6, dailyLonely = B2DC13, dailyAfraid = B2DC14, dailyJittery = B2DC15, dailyIrritable = B2DC16, dailyAshamed = B2DC17, dailyUpset = B2DC18, dailyAngry = B2DC19, dailyFrustrated = B2DC20) %>%
+  select(id = M2ID, day = B2DDAY, numberOfStressors = B2DN_STR, stressorNegAffSum = B2DSNEGS, stressorNegAffMean = B2DSNEGA, stressorSeveritySum = B2DSSEVS, stressorSeverityMean = B2DSSEVA,  dailyMeanPosAff = B2DPOSAV, dailyMeanNegAff = B2DNEGAV, stressorControlSum = B2DSCOTS, stressorControlMean = B2DSCOTA, numberOfPhysicalSx = B2DN_SYM, physicalSxSeverity = B2DSYMAV, dailyInGoodSpirits = B2DC7, dailyCheerful = B2DC8, dailyExtremelyHappy = B2DC9, dailyCalmPeaceful = B2DC10, dailySatisfied = B2DC11, dailyFullOfLife = B2DC12, dailyCloseToOthers = B2DC21, dailyLikeYouBelong = B2DC22, dailyEnthusiastic = B2DC23, dailyAttentive = B2DC24, dailyProud = B2DC25, dailyActive = B2DC26, dailyConfident = B2DC27, dailyRestlessFidgety = B2DC1, dailyNervous = B2DC2, dailyWorthless = B2DC3, dailySoSadNoCheerUp = B2DC4, dailyEverythingAnEffort = B2DC5, dailyHopeless = B2DC6, dailyLonely = B2DC13, dailyAfraid = B2DC14, dailyJittery = B2DC15, dailyIrritable = B2DC16, dailyAshamed = B2DC17, dailyUpset = B2DC18, dailyAngry = B2DC19, dailyFrustrated = B2DC20) %>%
   filter(day == 2 | day == 3 | day == 4 | day == 5)
 ```
 
@@ -725,7 +726,11 @@ midusDat <- read.table("/Users/Santi/Desktop/rProjects/dissertation/analysis/mid
                   stringsAsFactors = F)
 
 midusDat <- midusDat %>%
-  select(id = M2ID, ethnicity = B1PF7A, education = B1PB1, smoker = B1PA39, posPanas = B1SPOSPA, negPanas = B1SNEGPA, traitCheerful = B1SA26A, traitGoodSpirits = B1SA26B, traitExtremelyHappy = B1SA26C, traitCalmPeaceful = B1SA26D, traitSatisfied = B1SA26E, traitFullOfLife = B1SA26F, traitCloseOthers = B1SA26G, traitBelong = B1SA26H, traitEnthusiastic = B1SA26I, traitAttentive = B1SA26J, traitProud = B1SA26K, traitActive = B1SA26L, traitConfident = B1SA26M, traitSoSadNoCheer = B1SA24A, traitNervous = B1SA24B, traitRestless = B1SA24C, traitHopeless = B1SA24D, traitEverythingAnEffort = B1SA24E, traitWorthless = B1SA24F, traitLonely = B1SA24G, traitAfraid = B1SA24H, traitJittery = B1SA24I, traitIrritable = B1SA24J, traitAshamed = B1SA24K, traitUpset = B1SA24L, traitAngry = B1SA24M, traitFrustrated = B1SA24N)
+  select(id = M2ID, ethnicity = B1PF7A, education = B1PB1, smoker = B1PA39,
+         dep = B1PDEPRE, gad = B1PANXIE, somaticAmplification = B1SAMPLI, neuroticism = B1SNEURO,
+         extraversion = B1SEXTRA, opennessToExp = B1SOPEN, conscientiousness = B1SCONS1, agreeableness = B1SAGREE, agency = B1SAGENC, perceivedControl = B1SCTRL, sympathy = B1SSYMP, gernativity = B1SGENER,
+         spirituality = B1SSPIRI, religiousIdent = B1SRELID, religiousPractice = B1SRELPR, religiousSupport = B1SRELSU, religiousSpiritualCoping = B1SRELCA, dailySpiritualExperiences = B1SSPRTE, mindfulnessDueToRelSpir = B1SMNDFU, mentalHealthTx = B1SUSEMH,
+         posPanas = B1SPOSPA, negPanas = B1SNEGPA, traitCheerful = B1SA26A, traitGoodSpirits = B1SA26B, traitExtremelyHappy = B1SA26C, traitCalmPeaceful = B1SA26D, traitSatisfied = B1SA26E, traitFullOfLife = B1SA26F, traitCloseOthers = B1SA26G, traitBelong = B1SA26H, traitEnthusiastic = B1SA26I, traitAttentive = B1SA26J, traitProud = B1SA26K, traitActive = B1SA26L, traitConfident = B1SA26M, traitSoSadNoCheer = B1SA24A, traitNervous = B1SA24B, traitRestless = B1SA24C, traitHopeless = B1SA24D, traitEverythingAnEffort = B1SA24E, traitWorthless = B1SA24F, traitLonely = B1SA24G, traitAfraid = B1SA24H, traitJittery = B1SA24I, traitIrritable = B1SA24J, traitAshamed = B1SA24K, traitUpset = B1SA24L, traitAngry = B1SA24M, traitFrustrated = B1SA24N)
 ```
 
 # Hypothesis 1 dataframe
@@ -742,13 +747,35 @@ write.csv(hyp1Dat, "hyp1Dat.csv", row.names = F)
 # Hypothesis 2 dataframe
 ```{r, message=F, warning=F, results="hold"}
 hyp2Dat <- left_join(hyp2CortDat, emoDat, by = c("id", "day"))
+hyp2Dat <- left_join(hyp2Dat, midusDat, by = "id")
 
-str(hyp2Dat)
-hyp2Dat
+hyp2Dat <- hyp2Dat %>%
+  group_by(id) %>%
+  mutate(personMeanLmmCiiv = mean(hyp2LmmCondCiiv)) %>%
+  mutate(wpLmmCiiv = hyp2LmmCondCiiv - personMeanLmmCiiv) %>%
+  ungroup() %>%
+  mutate(bpLmmCiiv = personMeanLmmCiiv - 0.6135463)
+
+hyp2Dat <- hyp2Dat %>%
+  group_by(id) %>%
+  mutate(personMeanLsCiiv = mean(hyp2LsCondCiiv)) %>%
+  mutate(wpLsCiiv = hyp2LsCondCiiv - personMeanLsCiiv) %>%
+  ungroup() %>%
+  mutate(bpLsCiiv = personMeanLsCiiv - 0.2810024)
+  
+# hyp2Dat %>%
+#   select(id, hyp2LsCondCiiv) %>%
+#   distinct() %>%
+#   summarise(mean(hyp2LsCondCiiv, na.rm = T))
+
+hyp2Dat <- hyp2Dat %>%
+  select(id, age, gender, ethnicity, education, smoker, 
+         medUseNone1Yes, day, everything())
+
+names(hyp2Dat)
+
 write.csv(hyp2Dat, "hyp2Dat.csv", row.names = F)
 ```
-
-
 
 
 

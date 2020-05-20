@@ -1,0 +1,260 @@
+---
+title: "Data Inspection"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+Load libraries
+```{r, message=F, warning=F}
+library(tidyverse)
+options(scipen=999)
+```
+
+# Load data
+```{r, message=F, warning=F}
+hyp1Dat <- read_csv("hyp1dat.csv")
+hyp2Dat <- read_csv("hyp2Dat.csv")
+```
+
+# Assign NA for missing, do not know, inapplicable: panas, daily vars
+```{r}
+hyp1Dat <- hyp1Dat %>%
+  mutate_at(vars(negPanas, posPanas), ~na_if(., 8))
+
+hyp2Dat <- hyp2Dat %>%
+  #filter(dailyMeanNegAff <= 4)
+  mutate_at(vars(contains("daily")), ~na_if(., 7)) %>%
+  mutate_at(vars(contains("daily")), ~na_if(., 8)) %>%
+  mutate_at(vars(contains("daily")), ~na_if(., 9))
+
+#need to assign na for rest of vars
+```
+
+# Summary of hypothesis 1 data
+
+## Summary of factor variables
+```{r, message=F, warning=F, collapse=T}
+# convert to factors
+hyp1Dat <- hyp1Dat %>%
+  mutate(gender = factor(gender, levels = c(1, 2), 
+                         labels = c("male", "female"))) %>%
+  mutate(medUseNone1Yes = factor(medUseNone1Yes, levels = c(1, 2, 8),
+                                 labels = c("yes", "no", "missing"))) %>%
+  mutate(ethnicity = factor(ethnicity, levels = c(1, 2, 3, 4, 6, 7, 8),
+                            labels = c("caucasian", "africanAmerican",
+                                       "nativeAmerican", "asian", "other",
+                                       "dontKnow", "refused"))) %>%
+  mutate(education = factor(education, levels = c(1, 2, 3, 4, 5, 6, 7, 8, 9,
+                                                  10, 11, 12, 97),
+                            labels = c("grades16", "grades78", "grades\n912NoGed",
+                                       "ged", "hsGrad", "college\n12YrNoDegree",
+                                       "college\n3OrMore\nYrNoDegree",
+                                       "college\n2YrGrad", "college\n4YrGrad",
+                                       "some\nGradSchl", "master\nDegree",
+                                       "doctoral\nDegree", "dontKnow"))) %>%
+  mutate(smoker = factor(smoker, levels = c(1, 2, 9), 
+                         labels = c("yes", "no", "inapp")))
+```
+
+### Gender
+```{r, message=F, warning=F, collapse=T}
+# gender
+hyp1Dat %>%
+  group_by(gender) %>%
+  ggplot(., aes(gender)) +
+    geom_bar(aes(fill = gender)) +
+    geom_text(stat='count', aes(label = scales::percent(round(prop.table(stat(count)), 3))), vjust=-.50, 
+              color = "gray29", size = 3)
+```
+
+### Medication Use
+```{r, message=F, warning=F, collapse=T}
+# medication use
+hyp1Dat %>%
+  group_by(medUseNone1Yes) %>%
+  ggplot(., aes(medUseNone1Yes)) +
+    geom_bar(aes(fill = medUseNone1Yes)) +
+    geom_text(stat='count', aes(label = scales::percent(round(prop.table(stat(count)), 4))), vjust=-.50, 
+              color = "gray29", size = 3)
+```
+
+### Ethnicity
+```{r, message=F, warning=F, collapse=T}
+# ethnicity
+hyp1Dat %>%
+  group_by(ethnicity) %>%
+  ggplot(., aes(ethnicity)) +
+    geom_bar(aes(fill = ethnicity)) +
+    geom_text(stat='count', aes(label = scales::percent(round(prop.table(stat(count)), 3))), vjust=-.50, 
+              color = "gray29", size = 3) +
+    theme(axis.text.x = element_text(angle = 10))
+```
+
+### Education
+```{r, message=F, warning=F, collapse=T}
+# education
+hyp1Dat %>%
+  mutate(education = factor(education, levels = c("hsGrad", "college\n4YrGrad",
+                                       "college\n12YrNoDegree", "master\nDegree",
+                                       "NA", "college\n2YrGrad", "doctoral\nDegree",
+                                       "college\n3OrMore\nYrNoDegree",
+                                       "some\nGradSchl", "grades\n912NoGed",
+                                       "grades78", "ged", "grades16", 
+                                       "dontKnow"))) %>%
+  group_by(education) %>%
+  ggplot(., aes(education)) +
+    geom_bar(aes(fill = education)) +
+    geom_text(stat='count', aes(label = scales::percent(round(prop.table(stat(count)), 4))), vjust=-.50, 
+              color = "gray29", size = 2.5) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  ylim(0, 400)
+```
+
+### Smoker Status
+```{r, message=F, warning=F, collapse=T}
+# smoker
+ggplot(hyp1Dat, aes(smoker)) +
+  geom_bar(aes(fill = smoker)) +
+  geom_text(stat='count', aes(label = scales::percent(prop.table(stat(count)))), vjust=-.50, 
+              color = "gray29") 
+```
+
+# Summary of numeric variables
+```{r, , message=F, warning=F, attr.output='style="max-height: 500px;"'}
+hyp1Dat %>%
+  summarise_if(is.numeric,
+               funs(sum(is.na(.)))) %>%
+  pivot_longer(1:39, names_to = "summaryStats", values_to = "numberOfNAs") %>% print(n = Inf)
+
+hyp1Dat %>%
+  summarise_if(is.numeric,
+               lst(mean, median, sd, min, max),
+               na.rm = T) %>%
+  pivot_longer(1:195, names_to = "summaryStats", values_to = "values") %>% 
+  print(n = Inf) %>%
+  separate(summaryStats, c("variable", "stat"), "_") %>%
+  arrange(variable)
+```
+
+### Correlation matrix of cortisol variables
+```{r, message=F, warning=F, collapse=T, fig.height=9}
+hyp1Dat %>%
+  select(car, aucTot, lmmCortSlope, hyp1LmmUncCiiv, hyp1LmmCondCiiv) %>%
+  GGally::ggpairs(.)
+```
+
+### Histogram of LMM cIIV, conditional on time
+```{r, message=F, warning=F, collapse=T}
+ggplot(hyp1Dat, aes(hyp1LmmCondCiiv)) +
+  geom_histogram(binwidth = .1)
+```
+
+### Histogram of positive and negative PANAS
+```{r, message=F, warning=F, collapse=T}
+ggplot(hyp1Dat, aes(negPanas)) +
+  geom_histogram(binwidth = .3)
+
+ggplot(hyp1Dat, aes(posPanas)) +
+  geom_histogram(binwidth = .3)
+```
+
+# Summary of hypothesis 2 data
+```{r, message=F, warning=F, collapse=T}
+hyp2Dat %>%
+  group_by(day) %>%
+  summarise(meanPosAffectPerDay = mean(dailyMeanPosAff, na.rm = T),
+            meanNegAffectPerDay = mean(dailyMeanNegAff, na.rm = T))
+```
+
+## Histograms of day 2 positive and negative affect
+```{r, message=F, warning=F, collapse=T}
+hyp2Dat %>%
+  filter(day == 2) %>%
+  ggplot(aes(dailyMeanPosAff)) +
+  geom_histogram(binwidth = .3)
+
+hyp2Dat %>%
+  filter(day == 2) %>%
+  ggplot(aes(dailyMeanNegAff)) +
+  geom_histogram(binwidth = .1)
+```
+
+## Histograms of day 3 positive and negative affect
+```{r, message=F, warning=F, collapse=T}
+hyp2Dat %>%
+  filter(day == 3) %>%
+  ggplot(aes(dailyMeanPosAff)) +
+  geom_histogram(binwidth = .3)
+
+hyp2Dat %>%
+  filter(day == 3) %>%
+  ggplot(aes(dailyMeanNegAff)) +
+  geom_histogram(binwidth = .1)
+```
+
+## Histograms of day 4 positive and negative affect
+```{r, message=F, warning=F, collapse=T}
+hyp2Dat %>%
+  filter(day == 4) %>%
+  ggplot(aes(dailyMeanPosAff)) +
+  geom_histogram(binwidth = .1)
+
+hyp2Dat %>%
+  filter(day == 4) %>%
+  ggplot(aes(dailyMeanNegAff)) +
+  geom_histogram(binwidth = .1)
+```
+
+## Histograms of day 4 positive and negative affect
+```{r, message=F, warning=F, collapse=T}
+hyp2Dat %>%
+  filter(day == 4) %>%
+  ggplot(aes(dailyMeanPosAff)) +
+  geom_histogram(binwidth = .1)
+
+hyp2Dat %>%
+  filter(day == 4) %>%
+  ggplot(aes(dailyMeanNegAff)) +
+  geom_histogram(binwidth = .1)
+```
+
+## Histograms of day 5 positive and negative affect
+```{r, message=F, warning=F, collapse=T}
+hyp2Dat %>%
+  filter(day == 5) %>%
+  ggplot(aes(dailyMeanPosAff)) +
+  geom_histogram(binwidth = .1)
+
+hyp2Dat %>%
+  filter(day == 5) %>%
+  ggplot(aes(dailyMeanNegAff)) +
+  geom_histogram(binwidth = .1)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
