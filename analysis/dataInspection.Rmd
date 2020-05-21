@@ -141,7 +141,8 @@ hyp1Dat %>%
 ### Correlation matrix of cortisol variables
 ```{r, message=F, warning=F, collapse=T, fig.height=9}
 hyp1Dat %>%
-  select(car, aucTot, lmmCortSlope, hyp1LmmUncCiiv, hyp1LmmCondCiiv) %>%
+  select(car, aucTot, lmmCortSlope, hyp1LmmUncCiiv, hyp1LmmCondCiiv,
+         hyp1LsCondCiiv) %>%
   GGally::ggpairs(.)
 ```
 
