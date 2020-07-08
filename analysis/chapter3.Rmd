@@ -1,0 +1,94 @@
+---
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+bibliography: refs.bib
+---
+
+```{r, code = readLines(knitr::purl("/Users/Santi/Desktop/rProjects/dissertation/analysis/big5Analysis.Rmd")), eval=TRUE, include=F}
+```
+
+# **CHAPTER 3**  
+
+# **RESULTS**
+
+######### include BH p valuye correction and std coef
+
+### **Openness to Experience**
+The robust regression predicting cIIV as a function of openness to experience, age and education was significant, $(F(`r rslOpenDf[[1]]`, `r rslOpenDf[[2]]`) = `r rslOpenF`, p < .0001)$ (Table 1). Cortisol IIV was negatively associated with age and education but positively associated with smoking status, $(b = `r openAgeB`, \beta = `r effSizeOpenAge`, se = `r openAgeSe`, t = `r openAgeT`, p = `r openAgeP`)$, $(b = `r openEducationB`, \beta = `r effSizeOpenEdu`, se = `r openEducationSe`, t = `r openEducationT`, p = `r openEducationP`)$ and $(b = `r openSmokerB`, \beta = `r effSizeOpenSmoker`, se = `r openSmokerSe`, t = `r openSmokerT`, p = `r openSmokerP`)$ respectively. Contrary to hypothesis 1, openness to experience was not associated with cIIV, $(b = `r opennessToExpB`, \beta = `r effSizeOpenOpen`, se = `r opennessToExpSe`, t = `r opennessToExpT`, p = `r opennessToExpP`)$. 
+
+### **Extraversion**
+The robust regression predicting cIIV as a function of extraversion, age and education was significant, $(F(`r rslExtraDf[[1]]`, `r rslExtraDf[[2]]`) = `r rslExtraF`, p < .0001)$ (Table 2). Cortisol IIV was negatively associated with age and education but positively associated with smoking status, $(b = `r extraAgeB`, \beta = `r effSizeExtraAge`, se = `r extraAgeSe`, t = `r extraAgeT`, p = `r extraAgeP`)$, $(b = `r extraEducationB`, \beta = `r effSizeExtraEdu`, se = `r extraEducationSe`, t = `r extraEducationT`, p = `r extraEducationP`)$ and $(b = `r extraSmokerB`, \beta = `r effSizeExtraSmoker`, se = `r extraSmokerSe`, t = `r extraSmokerT`, p = `r extraSmokerP`)$, respectively. Contrary to hypothesis 2, extraversion was not  associated with cIIV, $(b = `r extraversionB`, \beta = `r effSizeExtraExtra`, se = `r extraversionSe`, t = `r extraversionT`, p = `r extraversionP`)$.
+
+
+### **Agreeableness**
+The robust regression predicting cIIV as a function of agreeableness, age and education was significant, $(F(`r rslAgreeDf[[1]]`, `r rslAgreeDf[[2]]`) = `r rslAgreeF`, p < .0001)$ (Table 1). Cortisol IIV was negatively associated with age and education but positively associated with smoking status, $(b = `r agreeAgeB`, \beta = `r effSizeAgreeAge`, se = `r agreeAgeSe`, t = `r agreeAgeT`, p = `r agreeAgeP`)$, $(b = `r agreeEducationB`, \beta = `r effSizeAgreeEdu`, se = `r agreeEducationSe`, t = `r agreeEducationT`, p = `r agreeEducationP`)$ and $(b = `r agreeSmokerB`, \beta = `r effSizeAgreeSmoker`, se = `r agreeSmokerSe`, t = `r agreeSmokerT`, p = `r agreeSmokerP`)$ respectively. Contrary to hypothesis 3, agreeableness was not associated with cIIV, $(b = `r agreeablenessB`, \beta = `r effSizeAgreeAgree`, se = `r agreeablenessSe`, t = `r agreeablenessT`, p = `r agreeablenessP`)$.
+
+
+### **Neuroticism**
+The robust regression predicting cIIV as a function of neuroticism, age and education was significant, $(F(`r rslNeuroDf[[1]]`, `r rslNeuroDf[[2]]`) = `r rslNeuroF`, p < .0001)$ (Table 1). Cortisol IIV was negatively associated with age and education but positively associated with smoking status, $(b = `r neuroAgeB`, \beta = `r effSizeNeuroAge`,  se = `r neuroAgeSe`, t = `r neuroAgeT`, p = `r neuroAgeP`)$ and $(b = `r neuroEducationB`, \beta = `r effSizeNeuroEdu`, se = `r neuroEducationSe`, t = `r neuroEducationT`, p = `r neuroEducationP`)$ and $(b = `r neuroSmokerB`, \beta = `r effSizeNeuroSmoker`, se = `r neuroSmokerSe`, t = `r neuroSmokerT`, p = `r neuroSmokerP`)$ respectively. In support of hypothesis 4, neuroticism was positively associated with cIIV, $(b = `r neuroB`, \beta = `r effSizeNeuroNeuro`, se = `r neuroSe`, t = `r neuroT`, p = `r neuroP`, \alpha = `r bhAlphaNeuro`)$ (Figure 1).
+
+### **Conscientiousness**
+The robust regression predicting cIIV as a function of conscientiousness, age and education was significant, $(F(`r rslConscDf[[1]]`, `r rslConscDf[[2]]`) = `r rslConscF`, p < .0001)$ (Table 2). Cortisol IIV was negatively associated with age and education but positively associated with smoking status, $(b = `r conscAgeB`, \beta = `r effSizeConscAge`, se = `r conscAgeSe`, t = `r conscAgeT`, p = `r conscAgeP`)$, $(b = `r conscEducationB`, \beta = `r effSizeConscEdu`, se = `r conscEducationSe`, t = `r conscEducationT`, p = `r conscEducationP`)$ and $(b = `r conscSmokerB`, \beta = `r effSizeConscSmoker`, se = `r conscSmokerSe`, t = `r conscSmokerT`, p = `r conscSmokerP`)$, respectively. Contrary to hypothesis 5, extraversion was not  associated with cIIV, $(b = `r conscB`, \beta = `r effSizeConscConsc`, se = `r conscSe`, t = `r conscT`, p = `r conscP`)$.
+
+### **Number of Physical Symptoms**
+The robust regression predicting cIIV as a function of number of physical symptoms, age and education was significant, $(F(`r rslMeanNumPhysSxDf[[1]]`, `r rslMeanNumPhysSxDf[[2]]`) = `r rslMeanNumPhysSxF`, p < .0001)$ (Table 2). Cortisol IIV was negatively associated with age and education but positively associated with smoking status, $(b = `r meanNumPhysSxAgeB`, \beta = `r effSizeNumSxAge`, se = `r meanNumPhysSxAgeSe`, t = `r meanNumPhysSxAgeT`, p = `r meanNumPhysSxAgeP`)$, $(b = `r meanNumPhysSxEducationB`, \beta = `r effSizeNumSxEdu`, se = `r meanNumPhysSxEducationSe`, t = `r meanNumPhysSxEducationT`, p = `r meanNumPhysSxEducationP`)$ and $(b = `r meanNumPhysSxSmokerB`, \beta = `r effSizeNumSxSmoker`, se = `r meanNumPhysSxSmokerSe`, t = `r meanNumPhysSxSmokerT`, p = `r meanNumPhysSxSmokerP`)$ respectively. Contrary to hypothesis 6, number of physical symptoms was not associated with cIIV, $(b = `r meanNumPhysSxB`, \beta = `r effSizeNumSxNumSx`, se = `r meanNumPhysSxSe`, t = `r meanNumPhysSxT`, p = `r meanNumPhysSxP`)$.
+
+### **Physical Symptom Severity**
+The robust regression predicting cIIV as a function of physical symptom severity, age and education was significant, $(F(`r rslMeanPhysSxSeverityDf[[1]]`, `r rslMeanPhysSxSeverityDf[[2]]`) = `r rslMeanPhysSxSeverityF`, p < .0001)$ (Table 2). Cortisol IIV was negatively associated with age and education but positively associated with smoking status, predicted cIIV, $(b = `r meanPhysSxSeverityAgeB`, \beta = `r effSizePhysSxSevAge`, se = `r meanPhysSxSeverityAgeSe`, t = `r meanPhysSxSeverityAgeT`, p = `r meanPhysSxSeverityAgeP`)$, $(b = `r meanPhysSxSeverityEducationB`, \beta = `r effSizePhysSxSevEdu`, se = `r meanPhysSxSeverityEducationSe`, t = `r meanPhysSxSeverityEducationT`, p = `r meanPhysSxSeverityEducationP`)$ and $(b = `r meanPhysSxSeveritySmokerB`, \beta = `r effSizePhysSxSevSmoker`, se = `r meanPhysSxSeveritySmokerSe`, t = `r meanPhysSxSeveritySmokerT`, p = `r meanPhysSxSeveritySmokerP`)$, respectively. In support of hypothesis 7, physical symptom severity was positively associated with cIIV, $(b = `r meanPhysSxSeverityB`, \beta = `r effSizePhysSxSevSev`, se = `r meanPhysSxSeveritySe`, t = `r meanPhysSxSeverityT`, p < `r agreeablenessP`, \alpha = `r bhAlphaPhysSev`$ (Figure 2).
+
+### Table 2
+
+`r resultsTable1`
+
+### Table 3
+
+`r resultsTable2`
+
+
+```{r, warning=F, echo=F, message=F}
+physSxSeverityGraph
+```
+
+Figure 1: ...
+
+
+```{r, warning=F, echo=F, message=F}
+neuroGraph
+```
+
+Figure 2: ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
