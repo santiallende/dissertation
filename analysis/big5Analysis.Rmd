@@ -1,0 +1,543 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+# Load libraries
+```{r}
+library(tidyverse)
+library(nlme)
+options(scipen = 999)
+```
+
+# Load data
+```{r}
+dat <- read_csv("/Users/Santi/Desktop/rProjects/dissertation/analysis/big5Dat.csv")
+```
+
+# Clean and structure data
+```{r}
+# convert to factors
+dat <- dat %>%
+  mutate(gender = case_when(
+    gender == 1 ~ 0,
+    gender == 2 ~ 1
+  )) %>%
+  mutate(medUseNone1Yes = factor(medUseNone1Yes, levels = c(1, 2, 8),
+                                 labels = c("yes", "no", "missing"))) %>%
+  mutate(ethnicity = case_when(
+    ethnicity == 1 ~ 0,
+    ethnicity == 2 ~ 1,
+    ethnicity == 3 ~ 2,
+    ethnicity == 4 ~ 3,
+    ethnicity == 6 ~ 4,
+    ethnicity == 7 ~ 5,
+    ethnicity == 8 ~ 6
+  )) %>%
+  mutate(education = case_when(
+    education == 1 ~ 0,
+    education == 2 ~ 1,
+    education == 3 ~ 2,
+    education == 4 ~ 3,
+    education == 5 ~ 4,
+    education == 6 ~ 5,
+    education == 7 ~ 6,
+    education == 8 ~ 7,
+    education == 9 ~ 8,
+    education == 10 ~ 9,
+    education == 11 ~ 10,
+    education == 12 ~ 11
+  )) %>%
+  mutate(smoker = case_when(
+    smoker == 1 ~ 1,
+    smoker == 2 ~ 0,
+    smoker == 9 ~ 0
+  ))
+
+# remove missing data
+dat <- dat %>%
+  mutate_at(vars(8:77), ~na_if(., 7)) %>%
+  mutate_at(vars(8:77), ~na_if(., 8)) %>%
+  mutate_at(vars(8:77), ~na_if(., 9)) %>%
+  mutate_at(vars(2, 8:77), ~na_if(., 98)) %>%
+  mutate_at(vars(2, 8:77), ~na_if(., 99))
+
+# center numeric time-invariant vars
+dat <- dat %>%
+  mutate_at(vars(2, 8:12), ~scale(., center = T, scale = F))
+
+# mean of daily vars
+dat <- dat %>%
+  dplyr::group_by(id) %>%
+  mutate(meanIrritable = mean(dailyIrritable, na.rm = T)) %>%
+  mutate(meanAngry = mean(dailyAngry, na.rm = T)) %>%
+  mutate(meanUpset = mean(dailyUpset, na.rm = T)) %>%
+  mutate(meanNumberPhysSx = mean(numberOfPhysicalSx, na.rm = T)) %>%
+  mutate(meanPhysSxSeverity = mean(physicalSxSeverity, na.rm = T)) %>%
+  mutate(meanNumberOfStressors = mean(numberOfStressors, na.rm = T)) %>%
+  mutate(meanStressorSeverity = mean(stressorSeverityMean, na.rm = T)) %>%
+  mutate(meanstressorNegAff = mean(stressorNegAffMean, na.rm = T)) %>%
+  ungroup()
+
+analyticSample <- dat %>%
+  dplyr::select(id) %>%
+  n_distinct()
+```
+
+
+
+```{r}
+#hyp 1 lmm cond ciiv
+cortSlopeDat <- dat %>%
+  dplyr::select(id, day, cortTimeText, cortTime, logCort) %>%
+  filter(cortTimeText != "wakeThirtyCort")
+
+lmeSlopes2 <- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~1|id)
+
+lmeSlopes3 <- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~1|id)
+
+lmeSlopes4 <- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = "ML",
+                 na.action = "na.exclude",
+                 random = ~cortTime|id)
+
+#anova(lmeSlopes2, lmeSlopes3, lmeSlopes4)
+
+lmeResidsHyp1Cond <- resid(lmeSlopes4, type="response", level=1)
+lmeResidsHyp1Cond <- tibble::enframe(lmeResidsHyp1Cond, "id", "hyp1LmmCondCiiv")
+
+lmeResidsHyp1Cond <- lmeResidsHyp1Cond %>%
+  group_by(id) %>%
+  mutate(hyp1LmmCondCiiv = sd(hyp1LmmCondCiiv, na.rm = T)) %>%
+  ungroup() %>%
+  dplyr::select(id, hyp1LmmCondCiiv) %>%
+  distinct() %>%
+  mutate(id = as.numeric(id))
+
+dat <- left_join(dat, lmeResidsHyp1Cond, by = "id")
+```
+
+```{r, extractMe, purl=T}
+
+## @knitr tests
+
+test <- dat %>%
+  dplyr::select(id, age, gender, medUseNone1Yes, ethnicity, education, smoker, conscientiousness, opennessToExp, agreeableness, neuroticism, extraversion, mentalHealthTx, somaticAmplification, emotionFocused,
+  meanIrritable, meanAngry, meanUpset, meanNumberPhysSx,
+  meanPhysSxSeverity, meanNumberOfStressors, meanStressorSeverity,
+  meanstressorNegAff, problemFocused, hyp1LmmCondCiiv) %>%
+  distinct()
+
+hist(test$hyp1LmmCondCiiv, breaks = 20)
+
+#Robust Regression
+library(MASS)                   # need to load dplyr after to mask select
+library(sfsmisc)
+
+summary(rslGender <- rlm(hyp1LmmCondCiiv ~ gender, data = test))
+f.robftest(rslGender)
+
+summary(rslEducation <- rlm(hyp1LmmCondCiiv ~ education, data = test))
+f.robftest(rslEducation)
+
+summary(rslAge <- rlm(hyp1LmmCondCiiv ~ age, data = test))
+f.robftest(rslAge)
+
+summary(rslMedUse <- rlm(hyp1LmmCondCiiv ~ medUseNone1Yes, data = test))
+f.robftest(rslMedUse)
+
+summary(rslSmoker <- rlm(hyp1LmmCondCiiv ~ smoker, data = test))
+f.robftest(rslSmoker)
+
+summary(rslEthnicity <- rlm(hyp1LmmCondCiiv ~ ethnicity, data = test))
+f.robftest(rslEthnicity)
+
+#neuroticism
+summary(rslNeuro <- rlm(hyp1LmmCondCiiv ~ age + education + smoker + neuroticism, data = test))
+f.robftest(rslNeuro, var = "neuroticism")
+f.robftest(rslNeuro, var = "age")
+f.robftest(rslNeuro, var = "education")
+f.robftest(rslNeuro, var = "smoker")
+f.robftest(rslNeuro)
+
+effSizeNeuro <- effectsize::standardize_parameters(rslNeuro)
+
+effSizeNeuroAge <- round(effSizeNeuro$Std_Coefficient[2], 2)
+effSizeNeuroEdu <- round(effSizeNeuro$Std_Coefficient[3], 2)
+effSizeNeuroSmoker <- round(effSizeNeuro$Std_Coefficient[4], 2)
+effSizeNeuroNeuro <- round(effSizeNeuro$Std_Coefficient[5], 2)
+
+rslNeuroDf <- str_split(f.robftest(rslNeuro)$df, " ")
+rslNeuroF <- round(unname(f.robftest(rslNeuro)$statistic), 2)
+rslNeuroP <- round(unname(f.robftest(rslNeuro)$p.value), 4)
+
+neuroAgeB <- round(summary(rslNeuro)$coefficients[2], 4)
+neuroAgeSe <- round(summary(rslNeuro)$coefficients[2, 2], 4)
+neuroAgeT <- round(summary(rslNeuro)$coefficients[2, 3], 2)
+neuroAgeP <- round(f.robftest(rslNeuro, var = "age")$p.value, 4)
+
+neuroEducationB <- round(summary(rslNeuro)$coefficients[3], 4)
+neuroEducationSe <- round(summary(rslNeuro)$coefficients[3, 2], 4)
+neuroEducationT <- round(summary(rslNeuro)$coefficients[3, 3], 2)
+neuroEducationP <- round(f.robftest(rslNeuro, var = "education")$p.value, 4)
+
+neuroSmokerB <- round(summary(rslNeuro)$coefficients[4], 4)
+neuroSmokerSe <- round(summary(rslNeuro)$coefficients[4, 2], 4)
+neuroSmokerT <- round(summary(rslNeuro)$coefficients[4, 3], 2)
+neuroSmokerP <- round(f.robftest(rslNeuro, var = "education")$p.value, 4)
+
+neuroB <- round(summary(rslNeuro)$coefficients[4], 4)
+neuroSe <- round(summary(rslNeuro)$coefficients[4, 2], 4)
+neuroT <- round(summary(rslNeuro)$coefficients[4, 3], 2)
+neuroP <- round(f.robftest(rslNeuro, var = "neuroticism")$p.value, 4)
+
+#conscientiousness
+summary(rslConsc <- rlm(hyp1LmmCondCiiv ~ age + education + smoker + conscientiousness, data = test))
+f.robftest(rslConsc, var = "conscientiousness")
+f.robftest(rslConsc, var = "age")
+f.robftest(rslConsc, var = "education")
+f.robftest(rslConsc, var = "smoker")
+f.robftest(rslConsc)
+effSizeConsc <- effectsize::standardize_parameters(rslConsc)
+
+effSizeConscAge <- round(effSizeConsc$Std_Coefficient[2], 2)
+effSizeConscEdu <- round(effSizeConsc$Std_Coefficient[3], 2)
+effSizeConscSmoker <- round(effSizeConsc$Std_Coefficient[4], 2)
+effSizeConscConsc <- round(effSizeConsc$Std_Coefficient[5], 2)
+
+rslConscDf <- str_split(f.robftest(rslConsc)$df, " ")
+rslConscF <- round(unname(f.robftest(rslConsc)$statistic), 2)
+rslConscP <- round(unname(f.robftest(rslConsc)$p.value), 4)
+
+conscAgeB <- round(summary(rslConsc)$coefficients[2], 4)
+conscAgeSe <- round(summary(rslConsc)$coefficients[2, 2], 4)
+conscAgeT <- round(summary(rslConsc)$coefficients[2, 3], 2)
+conscAgeP <- round(f.robftest(rslConsc, var = "age")$p.value, 4)
+
+conscEducationB <- round(summary(rslConsc)$coefficients[3], 4)
+conscEducationSe <- round(summary(rslConsc)$coefficients[3, 2], 4)
+conscEducationT <- round(summary(rslConsc)$coefficients[3, 3], 2)
+conscEducationP <- round(f.robftest(rslConsc, var = "education")$p.value, 4)
+
+conscSmokerB <- round(summary(rslConsc)$coefficients[4], 4)
+conscSmokerSe <- round(summary(rslConsc)$coefficients[4, 2], 4)
+conscSmokerT <- round(summary(rslConsc)$coefficients[4, 3], 2)
+conscSmokerP <- round(f.robftest(rslConsc, var = "education")$p.value, 4)
+
+conscB <- round(summary(rslConsc)$coefficients[5], 4)
+conscSe <- round(summary(rslConsc)$coefficients[5, 2], 4)
+conscT <- round(summary(rslConsc)$coefficients[5, 3], 2)
+conscP <- round(f.robftest(rslConsc, var = "conscientiousness")$p.value, 4)
+
+# openness to experience
+summary(rslOpen <- rlm(hyp1LmmCondCiiv ~ age + education + smoker + opennessToExp, data = test))
+f.robftest(rslOpen, var = "opennessToExp")
+f.robftest(rslOpen, var = "age")
+f.robftest(rslOpen, var = "education")
+f.robftest(rslOpen, var = "smoker")
+effSizeOpen <- effectsize::standardize_parameters(rslOpen)
+
+effSizeOpenAge <- round(effSizeOpen$Std_Coefficient[2], 2)
+effSizeOpenEdu <- round(effSizeOpen$Std_Coefficient[3], 2)
+effSizeOpenSmoker <- round(effSizeOpen$Std_Coefficient[4], 2)
+effSizeOpenOpen <- round(effSizeOpen$Std_Coefficient[5], 2)
+
+rslOpenDf <- str_split(f.robftest(rslOpen)$df, " ")
+rslOpenF <- round(unname(f.robftest(rslOpen)$statistic), 2)
+rslOpenP <- round(unname(f.robftest(rslOpen)$p.value), 4)
+
+openAgeB <- round(summary(rslOpen)$coefficients[2], 4)
+openAgeSe <- round(summary(rslOpen)$coefficients[2, 2], 4)
+openAgeT <- round(summary(rslOpen)$coefficients[2, 3], 2)
+openAgeP <- round(f.robftest(rslOpen, var = "age")$p.value, 4)
+
+openEducationB <- round(summary(rslOpen)$coefficients[3], 4)
+openEducationSe <- round(summary(rslOpen)$coefficients[3, 2], 4)
+openEducationT <- round(summary(rslOpen)$coefficients[3, 3], 2)
+openEducationP <- round(f.robftest(rslOpen, var = "education")$p.value, 4)
+
+openSmokerB <- round(summary(rslOpen)$coefficients[4], 4)
+openSmokerSe <- round(summary(rslOpen)$coefficients[4, 2], 4)
+openSmokerT <- round(summary(rslOpen)$coefficients[4, 3], 2)
+openSmokerP <- round(f.robftest(rslOpen, var = "education")$p.value, 4)
+
+opennessToExpB <- round(summary(rslOpen)$coefficients[5], 4)
+opennessToExpSe <- round(summary(rslOpen)$coefficients[5, 2], 4)
+opennessToExpT <- round(summary(rslOpen)$coefficients[5, 3], 2)
+opennessToExpP <- round(f.robftest(rslOpen, var = "opennessToExp")$p.value, 4)
+
+#agreeableness
+summary(rslAgree <- rlm(hyp1LmmCondCiiv ~ age + education + smoker + agreeableness, data = test))
+f.robftest(rslAgree, var = "agreeableness")
+f.robftest(rslAgree, var = "age")
+f.robftest(rslAgree, var = "education")
+f.robftest(rslAgree, var = "smoker")
+f.robftest(rslAgree)
+effSizeAgree <- effectsize::standardize_parameters(rslAgree)
+
+effSizeAgreeAge <- round(effSizeAgree$Std_Coefficient[2], 2)
+effSizeAgreeEdu <- round(effSizeAgree$Std_Coefficient[3], 2)
+effSizeAgreeSmoker <- round(effSizeAgree$Std_Coefficient[4], 2)
+effSizeAgreeAgree <- round(effSizeAgree$Std_Coefficient[5], 2)
+
+rslAgreeDf <- str_split(f.robftest(rslAgree)$df, " ")
+rslAgreeF <- round(unname(f.robftest(rslAgree)$statistic), 2)
+rslAgreeP <- round(unname(f.robftest(rslAgree)$p.value), 4)
+
+agreeAgeB <- round(summary(rslAgree)$coefficients[2], 4)
+agreeAgeSe <- round(summary(rslAgree)$coefficients[2, 2], 4)
+agreeAgeT <- round(summary(rslAgree)$coefficients[2, 3], 2)
+agreeAgeP <- round(f.robftest(rslAgree, var = "age")$p.value, 4)
+
+agreeEducationB <- round(summary(rslAgree)$coefficients[3], 4)
+agreeEducationSe <- round(summary(rslAgree)$coefficients[3, 2], 4)
+agreeEducationT <- round(summary(rslAgree)$coefficients[3, 3], 2)
+agreeEducationP <- round(f.robftest(rslAgree, var = "education")$p.value, 4)
+
+agreeSmokerB <- round(summary(rslAgree)$coefficients[4], 4)
+agreeSmokerSe <- round(summary(rslAgree)$coefficients[4, 2], 4)
+agreeSmokerT <- round(summary(rslAgree)$coefficients[4, 3], 2)
+agreeSmokerP <- round(f.robftest(rslAgree, var = "education")$p.value, 4)
+
+agreeablenessB <- round(summary(rslAgree)$coefficients[5], 4)
+agreeablenessSe <- round(summary(rslAgree)$coefficients[5, 2], 4)
+agreeablenessT <- round(summary(rslAgree)$coefficients[5, 3], 2)
+agreeablenessP <- round(f.robftest(rslAgree, var = "agreeableness")$p.value, 4)
+
+#extraversion
+summary(rslExtra <- rlm(hyp1LmmCondCiiv ~ age + education + smoker + extraversion, data = test))
+f.robftest(rslExtra, var = "extraversion")
+f.robftest(rslExtra, var = "age")
+f.robftest(rslExtra, var = "education")
+f.robftest(rslExtra, var = "smoker")
+f.robftest(rslExtra)
+effSizeExtra <- effectsize::standardize_parameters(rslExtra)
+
+effSizeExtraAge <- round(effSizeExtra$Std_Coefficient[2], 2)
+effSizeExtraEdu <- round(effSizeExtra$Std_Coefficient[3], 2)
+effSizeExtraSmoker <- round(effSizeExtra$Std_Coefficient[4], 2)
+effSizeExtraExtra <- round(effSizeExtra$Std_Coefficient[5], 2)
+
+rslExtraDf <- str_split(f.robftest(rslExtra)$df, " ")
+rslExtraF <- round(unname(f.robftest(rslExtra)$statistic), 2)
+rslExtraP <- round(unname(f.robftest(rslExtra)$p.value), 4)
+
+extraAgeB <- round(summary(rslExtra)$coefficients[2], 4)
+extraAgeSe <- round(summary(rslExtra)$coefficients[2, 2], 4)
+extraAgeT <- round(summary(rslExtra)$coefficients[2, 3], 2)
+extraAgeP <- round(f.robftest(rslExtra, var = "age")$p.value, 4)
+
+extraEducationB <- round(summary(rslExtra)$coefficients[3], 4)
+extraEducationSe <- round(summary(rslExtra)$coefficients[3, 2], 4)
+extraEducationT <- round(summary(rslExtra)$coefficients[3, 3], 2)
+extraEducationP <- round(f.robftest(rslExtra, var = "education")$p.value, 4)
+
+extraSmokerB <- round(summary(rslExtra)$coefficients[4], 4)
+extraSmokerSe <- round(summary(rslExtra)$coefficients[4, 2], 4)
+extraSmokerT <- round(summary(rslExtra)$coefficients[4, 3], 2)
+extraSmokerP <- round(f.robftest(rslExtra, var = "education")$p.value, 4)
+
+extraversionB <- round(summary(rslExtra)$coefficients[5], 4)
+extraversionSe <- round(summary(rslExtra)$coefficients[5, 2], 4)
+extraversionT <- round(summary(rslExtra)$coefficients[5, 3], 2)
+extraversionP <- round(f.robftest(rslExtra, var = "extraversion")$p.value, 4)
+
+#number of physical sx
+summary(rslMeanNumberPhysSx <- rlm(hyp1LmmCondCiiv ~ age + education + smoker + meanNumberPhysSx, data = test))
+f.robftest(rslMeanNumberPhysSx, var = "meanNumberPhysSx")
+f.robftest(rslMeanNumberPhysSx, var = "age")
+f.robftest(rslMeanNumberPhysSx, var = "education")
+f.robftest(rslMeanNumberPhysSx, var = "smoker")
+f.robftest(rslMeanNumberPhysSx)
+effSizeNumSx <- effectsize::standardize_parameters(rslMeanNumberPhysSx)
+
+effSizeNumSxAge <- round(effSizeNumSx$Std_Coefficient[2], 2)
+effSizeNumSxEdu <- round(effSizeNumSx$Std_Coefficient[3], 2)
+effSizeNumSxSmoker <- round(effSizeNumSx$Std_Coefficient[4], 2)
+effSizeNumSxNumSx <- round(effSizeNumSx$Std_Coefficient[5], 2)
+
+rslMeanNumPhysSxDf <- str_split(f.robftest(rslMeanNumberPhysSx)$df, " ")
+rslMeanNumPhysSxF <- round(unname(f.robftest(rslMeanNumberPhysSx)$statistic), 2)
+rslmeanNumPhysSxP <- round(unname(f.robftest(rslMeanNumberPhysSx)$p.value), 4)
+
+meanNumPhysSxAgeB <- round(summary(rslMeanNumberPhysSx)$coefficients[2], 4)
+meanNumPhysSxAgeSe <- round(summary(rslMeanNumberPhysSx)$coefficients[2, 2], 4)
+meanNumPhysSxAgeT <- round(summary(rslMeanNumberPhysSx)$coefficients[2, 3], 2)
+meanNumPhysSxAgeP <- round(f.robftest(rslMeanNumberPhysSx, var = "age")$p.value, 4)
+
+meanNumPhysSxEducationB <- round(summary(rslMeanNumberPhysSx)$coefficients[3], 4)
+meanNumPhysSxEducationSe <- round(summary(rslMeanNumberPhysSx)$coefficients[3, 2], 4)
+meanNumPhysSxEducationT <- round(summary(rslMeanNumberPhysSx)$coefficients[3, 3], 2)
+meanNumPhysSxEducationP <- round(f.robftest(rslMeanNumberPhysSx, var = "education")$p.value, 4)
+
+meanNumPhysSxSmokerB <- round(summary(rslMeanNumberPhysSx)$coefficients[4], 4)
+meanNumPhysSxSmokerSe <- round(summary(rslMeanNumberPhysSx)$coefficients[4, 2], 4)
+meanNumPhysSxSmokerT <- round(summary(rslMeanNumberPhysSx)$coefficients[4, 3], 2)
+meanNumPhysSxSmokerP <- round(f.robftest(rslMeanNumberPhysSx, var = "education")$p.value, 4)
+
+meanNumPhysSxB <- round(summary(rslMeanNumberPhysSx)$coefficients[5], 4)
+meanNumPhysSxSe <- round(summary(rslMeanNumberPhysSx)$coefficients[5, 2], 4)
+meanNumPhysSxT <- round(summary(rslMeanNumberPhysSx)$coefficients[5, 3], 2)
+meanNumPhysSxP <- round(f.robftest(rslMeanNumberPhysSx, var = "meanNumberPhysSx")$p.value, 4)
+
+#physical sx severity
+summary(rslMeanPhysSxSeverity <- rlm(hyp1LmmCondCiiv ~ age + education + smoker + meanPhysSxSeverity, data = test))
+f.robftest(rslMeanPhysSxSeverity, var = "meanPhysSxSeverity")
+f.robftest(rslMeanPhysSxSeverity, var = "age")
+f.robftest(rslMeanPhysSxSeverity, var = "education")
+f.robftest(rslMeanPhysSxSeverity, var = "smoker")
+f.robftest(rslMeanPhysSxSeverity)
+effSizePhysSxSev <- effectsize::standardize_parameters(rslMeanPhysSxSeverity)
+
+effSizePhysSxSevAge <- round(effSizePhysSxSev$Std_Coefficient[2], 2)
+effSizePhysSxSevEdu <- round(effSizePhysSxSev$Std_Coefficient[3], 2)
+effSizePhysSxSevSmoker <- round(effSizePhysSxSev$Std_Coefficient[4], 2)
+effSizePhysSxSevSev <- round(effSizePhysSxSev$Std_Coefficient[5], 2)
+
+rslMeanPhysSxSeverityDf <- str_split(f.robftest(rslMeanPhysSxSeverity)$df, " ")
+rslMeanPhysSxSeverityF <- round(unname(f.robftest(rslMeanPhysSxSeverity)$statistic), 2)
+rslMeanPhysSxSeverityP <- round(unname(f.robftest(rslMeanPhysSxSeverity)$p.value), 4)
+
+meanPhysSxSeverityAgeB <- round(summary(rslMeanPhysSxSeverity)$coefficients[2], 4)
+meanPhysSxSeverityAgeSe <- round(summary(rslMeanPhysSxSeverity)$coefficients[2, 2], 4)
+meanPhysSxSeverityAgeT <- round(summary(rslMeanPhysSxSeverity)$coefficients[2, 3], 2)
+meanPhysSxSeverityAgeP <- round(f.robftest(rslMeanPhysSxSeverity, var = "age")$p.value, 4)
+
+meanPhysSxSeverityEducationB <- round(summary(rslMeanPhysSxSeverity)$coefficients[3], 4)
+meanPhysSxSeverityEducationSe <- round(summary(rslMeanPhysSxSeverity)$coefficients[3, 2], 4)
+meanPhysSxSeverityEducationT <- round(summary(rslMeanPhysSxSeverity)$coefficients[3, 3], 2)
+meanPhysSxSeverityEducationP <- round(f.robftest(rslMeanPhysSxSeverity, var = "education")$p.value, 4)
+
+meanPhysSxSeveritySmokerB <- round(summary(rslMeanPhysSxSeverity)$coefficients[4], 4)
+meanPhysSxSeveritySmokerSe <- round(summary(rslMeanPhysSxSeverity)$coefficients[4, 2], 4)
+meanPhysSxSeveritySmokerT <- round(summary(rslMeanPhysSxSeverity)$coefficients[4, 3], 2)
+meanPhysSxSeveritySmokerP <- round(f.robftest(rslMeanPhysSxSeverity, var = "age")$p.value, 4)
+
+meanPhysSxSeverityB <- round(summary(rslMeanPhysSxSeverity)$coefficients[5], 4)
+meanPhysSxSeveritySe <- round(summary(rslMeanPhysSxSeverity)$coefficients[5, 2], 4)
+meanPhysSxSeverityT <- round(summary(rslMeanPhysSxSeverity)$coefficients[5, 3], 2)
+meanPhysSxSeverityP <- round(f.robftest(rslMeanPhysSxSeverity, var = "meanPhysSxSeverity")$p.value, 4)
+
+# BH p-value correction
+pValues <- c(0.005778, 0.1860, 0.3249, 0.1145, 0.4948, 0.1686, 0.004243)
+
+bhAlphas <- stats::p.adjust(pValues, method = "BH", n = length(pValues))
+
+bhAlphaNeuro <- round(bhAlphas[1], 2)
+
+bhAlphaPhysSev <- round(bhAlphas[7], 2)
+```
+
+
+```{r}
+neuroGraph <- ggplot(test, aes(neuroticism, hyp1LmmCondCiiv)) +
+  geom_smooth(method = "rlm", se = F, colour = "black") +
+  ylim(0, 1) +
+  jtools::theme_apa() +
+  xlab("Neuroticism") +
+  ylab("Cortisol Intraindividual Variability")
+
+physSxSeverityGraph <- ggplot(test, aes(meanPhysSxSeverity, hyp1LmmCondCiiv)) +
+  geom_smooth(method = "rlm", se = F, colour = "black") +
+  ylim(0, 1) +
+  jtools::theme_apa() +
+  xlab("Physical Symptom Severity") +
+  ylab("Cortisol Intraindividual Variability")
+```
+
+
+# Tables
+```{r}
+# rsl tables
+table1PredNames <- c(`(Intercept)` = "Intercept",
+                     age = "Age",
+                     education = "Education",
+                     smoker = "Smoker",
+                     neuroticism = "Neuroticism",
+                     conscientiousness = "Consientiousness",
+                     opennessToExp  = "Openness to Experience",
+                     agreeableness = "Agreeableness")
+
+resultsTable1 <- sjPlot::tab_model(rslNeuro, rslConsc, rslOpen, rslAgree,
+                  pred.labels = table1PredNames,
+                  dv.labels = c("Neuroticism", "Conscientiousness",
+                                "Openness to Experience", "Agreeableness"))
+
+table2PredNames <- c(`(Intercept)` = "Intercept",
+                     age = "Age",
+                     education = "Education",
+                     smoker = "Smoker",
+                     meanNumberPhysSx = "Average Number of Physical Symptoms",
+                     meanPhysSxSeverity = "Average Physical Symptom Severity")
+
+resultsTable2 <- sjPlot::tab_model(rslExtra, rslMeanNumberPhysSx, rslMeanPhysSxSeverity,
+              pred.labels = table2PredNames,
+              dv.labels = c("Extraversion", "Number of Physical Symptoms",
+                            "Physical Symptom Severity"))
+
+#demo tables
+
+
+predictorsTable <- apaTables::apa.cor.table(test[, 8:12])
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

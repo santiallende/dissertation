@@ -7,18 +7,21 @@ output: html_document
 
 ## **Hypotheses**
 
-### **Primary Hypotheses**
+*Hypothesis 1.* Greater openness to experience will be associated with decreased cIIV.
 
-*Hypothesis 1a.* Greater cIIV will be associated with greater trait negative affect measured by the Positive and Negative Affect Schedule (PANAS).
+*Hypothesis 2.* Greater extraversion will be associated with decreased cIIV.
 
-*Hypothesis 1b.* Greater cIIV will be associated with lower trait positive affect measured by the PANAS.
+*Hypothesis 3.* Greater agreeableness will be associated with decreased cIIV.
 
-*Hypothesis 2a.* Experiencing greater cIIV during the current day relative to cIIV found in other days will be associated with higher negative affect during the current day.
+*Hypothesis 4.* Greater neuroticism will be associated with increased cIIV.
 
-*Hypothesis 2b.* Experiencing greater cIIV during the current day relative to cIIV found in other days will be associated with lower positive affect during the current day.
+*Hypothesis 5.* Greater conscientiousness will be associated with decreased cIIV.
 
-### **Exploratory Hypotheses**
+*Hypothesis 6.* Greater number of physical symptoms will be associated with increased cIIV.
 
-*Hypothesis 3.* Assess whether cIIV is associated with DCS and AUC.
+*Hypothesis 7.* Greater physical symptom severity will be associated with increased cIIV.
 
-*Hypothesis 4.* Assess whether latent profile analysis-derived classes of participants based on the CAR, DCS, AUC and cIIV are associated with trait positive and negative affect.
+## **Post Hoc Analyses**
+... 
+
+

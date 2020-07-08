@@ -1,0 +1,421 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Load libraries
+```{r}
+library(tidyverse)
+library(nlme)
+```
+
+# Load data
+```{r}
+dat <- read_csv("/Users/Santi/Desktop/rProjects/dissertation/analysis/big5Dat.csv")
+```
+
+# Number of Participants in Sample
+```{r}
+timeInvarDat <- dat %>%
+  dplyr::select(1:34)  %>%
+  distinct()
+
+# number of participants in sample
+# number of participants in sample
+analyticSample <- timeInvarDat %>%
+  n_distinct()
+```
+
+# Clean and structure data
+```{r}
+# convert to factors
+timeInvarDat <- timeInvarDat %>%
+  mutate(gender = factor(gender, levels = c(1, 2), 
+                         labels = c("male", "female"))) %>%
+  mutate(medUseNone1Yes = factor(medUseNone1Yes, levels = c(1, 2, 8),
+                                 labels = c("yes", "no", "missing"))) %>%
+  mutate(ethnicity = factor(ethnicity, levels = c(1, 2, 3, 4, 6, 7, 8),
+                            labels = c("caucasian", "africanAmerican",
+                                       "nativeAmerican", "asian", "other",
+                                       "dontKnow", "refused"))) %>%
+  mutate(education = factor(education, levels = c(1, 2, 3, 4, 5, 6, 7, 8, 9,
+                                                  10, 11, 12, 97),
+                            labels = c("grades16", "grades78", "grades\n912NoGed",
+                                       "ged", "hsGrad", "college\n12YrNoDegree",
+                                       "college\n3OrMore\nYrNoDegree",
+                                       "college\n2YrGrad", "college\n4YrGrad",
+                                       "some\nGradSchl", "master\nDegree",
+                                       "doctoral\nDegree", "dontKnow"))) %>%
+  mutate(smoker = factor(smoker, levels = c(1, 2, 9), 
+                         labels = c("yes", "no", "inapp")))
+
+# remove missing data
+timeInvarDat <- timeInvarDat %>%
+  mutate_at(vars(8:34), ~na_if(., 7)) %>%
+  mutate_at(vars(8:34), ~na_if(., 8)) %>%
+  mutate_at(vars(8:34), ~na_if(., 9)) %>%
+  mutate_at(vars(2, 8:34), ~na_if(., 98)) %>%
+  mutate_at(vars(2, 8:34), ~na_if(., 99)) %>%
+  mutate_at(vars(2, 8:34), ~na_if(., 99))
+```
+
+# Age
+```{r}
+
+ageMin <- min(timeInvarDat$age)
+ageMax <- max(timeInvarDat$age)
+ageMean <- round(mean(timeInvarDat$age, na.rm = T), 2)
+ageSd <- round(sd(timeInvarDat$age, na.rm = T), 2)
+
+age3039Freq <- timeInvarDat %>%
+  filter(age > 30 & age <= 39) %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+age3039FreqPercent <- as.vector(round((age3039Freq / nrow(timeInvarDat)) * 100, 2))
+
+age4049Freq <- timeInvarDat %>%
+  filter(age > 40 & age <= 49) %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+age4049FreqPercent <- as.vector(round((age4049Freq / nrow(timeInvarDat)) * 100, 2))
+
+age5059Freq <- timeInvarDat %>%
+  filter(age > 50 & age <= 59) %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+age5059FreqPercent <- as.vector(round((age5059Freq / nrow(timeInvarDat)) * 100, 2))
+
+age6069Freq <- timeInvarDat %>%
+  filter(age > 60 & age <= 69) %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+age6069FreqPercent <- as.vector(round((age6069Freq / nrow(timeInvarDat)) * 100, 2))
+
+age7079Freq <- timeInvarDat %>%
+  filter(age > 70 & age <= 79) %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+age7079FreqPercent <- as.vector(round((age7079Freq / nrow(timeInvarDat)) * 100, 2))
+
+age8089Freq <- timeInvarDat %>%
+  filter(age > 80 & age <= 89) %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+age8089FreqPercent <- as.vector(round((age8089Freq / nrow(timeInvarDat)) * 100, 2))
+```
+
+
+# Gender
+```{r, message=F, warning=F, collapse=T}
+# gender
+timeInvarDat %>%
+  group_by(gender) %>%
+  ggplot(., aes(gender)) +
+    geom_bar(aes(fill = gender)) +
+    geom_text(stat='count', aes(label = scales::percent(round(prop.table(stat(count)), 3))), vjust=-.50, 
+              color = "gray29", size = 3)
+
+# table 1 stats
+maleFreq <- unname(summary(timeInvarDat$gender)['male'])
+femaleFreq <- unname(summary(timeInvarDat$gender)['female'])
+
+malePercent <- round((maleFreq / length(timeInvarDat$gender)) * 100, 2)
+femalePercent <- round((femaleFreq / length(timeInvarDat$gender)) * 100, 2)
+
+```
+
+# Medication Use
+```{r, message=F, warning=F, collapse=T}
+# medication use
+timeInvarDat %>%
+  group_by(medUseNone1Yes) %>%
+  ggplot(., aes(medUseNone1Yes)) +
+    geom_bar(aes(fill = medUseNone1Yes)) +
+    geom_text(stat='count', aes(label = scales::percent(round(prop.table(stat(count)), 4))), vjust=-.50, 
+              color = "gray29", size = 3)
+
+# table 1 stats
+medNoFreq <- unname(summary(timeInvarDat$medUseNone1Yes)['yes'])
+medYesFreq <- unname(summary(timeInvarDat$medUseNone1Yes)['no'])
+medNa <- unname(summary(timeInvarDat$medUseNone1Yes)['missing'])
+
+
+medNoFreqPercent <- round((medNoFreq / length(timeInvarDat$medUseNone1Yes)) * 100, 2)
+medYesFreqPercent <- round((medYesFreq / length(timeInvarDat$medUseNone1Yes)) * 100, 2)
+medNaFreqPercent <- round((medNa / length(timeInvarDat$medUseNone1Yes)) * 100, 2)
+```
+
+# Ethnicity
+```{r, message=F, warning=F, collapse=T}
+# ethnicity
+timeInvarDat %>%
+  group_by(ethnicity) %>%
+  ggplot(., aes(ethnicity)) +
+    geom_bar(aes(fill = ethnicity)) +
+    geom_text(stat='count', aes(label = scales::percent(round(prop.table(stat(count)), 3))), vjust=-.50, 
+              color = "gray29", size = 3) +
+    theme(axis.text.x = element_text(angle = 10))
+
+# table 1 stats
+ethnFreqCauc <- timeInvarDat %>%
+  filter(ethnicity == "caucasian") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+ethnFreqCaucPercent <- as.vector(round((ethnFreqCauc / nrow(timeInvarDat)) * 100, 2))
+
+ethnFreqAfAm <- timeInvarDat %>%
+  filter(ethnicity == "africanAmerican") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+ethnFreqAfAmPercent <- as.vector(round((ethnFreqAfAm / nrow(timeInvarDat)) * 100, 2))
+
+ethnFreqNative <- timeInvarDat %>%
+  filter(ethnicity == "nativeAmerican") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+ethnFreqNativePercent <- as.vector(round((ethnFreqNative / nrow(timeInvarDat)) * 100, 2))
+
+ethnFreqAsian <- timeInvarDat %>%
+  filter(ethnicity == "asian") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+ethnFreqAsianPercent <- as.vector(round((ethnFreqAsian / nrow(timeInvarDat)) * 100, 2))
+
+ethnFreqOther <- timeInvarDat %>%
+  filter(ethnicity == "other") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+ethnFreqOtherPercent <- as.vector(round((ethnFreqOther / nrow(timeInvarDat)) * 100, 2))
+
+ethnicFreqNa <- timeInvarDat %>%
+  filter(is.na(ethnicity)) %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+ethnicFreqNaPercent <- as.vector(round((ethnicFreqNa / nrow(timeInvarDat)) * 100, 2))
+```
+
+# Education
+```{r, message=F, warning=F, collapse=T}
+# education
+timeInvarDat %>%
+  mutate(education = factor(education, levels = c("hsGrad", "college\n4YrGrad",
+                                       "college\n12YrNoDegree", "master\nDegree",
+                                       "NA", "college\n2YrGrad", "doctoral\nDegree",
+                                       "college\n3OrMore\nYrNoDegree",
+                                       "some\nGradSchl", "grades\n912NoGed",
+                                       "grades78", "ged", "grades16", 
+                                       "dontKnow"))) %>%
+  group_by(education) %>%
+  ggplot(., aes(education)) +
+    geom_bar(aes(fill = education)) +
+    geom_text(stat='count', aes(label = scales::percent(round(prop.table(stat(count)), 4))), vjust=-.50, 
+              color = "gray29", size = 2.5) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  ylim(0, 400)
+
+#table 1 stats
+eduFreqElemMidSchl <- timeInvarDat %>%
+  filter(education == "grades16" | 
+           education == "grades78") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+eduFreqElemMidSchlPercent <- as.vector(round((eduFreqElemMidSchl / nrow(timeInvarDat)) * 100, 2))
+
+eduFreqSomeHs <- timeInvarDat %>%
+  filter(education == "grades\n912NoGed") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+eduFreqSomeHsPercent <- as.vector(round((eduFreqSomeHs / nrow(timeInvarDat)) * 100, 2))
+
+eduFreqHsGradGed <- timeInvarDat %>% 
+  filter(education == "ged" | education == "hsGrad") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+eduFreqHsGradGedPercent <- as.vector(round((eduFreqHsGradGed / nrow(timeInvarDat)) * 100, 2))
+
+eduFreqSomeCollege <- timeInvarDat %>%
+  filter(education == "college\n12YrNoDegree" | 
+           education == "college\n3OrMore\nYrNoDegree") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+eduFreqSomeCollegePercent <- as.vector(round((eduFreqSomeCollege / nrow(timeInvarDat)) * 100, 2))
+
+eduFreqComColDeg <- timeInvarDat %>%
+  filter(education == "college\n2YrGrad") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+eduFreqComColDegPercent <- as.vector(round((eduFreqComColDeg / nrow(timeInvarDat)) * 100, 2))
+
+eduFreqBachDeg <- timeInvarDat %>%
+  filter(education == "college\n4YrGrad") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+eduFreqBachDegPercent <- as.vector(round((eduFreqBachDeg / nrow(timeInvarDat)) * 100, 2))
+
+eduFreqSomeGradSchl <- timeInvarDat %>%
+  filter(education == "some\nGradSchl") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+eduFreqSomeGradSchlPercent <- as.vector(round((eduFreqSomeGradSchl / nrow(timeInvarDat)) * 100, 2))
+
+eduFreqMasterDeg <- timeInvarDat %>%
+  filter(education == "master\nDegree") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+eduFreqMasterDegPercent <- as.vector(round((eduFreqMasterDeg / nrow(timeInvarDat)) * 100, 2))
+
+eduFreqDocDeg <- timeInvarDat %>%
+  filter(education == "doctoral\nDegree") %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+eduFreqDocDegPercent <- as.vector(round((eduFreqDocDeg / nrow(timeInvarDat)) * 100, 2))
+
+
+eduFreqNa <- timeInvarDat %>%
+  filter(education == "dontKnow" | 
+           is.na(education)) %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+eduFreqNaPercent <- as.vector(round((eduFreqNa / nrow(timeInvarDat)) * 100, 2))
+
+manuscriptCollegePercent <- eduFreqSomeCollegePercent + eduFreqComColDegPercent + eduFreqBachDegPercent
+
+manuscriptGradPercent <- eduFreqSomeGradSchlPercent + eduFreqMasterDegPercent + eduFreqDocDegPercent
+
+```
+
+# Smoker Status
+```{r, message=F, warning=F, collapse=T}
+# smoker
+ggplot(timeInvarDat, aes(smoker)) +
+  geom_bar(aes(fill = smoker)) +
+  geom_text(stat='count', aes(label = scales::percent(prop.table(stat(count)))), vjust=-.50, 
+              color = "gray29") 
+
+# table 1 stats
+smokerYesFreq <- unname(summary(timeInvarDat$smoker)['yes'])
+smokerNoFreq <- unname(summary(timeInvarDat$smoker)['no'])
+smokerFreqNa <- timeInvarDat %>%
+  filter(smoker == "inapp" | 
+           is.na(smoker)) %>%
+  dplyr::select(id) %>%
+  n_distinct()
+
+smokerYesFreqPercent <- round((smokerYesFreq / length(timeInvarDat$smoker)) * 100, 2)
+smokerNoFreqPercent <- round((smokerNoFreq / length(timeInvarDat$smoker)) * 100, 2)
+smokerFreqNaPercent <- round((smokerFreqNa / length(timeInvarDat$smoker)) * 100, 2)
+```
+
+# Histograms of numeric variables
+```{r}
+timeInvarDat %>%
+  dplyr::select(id, 8:12) %>%
+  pivot_longer(2:6, names_to = "big5Scale", values_to = "big5Value") %>%
+  distinct() %>%
+  ggplot(aes(big5Value)) +
+  facet_wrap(~big5Scale) +
+  geom_histogram(binwidth = .25)
+```
+
+
+```{r}
+timeInvarDat %>%
+  dplyr::select(id, 16:34) %>%
+  pivot_longer(2:20, names_to = "scale", values_to = "value") %>%
+  distinct() %>%
+  ggplot(aes(value)) +
+  facet_wrap(~scale) +
+  geom_histogram(binwidth = .25)
+```
+
+# Emotion Focused Coping
+```{r}
+ggplot(timeInvarDat, aes(emotionFocused)) +
+  geom_histogram()
+
+sd(timeInvarDat$emotionFocused, na.rm = T)
+```
+
+# Problem Focused Coping
+```{r}
+ggplot(timeInvarDat, aes(problemFocused)) +
+  geom_histogram()
+
+sd(timeInvarDat$problemFocused, na.rm = T)
+```
+
+# Perceived Control
+```{r}
+ggplot(timeInvarDat, aes(control)) +
+  geom_histogram()
+
+sd(timeInvarDat$control, na.rm = T)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

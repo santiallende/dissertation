@@ -1,0 +1,275 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Load libraries
+```{r, message=F, warning=F}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(nlme)
+options(scipen=999)
+```
+
+# Load daily data
+```{r, message=F, warning=F, results="hold"}
+dailyDat <- read.table("/Users/Santi/Desktop/rProjects/dissertation/analysis/data.tsv",
+                  header = T,
+                  sep = "\t",
+                  stringsAsFactors = F,
+                  na.strings = c(999994, 999995, 999996, 999998, 98.00))
+```
+
+# Number of Participants
+```{r}
+nParticipants <- dailyDat %>%
+  dplyr::select(M2ID) %>%
+  n_distinct()
+```
+
+
+# Select cortisol variables of interest from daily data
+```{r, message=F, warning=F, results="hold"}
+cortTimesDat <- dailyDat %>%
+  dplyr::select(id = M2ID, gender = B1PGENDER, age = B1PAGE_M2, medUseNone1Yes = B2DMED10, startWork = B2DA3AAP, endWork = B2DA3BAP, providedCort1yes2no = B2DCORT, day = B2DDAY, wakeCort = B2DCORWT, wakeThirtyCort = B2DCORAT, noonCort = B2DCORLT, pmCort = B2DCORBT) %>%
+  dplyr::filter(providedCort1yes2no == 1) %>%
+  dplyr::filter(day == 2 | day == 3 | day == 4 | day == 5) %>%
+  pivot_longer(9:12, names_to = "cortTimeText", values_to = "cortTime") 
+  
+cortValuesDat <- dailyDat %>%
+  dplyr::select(id = M2ID, providedCort1yes2no = B2DCORT, day = B2DDAY, wakeCort = B2DCORW, wakeThirtyCort = B2DCORA, noonCort = B2DCORL, pmCort = B2DCORB) %>%
+  dplyr::filter(providedCort1yes2no == 1) %>%
+  dplyr::filter(day == 2 | day == 3 | day == 4 | day == 5) %>%
+  pivot_longer(4:7, names_to = "cortTimeText", values_to = "cortNmol") %>%
+  dplyr::select(id, day, cortTimeText, cortNmol)
+
+cortDat <- left_join(cortTimesDat, cortValuesDat, by = c("id", "day", "cortTimeText"))
+
+str(cortDat)
+```
+
+# Remove NAs from cortTime and cortNmol
+```{r, message=F, warning=F, results="hold"}
+naCortNmolPercent <- round((sum(is.na(cortDat$cortNmol)) / nrow(cortDat)) * 100, 2)
+naCortTimePercent <- round((sum(is.na(cortDat$cortTime)) / nrow(cortDat)) * 100, 2)
+
+naCortNmolSum <- sum(is.na(cortDat$cortNmol))
+naCortTimeSum <- sum(is.na(cortDat$cortTime))
+
+masterCortDat <- cortDat %>%
+  dplyr::filter(!is.na(cortNmol), !is.na(cortTime))
+
+str(masterCortDat)
+```
+
+# Remove samples collected outside of 24hr window
+```{r, message=F, warning=F, results="hold"}
+samplesOutside24hrWindow <- masterCortDat %>%
+  dplyr::filter(cortTime < 0.00 | cortTime > 24.00) %>%
+  nrow()
+#607 samples collected prior to beginning of of interview day or after end of interview day
+
+samplesOutside24hrPercent <- round((samplesOutside24hrWindow / nrow(masterCortDat)) * 100, 2)
+
+
+masterCortDat <- masterCortDat %>%
+  dplyr::filter(cortTime >= 0.00, cortTime <= 24.00)
+
+str(masterCortDat)
+```
+
+# Remove samples with cortNmol > 60
+```{r, message=F, warning=F, results="hold"}
+masterCortDat %>%
+  dplyr::filter(cortNmol > 60)
+#381 greater than 60
+
+greaterThanSixtyPercent <- round((nrow(subset(masterCortDat, cortNmol > 60)) / nrow(masterCortDat)) * 100, 2)
+
+greaterThanSixtySum <- nrow(subset(masterCortDat, cortNmol > 60))
+
+masterCortDat <- masterCortDat %>%
+  dplyr::filter(cortNmol <= 60)
+
+str(masterCortDat)
+```
+
+# Remove waking cortisol samples collected before 0400h or after 1200h
+```{r, message=F, warning=F, results="hold"}
+earlyLateWakeCortSum <- masterCortDat %>%
+  dplyr::filter(cortTimeText == "wakeCort") %>%
+  dplyr::filter(cortTime < 4.00 | cortTime > 12) %>%
+  nrow()
+#173 wake cort collected before 4am or after 12pm
+
+earlyLateWakeCortPercent <- round((earlyLateWakeCortSum / nrow(masterCortDat)) * 100, 2)
+
+# df that contains wakeCortTime between 4 and 12
+wakeCortKeepMe <- masterCortDat %>%
+  dplyr::filter(cortTimeText == "wakeCort") %>%
+  dplyr::filter(between(cortTime, 4.00, 12.00)) 
+
+# remove all wakeCort rows from master dat
+masterCortDat <- masterCortDat %>%
+  dplyr::filter(cortTimeText != "wakeCort")
+
+# bind wakeCortKeepMe rows w/ masterCortDat rows
+masterCortDat <- bind_rows(masterCortDat, wakeCortKeepMe)
+
+# arrange rows
+masterCortDat <- masterCortDat %>%
+  arrange(id, day, cortTime)
+
+str(masterCortDat)
+```
+
+# Number of 1200h Values that are 10 nmol/L greater than the wake + 30 values?
+```{r, message=F, warning=F, results="hold"}
+erronLunchValues <- masterCortDat %>% 
+  mutate(dummy1 = case_when(
+    cortTimeText == "wakeThirtyCort" ~ 1,
+    cortTimeText == "noonCort" ~ 1,
+    TRUE ~ 0
+  )) %>%
+  dplyr::filter(dummy1 == 1) %>%
+  arrange(id, day, cortTime) %>%
+  group_by(id, day) %>%
+  mutate(dummyDif = last(cortNmol) - first(cortNmol)) %>%
+  mutate(assignDummy = case_when(
+    dummyDif > 10 ~ 1,
+    TRUE ~ 0
+  )) %>%
+  dplyr::filter(assignDummy == 1) %>%
+  nrow()
+# 166 samples
+
+erronLunchPercent <- round((erronLunchValues / nrow(masterCortDat)) * 100, 2)
+
+nmolWakeNoon10 <- masterCortDat %>%
+  mutate(dummy1 = case_when(
+    cortTimeText == "wakeThirtyCort" ~ 1,
+    cortTimeText == "noonCort" ~ 1,
+    TRUE ~ 0
+  )) %>%
+  dplyr::filter(dummy1 == 1) %>%
+  arrange(id, day, cortTime) %>%
+  group_by(id, day) %>%
+  mutate(dummyDif = last(cortNmol) - first(cortNmol)) %>%
+  mutate(assignDummy = case_when(
+    dummyDif > 10 ~ 1,
+    TRUE ~ 0
+  )) %>%
+  dplyr::filter(assignDummy == 1) %>%
+  dplyr::select(-dummy1, -dummyDif, -assignDummy)
+
+masterCortDat <- anti_join(masterCortDat, nmolWakeNoon10)
+
+str(masterCortDat)
+```
+
+# How many participants are using medications that impact HPA axis function,
+#didn't know or did not answer this question?
+```{r, message=F, warning=F, results="hold"}
+masterCortDat %>%
+  dplyr::filter(medUseNone1Yes == 2 | medUseNone1Yes == 8 | medUseNone1Yes == 9) %>%
+  dplyr::select(id) %>%
+  distinct() %>%
+  nrow()
+# 895 of 1731
+
+masterCortDat %>%
+  dplyr::select(id) %>%
+  n_distinct()
+```
+
+# Compute natural logarithm of cortisol
+```{r, message=F, warning=F, results="hold"}
+masterCortDat <- masterCortDat %>%
+  mutate(logCort = log(cortNmol))
+
+str(masterCortDat)
+```
+
+# Select emotion data and join with hypotheses 1 & 2 cortisol data
+```{r, message=F, warning=F, results="hold"}
+emoDat <- dailyDat %>%
+  dplyr::select(id = M2ID, day = B2DDAY, numberOfStressors = B2DN_STR, stressorNegAffSum = B2DSNEGS, stressorNegAffMean = B2DSNEGA, stressorSeveritySum = B2DSSEVS, stressorSeverityMean = B2DSSEVA,  dailyMeanPosAff = B2DPOSAV, dailyMeanNegAff = B2DNEGAV, stressorControlSum = B2DSCOTS, stressorControlMean = B2DSCOTA, numberOfPhysicalSx = B2DN_SYM, physicalSxSeverity = B2DSYMAV, dailyInGoodSpirits = B2DC7, dailyCheerful = B2DC8, dailyExtremelyHappy = B2DC9, dailyCalmPeaceful = B2DC10, dailySatisfied = B2DC11, dailyFullOfLife = B2DC12, dailyCloseToOthers = B2DC21, dailyLikeYouBelong = B2DC22, dailyEnthusiastic = B2DC23, dailyAttentive = B2DC24, dailyProud = B2DC25, dailyActive = B2DC26, dailyConfident = B2DC27, dailyRestlessFidgety = B2DC1, dailyNervous = B2DC2, dailyWorthless = B2DC3, dailySoSadNoCheerUp = B2DC4, dailyEverythingAnEffort = B2DC5, dailyHopeless = B2DC6, dailyLonely = B2DC13, dailyAfraid = B2DC14, dailyJittery = B2DC15, dailyIrritable = B2DC16, dailyAshamed = B2DC17, dailyUpset = B2DC18, dailyAngry = B2DC19, dailyFrustrated = B2DC20) %>%
+  dplyr::filter(day == 2 | day == 3 | day == 4 | day == 5)
+```
+
+# Select variables of interest from midus 2 data
+```{r, message=F, warning=F, results="hold"}
+midusDat <- read.table("/Users/Santi/Desktop/rProjects/dissertation/analysis/midusTwoData.tsv",
+                  header = T,
+                  sep = "\t",
+                  stringsAsFactors = F)
+
+midusDat <- midusDat %>%
+  dplyr::select(id = M2ID, ethnicity = B1PF7A, education = B1PB1, smoker = B1PA39, somaticAmplification = B1SAMPLI, neuroticism = B1SNEURO, extraversion = B1SEXTRA, opennessToExp = B1SOPEN, conscientiousness = B1SCONS1, agreeableness = B1SAGREE, agency = B1SAGENC, mentalHealthTx = B1SUSEMH, mastery = B1SMASTE, constraints = B1SCONST,
+                control = B1SCTRL, growth = B1SREINT, activeCoping = B1SACTIV,
+                planning = B1SPLAN, venting = B1SVENT, denial = B1SDENIA,
+                disengage = B1SDISEN, foodCoping = B1SFDCOP, problemFocused = 
+                  B1SPRCOP, emotionFocused = B1SEMCOP, seekSupport = B1SSUFFI,
+                friendSupport = B1SFDSPO, friendStrain = B1SFDSNE, compositeFriend =
+                  B1SFDSOL, familySupport = B1SKINPO, familyStrain = B1SKINNE,
+                compositeFamily = B1SFAMSO)
+```
+
+# Join dataframes
+```{r, message=F, warning=F, results="hold"}
+masterCortDat <- left_join(masterCortDat, midusDat, by = "id") %>%
+  dplyr::select(id, age, gender, ethnicity, education, smoker, medUseNone1Yes,
+         opennessToExp, conscientiousness, agreeableness, extraversion,
+         neuroticism, somaticAmplification, agency, mentalHealthTx, mastery,
+         constraints, control, growth, activeCoping, planning, venting, denial,
+         disengage, foodCoping, problemFocused, emotionFocused, seekSupport, 
+         friendSupport, friendStrain, compositeFriend, familySupport, familyStrain,
+         compositeFamily, day, cortTimeText, cortTime, cortNmol, logCort)
+
+str(masterCortDat)
+
+masterCortDat <- left_join(masterCortDat, emoDat, by = c("id", "day"))
+
+numberOfCortSamples <- nrow(masterCortDat)
+
+write.csv(masterCortDat, "big5Dat.csv", row.names = F)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
