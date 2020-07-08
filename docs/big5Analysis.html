@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>R Notebook</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Dissertation</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="dataWrangling.html">Data Wrangling</a>
+</li>
+<li>
+  <a href="dataInspection.html">Data Inspection</a>
+</li>
+<li>
+  <a href="analysis.html">Analysis</a>
+</li>
+<li>
+  <a href="manuscript.html">Manuscript</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">R Notebook</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-07-08
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>dissertation/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div class="panel-group" id="workflowr-checks">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200414code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200414)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200414code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200414)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
+</p>
+</div>
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/Users/Santi/Desktop/rProjects/dissertation/analysis/big5Dat.csv
+</td>
+<td style="text-align:left;">
+analysis/big5Dat.csv
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreec650b2b840f1e111edca40440bf9c2d4782d5b95targetblankc650b2ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/santiallende/dissertation/tree/c650b2b840f1e111edca40440bf9c2d4782d5b95" target="_blank">c650b2b</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreec650b2b840f1e111edca40440bf9c2d4782d5b95targetblankc650b2ba" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/ICPSR_04652 3/.DS_Store
+    Ignored:    analysis/ICPSR_04652 3/DS0001/.DS_Store
+    Ignored:    analysis/ICPSR_26841/.DS_Store
+    Ignored:    analysis/ICPSR_26841/DS0001/.DS_Store
+    Ignored:    analysis/big5Analysis.nb.html
+    Ignored:    analysis/big5DataInspection.nb.html
+    Ignored:    analysis/big5DataWrangling.nb.html
+    Ignored:    analysis/rslTable.html
+
+Untracked files:
+    Untracked:  analysis/big5Analysis.R
+    Untracked:  analysis/big5Analysis.RData
+    Untracked:  analysis/big5AnalysisDat.csv
+    Untracked:  analysis/big5Dat.csv
+    Untracked:  analysis/big5DataInspection.R
+    Untracked:  analysis/big5DataWrangling.R
+    Untracked:  analysis/chapter3.pdf
+    Untracked:  analysis/chapter3.tex
+    Untracked:  analysis/hyp1Dat.csv
+    Untracked:  analysis/hyp2Dat.csv
+    Untracked:  analysis/lmeResidsPerDay.csv
+    Untracked:  analysis/manuscript copy.docx
+    Untracked:  analysis/manuscript.docx
+    Untracked:  analysis/manuscript.log
+    Untracked:  analysis/manuscript.pdf
+    Untracked:  analysis/manuscript.tex
+    Untracked:  analysis/manuscript/
+    Untracked:  analysis/rslTable
+    Untracked:  analysis/rslTable1
+    Untracked:  analysis/rslTable2
+    Untracked:  analysis/~$nuscript.docx
+    Untracked:  analysis/~$ssertation_1.8.20.docx
+    Untracked:  big5Dat.csv
+    Untracked:  refs.bib
+
+Unstaged changes:
+    Modified:   analysis/ICPSR_26841/DS0001/26841-0001-Documentation-saliva.pdf
+    Deleted:    analysis/dataInspection.Rmd
+    Deleted:    analysis/dataWrangling.Rmd
+    Modified:   analysis/manuscript.Rmd
+    Modified:   analysis/refs.bib
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/santiallende/dissertation/blob/c650b2b840f1e111edca40440bf9c2d4782d5b95/analysis/big5Analysis.Rmd" target="_blank">c650b2b</a>
+</td>
+<td>
+sallende
+</td>
+<td>
+2020-07-08
+</td>
+<td>
+files
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="load-libraries" class="section level1">
+<h1>Load libraries</h1>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ───────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✓ ggplot2 3.3.0     ✓ purrr   0.3.3
+✓ tibble  2.1.3     ✓ dplyr   0.8.4
+✓ tidyr   1.0.2     ✓ stringr 1.4.0
+✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
+<pre><code>Warning: package &#39;ggplot2&#39; was built under R version 3.5.2</code></pre>
+<pre><code>Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
+<pre><code>Warning: package &#39;tidyr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>Warning: package &#39;purrr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>Warning: package &#39;stringr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>Warning: package &#39;forcats&#39; was built under R version 3.5.2</code></pre>
+<pre><code>── Conflicts ──────────────── tidyverse_conflicts() ──
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(nlme)</code></pre>
+<pre><code>Warning: package &#39;nlme&#39; was built under R version 3.5.2</code></pre>
+<pre><code>
+Attaching package: &#39;nlme&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    collapse</code></pre>
+<pre class="r"><code>options(scipen = 999)</code></pre>
+</div>
+<div id="load-data" class="section level1">
+<h1>Load data</h1>
+<pre class="r"><code>dat &lt;- read_csv(&quot;/Users/Santi/Desktop/rProjects/dissertation/analysis/big5Dat.csv&quot;)</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  .default = col_double(),
+  cortTimeText = col_character()
+)</code></pre>
+<pre><code>See spec(...) for full column specifications.</code></pre>
+</div>
+<div id="clean-and-structure-data" class="section level1">
+<h1>Clean and structure data</h1>
+<pre class="r"><code># convert to factors
+dat &lt;- dat %&gt;%
+  mutate(gender = case_when(
+    gender == 1 ~ 0,
+    gender == 2 ~ 1
+  )) %&gt;%
+  mutate(medUseNone1Yes = factor(medUseNone1Yes, levels = c(1, 2, 8),
+                                 labels = c(&quot;yes&quot;, &quot;no&quot;, &quot;missing&quot;))) %&gt;%
+  mutate(ethnicity = case_when(
+    ethnicity == 1 ~ 0,
+    ethnicity == 2 ~ 1,
+    ethnicity == 3 ~ 2,
+    ethnicity == 4 ~ 3,
+    ethnicity == 6 ~ 4,
+    ethnicity == 7 ~ 5,
+    ethnicity == 8 ~ 6
+  )) %&gt;%
+  mutate(education = case_when(
+    education == 1 ~ 0,
+    education == 2 ~ 1,
+    education == 3 ~ 2,
+    education == 4 ~ 3,
+    education == 5 ~ 4,
+    education == 6 ~ 5,
+    education == 7 ~ 6,
+    education == 8 ~ 7,
+    education == 9 ~ 8,
+    education == 10 ~ 9,
+    education == 11 ~ 10,
+    education == 12 ~ 11
+  )) %&gt;%
+  mutate(smoker = case_when(
+    smoker == 1 ~ 1,
+    smoker == 2 ~ 0,
+    smoker == 9 ~ 0
+  ))
+
+# remove missing data
+dat &lt;- dat %&gt;%
+  mutate_at(vars(8:77), ~na_if(., 7)) %&gt;%
+  mutate_at(vars(8:77), ~na_if(., 8)) %&gt;%
+  mutate_at(vars(8:77), ~na_if(., 9)) %&gt;%
+  mutate_at(vars(2, 8:77), ~na_if(., 98)) %&gt;%
+  mutate_at(vars(2, 8:77), ~na_if(., 99))
+
+# center numeric time-invariant vars
+dat &lt;- dat %&gt;%
+  mutate_at(vars(2, 8:12), ~scale(., center = T, scale = F))
+
+# mean of daily vars
+dat &lt;- dat %&gt;%
+  dplyr::group_by(id) %&gt;%
+  mutate(meanIrritable = mean(dailyIrritable, na.rm = T)) %&gt;%
+  mutate(meanAngry = mean(dailyAngry, na.rm = T)) %&gt;%
+  mutate(meanUpset = mean(dailyUpset, na.rm = T)) %&gt;%
+  mutate(meanNumberPhysSx = mean(numberOfPhysicalSx, na.rm = T)) %&gt;%
+  mutate(meanPhysSxSeverity = mean(physicalSxSeverity, na.rm = T)) %&gt;%
+  mutate(meanNumberOfStressors = mean(numberOfStressors, na.rm = T)) %&gt;%
+  mutate(meanStressorSeverity = mean(stressorSeverityMean, na.rm = T)) %&gt;%
+  mutate(meanstressorNegAff = mean(stressorNegAffMean, na.rm = T)) %&gt;%
+  ungroup()
+
+analyticSample &lt;- dat %&gt;%
+  dplyr::select(id) %&gt;%
+  n_distinct()</code></pre>
+<pre class="r"><code>#hyp 1 lmm cond ciiv
+cortSlopeDat &lt;- dat %&gt;%
+  dplyr::select(id, day, cortTimeText, cortTime, logCort) %&gt;%
+  filter(cortTimeText != &quot;wakeThirtyCort&quot;)
+
+lmeSlopes2 &lt;- lme(logCort ~ 1,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~1|id)
+
+lmeSlopes3 &lt;- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~1|id)
+
+lmeSlopes4 &lt;- lme(logCort ~ cortTime,
+                 data = cortSlopeDat,
+                 method = &quot;ML&quot;,
+                 na.action = &quot;na.exclude&quot;,
+                 random = ~cortTime|id)
+
+#anova(lmeSlopes2, lmeSlopes3, lmeSlopes4)
+
+lmeResidsHyp1Cond &lt;- resid(lmeSlopes4, type=&quot;response&quot;, level=1)
+lmeResidsHyp1Cond &lt;- tibble::enframe(lmeResidsHyp1Cond, &quot;id&quot;, &quot;hyp1LmmCondCiiv&quot;)
+
+lmeResidsHyp1Cond &lt;- lmeResidsHyp1Cond %&gt;%
+  group_by(id) %&gt;%
+  mutate(hyp1LmmCondCiiv = sd(hyp1LmmCondCiiv, na.rm = T)) %&gt;%
+  ungroup() %&gt;%
+  dplyr::select(id, hyp1LmmCondCiiv) %&gt;%
+  distinct() %&gt;%
+  mutate(id = as.numeric(id))
+
+dat &lt;- left_join(dat, lmeResidsHyp1Cond, by = &quot;id&quot;)</code></pre>
+<pre class="r"><code>## @knitr tests
+
+test &lt;- dat %&gt;%
+  dplyr::select(id, age, gender, medUseNone1Yes, ethnicity, education, smoker, conscientiousness, opennessToExp, agreeableness, neuroticism, extraversion, mentalHealthTx, somaticAmplification, emotionFocused,
+  meanIrritable, meanAngry, meanUpset, meanNumberPhysSx,
+  meanPhysSxSeverity, meanNumberOfStressors, meanStressorSeverity,
+  meanstressorNegAff, problemFocused, hyp1LmmCondCiiv) %&gt;%
+  distinct()
+
+hist(test$hyp1LmmCondCiiv, breaks = 20)</code></pre>
+<p><img src="figure/big5Analysis.Rmd/extractMe-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Robust Regression
+library(MASS)                   # need to load dplyr after to mask select</code></pre>
+<pre><code>
+Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    select</code></pre>
+<pre class="r"><code>library(sfsmisc)</code></pre>
+<pre><code>
+Attaching package: &#39;sfsmisc&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    last</code></pre>
+<pre class="r"><code>summary(rslGender &lt;- rlm(hyp1LmmCondCiiv ~ gender, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ gender, data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.43022 -0.12855 -0.01852  0.13481  3.20659 
+
+Coefficients:
+            Value   Std. Error t value
+(Intercept)  0.5260  0.0072    73.0064
+gender      -0.0216  0.0096    -2.2477
+
+Residual standard error: 0.1945 on 1726 degrees of freedom
+  (3 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslGender)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ gender, data = test)
+F = 5.0489, p-value = 0.02477
+alternative hypothesis: true gender is not equal to 0</code></pre>
+<pre class="r"><code>summary(rslEducation &lt;- rlm(hyp1LmmCondCiiv ~ education, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ education, data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.42489 -0.12989 -0.02005  0.13335  1.84419 
+
+Coefficients:
+            Value   Std. Error t value
+(Intercept)  0.5457  0.0135    40.2904
+education   -0.0050  0.0020    -2.5301
+
+Residual standard error: 0.193 on 1596 degrees of freedom
+  (133 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslEducation)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ education, data = test)
+F = 6.3912, p-value = 0.01156
+alternative hypothesis: true education is not equal to 0</code></pre>
+<pre class="r"><code>summary(rslAge &lt;- rlm(hyp1LmmCondCiiv ~ age, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ age, data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.42961 -0.12795 -0.01713  0.13212  3.20146 
+
+Coefficients:
+            Value    Std. Error t value 
+(Intercept)   0.5146   0.0048   108.1157
+age          -0.0020   0.0004    -5.0267
+
+Residual standard error: 0.1921 on 1726 degrees of freedom
+  (3 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslAge)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age, data = test)
+F = 25.218, p-value = 0.000000565
+alternative hypothesis: true age is not equal to 0</code></pre>
+<pre class="r"><code>summary(rslMedUse &lt;- rlm(hyp1LmmCondCiiv ~ medUseNone1Yes, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ medUseNone1Yes, data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.41930 -0.13253 -0.01711  0.13701  3.19592 
+
+Coefficients:
+                      Value   Std. Error t value
+(Intercept)            0.5107  0.0069    74.2117
+medUseNone1Yesno       0.0044  0.0105     0.4163
+medUseNone1Yesmissing  0.0145  0.0142     1.0227
+
+Residual standard error: 0.1995 on 1725 degrees of freedom
+  (3 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslMedUse)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ medUseNone1Yes, data = test)
+F = 0.5283, p-value = 0.5897
+alternative hypothesis: two.sided
+null values:
+     medUseNone1Yesno medUseNone1Yesmissing 
+                    0                     0 </code></pre>
+<pre class="r"><code>summary(rslSmoker &lt;- rlm(hyp1LmmCondCiiv ~ smoker, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ smoker, data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.46540 -0.12932 -0.01525  0.13118  1.84187 
+
+Coefficients:
+            Value   Std. Error t value
+(Intercept)  0.5080  0.0052    97.6603
+smoker       0.0532  0.0151     3.5215
+
+Residual standard error: 0.1935 on 1599 degrees of freedom
+  (130 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslSmoker)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ smoker, data = test)
+F = 12.23, p-value = 0.0004831
+alternative hypothesis: true smoker is not equal to 0</code></pre>
+<pre class="r"><code>summary(rslEthnicity &lt;- rlm(hyp1LmmCondCiiv ~ ethnicity, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ ethnicity, data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.41934 -0.13163 -0.01814  0.13560  1.83475 
+
+Coefficients:
+            Value    Std. Error t value 
+(Intercept)   0.5151   0.0050   102.1372
+ethnicity    -0.0038   0.0066    -0.5801
+
+Residual standard error: 0.1985 on 1599 degrees of freedom
+  (130 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslEthnicity)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ ethnicity, data = test)
+F = 0.33743, p-value = 0.5614
+alternative hypothesis: true ethnicity is not equal to 0</code></pre>
+<pre class="r"><code>#neuroticism
+summary(rslNeuro &lt;- rlm(hyp1LmmCondCiiv ~ age + education + smoker + neuroticism, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + neuroticism, 
+    data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.46442 -0.12403 -0.01747  0.12720  1.83326 
+
+Coefficients:
+            Value   Std. Error t value
+(Intercept)  0.5438  0.0146    37.3298
+age         -0.0018  0.0004    -4.1087
+education   -0.0050  0.0021    -2.4132
+smoker       0.0322  0.0158     2.0319
+neuroticism  0.0226  0.0082     2.7768
+
+Residual standard error: 0.1863 on 1547 degrees of freedom
+  (179 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslNeuro, var = &quot;neuroticism&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + neuroticism, from     data = test)
+F = 7.6397, p-value = 0.005778
+alternative hypothesis: true neuroticism is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslNeuro, var = &quot;age&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + neuroticism, from     data = test)
+F = 16.807, p-value = 0.00004353
+alternative hypothesis: true age is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslNeuro, var = &quot;education&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + neuroticism, from     data = test)
+F = 5.8173, p-value = 0.01599
+alternative hypothesis: true education is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslNeuro, var = &quot;smoker&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + neuroticism, from     data = test)
+F = 4.0799, p-value = 0.04357
+alternative hypothesis: true smoker is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslNeuro)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + neuroticism, from     data = test)
+F = 11.539, p-value = 0.000000003113
+alternative hypothesis: two.sided
+null values:
+        age   education      smoker neuroticism 
+          0           0           0           0 </code></pre>
+<pre class="r"><code>effSizeNeuro &lt;- effectsize::standardize_parameters(rslNeuro)
+
+effSizeNeuroAge &lt;- round(effSizeNeuro$Std_Coefficient[2], 2)
+effSizeNeuroEdu &lt;- round(effSizeNeuro$Std_Coefficient[3], 2)
+effSizeNeuroSmoker &lt;- round(effSizeNeuro$Std_Coefficient[4], 2)
+effSizeNeuroNeuro &lt;- round(effSizeNeuro$Std_Coefficient[5], 2)
+
+rslNeuroDf &lt;- str_split(f.robftest(rslNeuro)$df, &quot; &quot;)
+rslNeuroF &lt;- round(unname(f.robftest(rslNeuro)$statistic), 2)
+rslNeuroP &lt;- round(unname(f.robftest(rslNeuro)$p.value), 4)
+
+neuroAgeB &lt;- round(summary(rslNeuro)$coefficients[2], 4)
+neuroAgeSe &lt;- round(summary(rslNeuro)$coefficients[2, 2], 4)
+neuroAgeT &lt;- round(summary(rslNeuro)$coefficients[2, 3], 2)
+neuroAgeP &lt;- round(f.robftest(rslNeuro, var = &quot;age&quot;)$p.value, 4)
+
+neuroEducationB &lt;- round(summary(rslNeuro)$coefficients[3], 4)
+neuroEducationSe &lt;- round(summary(rslNeuro)$coefficients[3, 2], 4)
+neuroEducationT &lt;- round(summary(rslNeuro)$coefficients[3, 3], 2)
+neuroEducationP &lt;- round(f.robftest(rslNeuro, var = &quot;education&quot;)$p.value, 4)
+
+neuroSmokerB &lt;- round(summary(rslNeuro)$coefficients[4], 4)
+neuroSmokerSe &lt;- round(summary(rslNeuro)$coefficients[4, 2], 4)
+neuroSmokerT &lt;- round(summary(rslNeuro)$coefficients[4, 3], 2)
+neuroSmokerP &lt;- round(f.robftest(rslNeuro, var = &quot;education&quot;)$p.value, 4)
+
+neuroB &lt;- round(summary(rslNeuro)$coefficients[4], 4)
+neuroSe &lt;- round(summary(rslNeuro)$coefficients[4, 2], 4)
+neuroT &lt;- round(summary(rslNeuro)$coefficients[4, 3], 2)
+neuroP &lt;- round(f.robftest(rslNeuro, var = &quot;neuroticism&quot;)$p.value, 4)
+
+#conscientiousness
+summary(rslConsc &lt;- rlm(hyp1LmmCondCiiv ~ age + education + smoker + conscientiousness, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + conscientiousness, 
+    data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.46409 -0.12327 -0.01894  0.12804  1.83590 
+
+Coefficients:
+                  Value   Std. Error t value
+(Intercept)        0.5480  0.0145    37.7856
+age               -0.0021  0.0004    -4.9212
+education         -0.0057  0.0021    -2.7590
+smoker             0.0330  0.0159     2.0838
+conscientiousness -0.0150  0.0114    -1.3199
+
+Residual standard error: 0.186 on 1547 degrees of freedom
+  (179 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslConsc, var = &quot;conscientiousness&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + conscientiousness, from     data = test)
+F = 1.7507, p-value = 0.186
+alternative hypothesis: true conscientiousness is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslConsc, var = &quot;age&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + conscientiousness, from     data = test)
+F = 24.147, p-value = 0.0000009873
+alternative hypothesis: true age is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslConsc, var = &quot;education&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + conscientiousness, from     data = test)
+F = 7.6083, p-value = 0.005878
+alternative hypothesis: true education is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslConsc, var = &quot;smoker&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + conscientiousness, from     data = test)
+F = 4.293, p-value = 0.03844
+alternative hypothesis: true smoker is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslConsc)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + conscientiousness, from     data = test)
+F = 10.113, p-value = 0.0000000442
+alternative hypothesis: two.sided
+null values:
+              age         education            smoker conscientiousness 
+                0                 0                 0                 0 </code></pre>
+<pre class="r"><code>effSizeConsc &lt;- effectsize::standardize_parameters(rslConsc)
+
+effSizeConscAge &lt;- round(effSizeConsc$Std_Coefficient[2], 2)
+effSizeConscEdu &lt;- round(effSizeConsc$Std_Coefficient[3], 2)
+effSizeConscSmoker &lt;- round(effSizeConsc$Std_Coefficient[4], 2)
+effSizeConscConsc &lt;- round(effSizeConsc$Std_Coefficient[5], 2)
+
+rslConscDf &lt;- str_split(f.robftest(rslConsc)$df, &quot; &quot;)
+rslConscF &lt;- round(unname(f.robftest(rslConsc)$statistic), 2)
+rslConscP &lt;- round(unname(f.robftest(rslConsc)$p.value), 4)
+
+conscAgeB &lt;- round(summary(rslConsc)$coefficients[2], 4)
+conscAgeSe &lt;- round(summary(rslConsc)$coefficients[2, 2], 4)
+conscAgeT &lt;- round(summary(rslConsc)$coefficients[2, 3], 2)
+conscAgeP &lt;- round(f.robftest(rslConsc, var = &quot;age&quot;)$p.value, 4)
+
+conscEducationB &lt;- round(summary(rslConsc)$coefficients[3], 4)
+conscEducationSe &lt;- round(summary(rslConsc)$coefficients[3, 2], 4)
+conscEducationT &lt;- round(summary(rslConsc)$coefficients[3, 3], 2)
+conscEducationP &lt;- round(f.robftest(rslConsc, var = &quot;education&quot;)$p.value, 4)
+
+conscSmokerB &lt;- round(summary(rslConsc)$coefficients[4], 4)
+conscSmokerSe &lt;- round(summary(rslConsc)$coefficients[4, 2], 4)
+conscSmokerT &lt;- round(summary(rslConsc)$coefficients[4, 3], 2)
+conscSmokerP &lt;- round(f.robftest(rslConsc, var = &quot;education&quot;)$p.value, 4)
+
+conscB &lt;- round(summary(rslConsc)$coefficients[5], 4)
+conscSe &lt;- round(summary(rslConsc)$coefficients[5, 2], 4)
+conscT &lt;- round(summary(rslConsc)$coefficients[5, 3], 2)
+conscP &lt;- round(f.robftest(rslConsc, var = &quot;conscientiousness&quot;)$p.value, 4)
+
+# openness to experience
+summary(rslOpen &lt;- rlm(hyp1LmmCondCiiv ~ age + education + smoker + opennessToExp, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + opennessToExp, 
+    data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.47157 -0.12378 -0.01845  0.12819  1.82886 
+
+Coefficients:
+              Value   Std. Error t value
+(Intercept)    0.5443  0.0148    36.7905
+age           -0.0020  0.0004    -4.8962
+education     -0.0053  0.0021    -2.5196
+smoker         0.0361  0.0158     2.2903
+opennessToExp -0.0106  0.0096    -1.1137
+
+Residual standard error: 0.1847 on 1536 degrees of freedom
+  (190 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslOpen, var = &quot;opennessToExp&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + opennessToExp, from     data = test)
+F = 1.2367, p-value = 0.2663
+alternative hypothesis: true opennessToExp is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslOpen, var = &quot;age&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + opennessToExp, from     data = test)
+F = 23.908, p-value = 0.000001116
+alternative hypothesis: true age is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslOpen, var = &quot;education&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + opennessToExp, from     data = test)
+F = 6.3352, p-value = 0.01194
+alternative hypothesis: true education is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslOpen, var = &quot;smoker&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + opennessToExp, from     data = test)
+F = 5.1765, p-value = 0.02303
+alternative hypothesis: true smoker is not equal to 0</code></pre>
+<pre class="r"><code>effSizeOpen &lt;- effectsize::standardize_parameters(rslOpen)
+
+effSizeOpenAge &lt;- round(effSizeOpen$Std_Coefficient[2], 2)
+effSizeOpenEdu &lt;- round(effSizeOpen$Std_Coefficient[3], 2)
+effSizeOpenSmoker &lt;- round(effSizeOpen$Std_Coefficient[4], 2)
+effSizeOpenOpen &lt;- round(effSizeOpen$Std_Coefficient[5], 2)
+
+rslOpenDf &lt;- str_split(f.robftest(rslOpen)$df, &quot; &quot;)
+rslOpenF &lt;- round(unname(f.robftest(rslOpen)$statistic), 2)
+rslOpenP &lt;- round(unname(f.robftest(rslOpen)$p.value), 4)
+
+openAgeB &lt;- round(summary(rslOpen)$coefficients[2], 4)
+openAgeSe &lt;- round(summary(rslOpen)$coefficients[2, 2], 4)
+openAgeT &lt;- round(summary(rslOpen)$coefficients[2, 3], 2)
+openAgeP &lt;- round(f.robftest(rslOpen, var = &quot;age&quot;)$p.value, 4)
+
+openEducationB &lt;- round(summary(rslOpen)$coefficients[3], 4)
+openEducationSe &lt;- round(summary(rslOpen)$coefficients[3, 2], 4)
+openEducationT &lt;- round(summary(rslOpen)$coefficients[3, 3], 2)
+openEducationP &lt;- round(f.robftest(rslOpen, var = &quot;education&quot;)$p.value, 4)
+
+openSmokerB &lt;- round(summary(rslOpen)$coefficients[4], 4)
+openSmokerSe &lt;- round(summary(rslOpen)$coefficients[4, 2], 4)
+openSmokerT &lt;- round(summary(rslOpen)$coefficients[4, 3], 2)
+openSmokerP &lt;- round(f.robftest(rslOpen, var = &quot;education&quot;)$p.value, 4)
+
+opennessToExpB &lt;- round(summary(rslOpen)$coefficients[5], 4)
+opennessToExpSe &lt;- round(summary(rslOpen)$coefficients[5, 2], 4)
+opennessToExpT &lt;- round(summary(rslOpen)$coefficients[5, 3], 2)
+opennessToExpP &lt;- round(f.robftest(rslOpen, var = &quot;opennessToExp&quot;)$p.value, 4)
+
+#agreeableness
+summary(rslAgree &lt;- rlm(hyp1LmmCondCiiv ~ age + education + smoker + agreeableness, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + agreeableness, 
+    data = test)
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.4694 -0.1244 -0.0197  0.1295  1.8226 
+
+Coefficients:
+              Value   Std. Error t value
+(Intercept)    0.5494  0.0145    37.8567
+age           -0.0020  0.0004    -4.7001
+education     -0.0059  0.0021    -2.8615
+smoker         0.0337  0.0158     2.1304
+agreeableness -0.0158  0.0102    -1.5505
+
+Residual standard error: 0.1874 on 1547 degrees of freedom
+  (179 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslAgree, var = &quot;agreeableness&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + agreeableness, from     data = test)
+F = 2.3822, p-value = 0.1229
+alternative hypothesis: true agreeableness is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslAgree, var = &quot;age&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + agreeableness, from     data = test)
+F = 22.034, p-value = 0.000002915
+alternative hypothesis: true age is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslAgree, var = &quot;education&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + agreeableness, from     data = test)
+F = 8.1828, p-value = 0.004286
+alternative hypothesis: true education is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslAgree, var = &quot;smoker&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + agreeableness, from     data = test)
+F = 4.492, p-value = 0.03421
+alternative hypothesis: true smoker is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslAgree)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + agreeableness, from     data = test)
+F = 10.196, p-value = 0.00000003783
+alternative hypothesis: two.sided
+null values:
+          age     education        smoker agreeableness 
+            0             0             0             0 </code></pre>
+<pre class="r"><code>effSizeAgree &lt;- effectsize::standardize_parameters(rslAgree)
+
+effSizeAgreeAge &lt;- round(effSizeAgree$Std_Coefficient[2], 2)
+effSizeAgreeEdu &lt;- round(effSizeAgree$Std_Coefficient[3], 2)
+effSizeAgreeSmoker &lt;- round(effSizeAgree$Std_Coefficient[4], 2)
+effSizeAgreeAgree &lt;- round(effSizeAgree$Std_Coefficient[5], 2)
+
+rslAgreeDf &lt;- str_split(f.robftest(rslAgree)$df, &quot; &quot;)
+rslAgreeF &lt;- round(unname(f.robftest(rslAgree)$statistic), 2)
+rslAgreeP &lt;- round(unname(f.robftest(rslAgree)$p.value), 4)
+
+agreeAgeB &lt;- round(summary(rslAgree)$coefficients[2], 4)
+agreeAgeSe &lt;- round(summary(rslAgree)$coefficients[2, 2], 4)
+agreeAgeT &lt;- round(summary(rslAgree)$coefficients[2, 3], 2)
+agreeAgeP &lt;- round(f.robftest(rslAgree, var = &quot;age&quot;)$p.value, 4)
+
+agreeEducationB &lt;- round(summary(rslAgree)$coefficients[3], 4)
+agreeEducationSe &lt;- round(summary(rslAgree)$coefficients[3, 2], 4)
+agreeEducationT &lt;- round(summary(rslAgree)$coefficients[3, 3], 2)
+agreeEducationP &lt;- round(f.robftest(rslAgree, var = &quot;education&quot;)$p.value, 4)
+
+agreeSmokerB &lt;- round(summary(rslAgree)$coefficients[4], 4)
+agreeSmokerSe &lt;- round(summary(rslAgree)$coefficients[4, 2], 4)
+agreeSmokerT &lt;- round(summary(rslAgree)$coefficients[4, 3], 2)
+agreeSmokerP &lt;- round(f.robftest(rslAgree, var = &quot;education&quot;)$p.value, 4)
+
+agreeablenessB &lt;- round(summary(rslAgree)$coefficients[5], 4)
+agreeablenessSe &lt;- round(summary(rslAgree)$coefficients[5, 2], 4)
+agreeablenessT &lt;- round(summary(rslAgree)$coefficients[5, 3], 2)
+agreeablenessP &lt;- round(f.robftest(rslAgree, var = &quot;agreeableness&quot;)$p.value, 4)
+
+#extraversion
+summary(rslExtra &lt;- rlm(hyp1LmmCondCiiv ~ age + education + smoker + extraversion, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + extraversion, 
+    data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.46637 -0.12501 -0.01831  0.12848  1.83250 
+
+Coefficients:
+             Value   Std. Error t value
+(Intercept)   0.5483  0.0145    37.7955
+age          -0.0020  0.0004    -4.7984
+education    -0.0057  0.0021    -2.7719
+smoker        0.0339  0.0158     2.1384
+extraversion -0.0053  0.0087    -0.6113
+
+Residual standard error: 0.1878 on 1547 degrees of freedom
+  (179 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslExtra, var = &quot;extraversion&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + extraversion, from     data = test)
+F = 0.37191, p-value = 0.5421
+alternative hypothesis: true extraversion is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslExtra, var = &quot;age&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + extraversion, from     data = test)
+F = 22.967, p-value = 0.000001806
+alternative hypothesis: true age is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslExtra, var = &quot;education&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + extraversion, from     data = test)
+F = 7.6795, p-value = 0.005652
+alternative hypothesis: true education is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslExtra, var = &quot;smoker&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + extraversion, from     data = test)
+F = 4.5222, p-value = 0.03362
+alternative hypothesis: true smoker is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslExtra)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + extraversion, from     data = test)
+F = 9.7296, p-value = 0.00000008998
+alternative hypothesis: two.sided
+null values:
+         age    education       smoker extraversion 
+           0            0            0            0 </code></pre>
+<pre class="r"><code>effSizeExtra &lt;- effectsize::standardize_parameters(rslExtra)
+
+effSizeExtraAge &lt;- round(effSizeExtra$Std_Coefficient[2], 2)
+effSizeExtraEdu &lt;- round(effSizeExtra$Std_Coefficient[3], 2)
+effSizeExtraSmoker &lt;- round(effSizeExtra$Std_Coefficient[4], 2)
+effSizeExtraExtra &lt;- round(effSizeExtra$Std_Coefficient[5], 2)
+
+rslExtraDf &lt;- str_split(f.robftest(rslExtra)$df, &quot; &quot;)
+rslExtraF &lt;- round(unname(f.robftest(rslExtra)$statistic), 2)
+rslExtraP &lt;- round(unname(f.robftest(rslExtra)$p.value), 4)
+
+extraAgeB &lt;- round(summary(rslExtra)$coefficients[2], 4)
+extraAgeSe &lt;- round(summary(rslExtra)$coefficients[2, 2], 4)
+extraAgeT &lt;- round(summary(rslExtra)$coefficients[2, 3], 2)
+extraAgeP &lt;- round(f.robftest(rslExtra, var = &quot;age&quot;)$p.value, 4)
+
+extraEducationB &lt;- round(summary(rslExtra)$coefficients[3], 4)
+extraEducationSe &lt;- round(summary(rslExtra)$coefficients[3, 2], 4)
+extraEducationT &lt;- round(summary(rslExtra)$coefficients[3, 3], 2)
+extraEducationP &lt;- round(f.robftest(rslExtra, var = &quot;education&quot;)$p.value, 4)
+
+extraSmokerB &lt;- round(summary(rslExtra)$coefficients[4], 4)
+extraSmokerSe &lt;- round(summary(rslExtra)$coefficients[4, 2], 4)
+extraSmokerT &lt;- round(summary(rslExtra)$coefficients[4, 3], 2)
+extraSmokerP &lt;- round(f.robftest(rslExtra, var = &quot;education&quot;)$p.value, 4)
+
+extraversionB &lt;- round(summary(rslExtra)$coefficients[5], 4)
+extraversionSe &lt;- round(summary(rslExtra)$coefficients[5, 2], 4)
+extraversionT &lt;- round(summary(rslExtra)$coefficients[5, 3], 2)
+extraversionP &lt;- round(f.robftest(rslExtra, var = &quot;extraversion&quot;)$p.value, 4)
+
+#number of physical sx
+summary(rslMeanNumberPhysSx &lt;- rlm(hyp1LmmCondCiiv ~ age + education + smoker + meanNumberPhysSx, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanNumberPhysSx, 
+    data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.47729 -0.12468 -0.01787  0.12820  1.83198 
+
+Coefficients:
+                 Value   Std. Error t value
+(Intercept)       0.5379  0.0156    34.5862
+age              -0.0021  0.0004    -5.1156
+education        -0.0053  0.0020    -2.6017
+smoker            0.0374  0.0157     2.3869
+meanNumberPhysSx  0.0040  0.0029     1.3894
+
+Residual standard error: 0.1863 on 1583 degrees of freedom
+  (143 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslMeanNumberPhysSx, var = &quot;meanNumberPhysSx&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanNumberPhysSx, from     data = test)
+F = 1.8971, p-value = 0.1686
+alternative hypothesis: true meanNumberPhysSx is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslMeanNumberPhysSx, var = &quot;age&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanNumberPhysSx, from     data = test)
+F = 26.042, p-value = 0.0000003744
+alternative hypothesis: true age is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslMeanNumberPhysSx, var = &quot;education&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanNumberPhysSx, from     data = test)
+F = 6.765, p-value = 0.009383
+alternative hypothesis: true education is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslMeanNumberPhysSx, var = &quot;smoker&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanNumberPhysSx, from     data = test)
+F = 5.6413, p-value = 0.01766
+alternative hypothesis: true smoker is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslMeanNumberPhysSx)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanNumberPhysSx, from     data = test)
+F = 11.212, p-value = 0.000000005683
+alternative hypothesis: two.sided
+null values:
+             age        education           smoker meanNumberPhysSx 
+               0                0                0                0 </code></pre>
+<pre class="r"><code>effSizeNumSx &lt;- effectsize::standardize_parameters(rslMeanNumberPhysSx)
+
+effSizeNumSxAge &lt;- round(effSizeNumSx$Std_Coefficient[2], 2)
+effSizeNumSxEdu &lt;- round(effSizeNumSx$Std_Coefficient[3], 2)
+effSizeNumSxSmoker &lt;- round(effSizeNumSx$Std_Coefficient[4], 2)
+effSizeNumSxNumSx &lt;- round(effSizeNumSx$Std_Coefficient[5], 2)
+
+rslMeanNumPhysSxDf &lt;- str_split(f.robftest(rslMeanNumberPhysSx)$df, &quot; &quot;)
+rslMeanNumPhysSxF &lt;- round(unname(f.robftest(rslMeanNumberPhysSx)$statistic), 2)
+rslmeanNumPhysSxP &lt;- round(unname(f.robftest(rslMeanNumberPhysSx)$p.value), 4)
+
+meanNumPhysSxAgeB &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[2], 4)
+meanNumPhysSxAgeSe &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[2, 2], 4)
+meanNumPhysSxAgeT &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[2, 3], 2)
+meanNumPhysSxAgeP &lt;- round(f.robftest(rslMeanNumberPhysSx, var = &quot;age&quot;)$p.value, 4)
+
+meanNumPhysSxEducationB &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[3], 4)
+meanNumPhysSxEducationSe &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[3, 2], 4)
+meanNumPhysSxEducationT &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[3, 3], 2)
+meanNumPhysSxEducationP &lt;- round(f.robftest(rslMeanNumberPhysSx, var = &quot;education&quot;)$p.value, 4)
+
+meanNumPhysSxSmokerB &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[4], 4)
+meanNumPhysSxSmokerSe &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[4, 2], 4)
+meanNumPhysSxSmokerT &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[4, 3], 2)
+meanNumPhysSxSmokerP &lt;- round(f.robftest(rslMeanNumberPhysSx, var = &quot;education&quot;)$p.value, 4)
+
+meanNumPhysSxB &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[5], 4)
+meanNumPhysSxSe &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[5, 2], 4)
+meanNumPhysSxT &lt;- round(summary(rslMeanNumberPhysSx)$coefficients[5, 3], 2)
+meanNumPhysSxP &lt;- round(f.robftest(rslMeanNumberPhysSx, var = &quot;meanNumberPhysSx&quot;)$p.value, 4)
+
+#physical sx severity
+summary(rslMeanPhysSxSeverity &lt;- rlm(hyp1LmmCondCiiv ~ age + education + smoker + meanPhysSxSeverity, data = test))</code></pre>
+<pre><code>
+Call: rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanPhysSxSeverity, 
+    data = test)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.48492 -0.12435 -0.01704  0.12744  1.82264 
+
+Coefficients:
+                   Value   Std. Error t value
+(Intercept)         0.5162  0.0179    28.8240
+age                -0.0021  0.0004    -5.1796
+education          -0.0047  0.0021    -2.2975
+smoker              0.0345  0.0156     2.2121
+meanPhysSxSeverity  0.0105  0.0036     2.8827
+
+Residual standard error: 0.1868 on 1591 degrees of freedom
+  (135 observations deleted due to missingness)</code></pre>
+<pre class="r"><code>f.robftest(rslMeanPhysSxSeverity, var = &quot;meanPhysSxSeverity&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanPhysSxSeverity, from     data = test)
+F = 8.2006, p-value = 0.004243
+alternative hypothesis: true meanPhysSxSeverity is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslMeanPhysSxSeverity, var = &quot;age&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanPhysSxSeverity, from     data = test)
+F = 26.716, p-value = 0.0000002654
+alternative hypothesis: true age is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslMeanPhysSxSeverity, var = &quot;education&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanPhysSxSeverity, from     data = test)
+F = 5.2707, p-value = 0.02182
+alternative hypothesis: true education is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslMeanPhysSxSeverity, var = &quot;smoker&quot;)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanPhysSxSeverity, from     data = test)
+F = 4.8392, p-value = 0.02796
+alternative hypothesis: true smoker is not equal to 0</code></pre>
+<pre class="r"><code>f.robftest(rslMeanPhysSxSeverity)</code></pre>
+<pre><code>
+    robust F-test (as if non-random weights)
+
+data:  from rlm(formula = hyp1LmmCondCiiv ~ age + education + smoker + meanPhysSxSeverity, from     data = test)
+F = 12.271, p-value = 0.0000000007897
+alternative hypothesis: two.sided
+null values:
+               age          education             smoker meanPhysSxSeverity 
+                 0                  0                  0                  0 </code></pre>
+<pre class="r"><code>effSizePhysSxSev &lt;- effectsize::standardize_parameters(rslMeanPhysSxSeverity)
+
+effSizePhysSxSevAge &lt;- round(effSizePhysSxSev$Std_Coefficient[2], 2)
+effSizePhysSxSevEdu &lt;- round(effSizePhysSxSev$Std_Coefficient[3], 2)
+effSizePhysSxSevSmoker &lt;- round(effSizePhysSxSev$Std_Coefficient[4], 2)
+effSizePhysSxSevSev &lt;- round(effSizePhysSxSev$Std_Coefficient[5], 2)
+
+rslMeanPhysSxSeverityDf &lt;- str_split(f.robftest(rslMeanPhysSxSeverity)$df, &quot; &quot;)
+rslMeanPhysSxSeverityF &lt;- round(unname(f.robftest(rslMeanPhysSxSeverity)$statistic), 2)
+rslMeanPhysSxSeverityP &lt;- round(unname(f.robftest(rslMeanPhysSxSeverity)$p.value), 4)
+
+meanPhysSxSeverityAgeB &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[2], 4)
+meanPhysSxSeverityAgeSe &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[2, 2], 4)
+meanPhysSxSeverityAgeT &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[2, 3], 2)
+meanPhysSxSeverityAgeP &lt;- round(f.robftest(rslMeanPhysSxSeverity, var = &quot;age&quot;)$p.value, 4)
+
+meanPhysSxSeverityEducationB &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[3], 4)
+meanPhysSxSeverityEducationSe &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[3, 2], 4)
+meanPhysSxSeverityEducationT &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[3, 3], 2)
+meanPhysSxSeverityEducationP &lt;- round(f.robftest(rslMeanPhysSxSeverity, var = &quot;education&quot;)$p.value, 4)
+
+meanPhysSxSeveritySmokerB &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[4], 4)
+meanPhysSxSeveritySmokerSe &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[4, 2], 4)
+meanPhysSxSeveritySmokerT &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[4, 3], 2)
+meanPhysSxSeveritySmokerP &lt;- round(f.robftest(rslMeanPhysSxSeverity, var = &quot;age&quot;)$p.value, 4)
+
+meanPhysSxSeverityB &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[5], 4)
+meanPhysSxSeveritySe &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[5, 2], 4)
+meanPhysSxSeverityT &lt;- round(summary(rslMeanPhysSxSeverity)$coefficients[5, 3], 2)
+meanPhysSxSeverityP &lt;- round(f.robftest(rslMeanPhysSxSeverity, var = &quot;meanPhysSxSeverity&quot;)$p.value, 4)
+
+# BH p-value correction
+pValues &lt;- c(0.005778, 0.1860, 0.3249, 0.1145, 0.4948, 0.1686, 0.004243)
+
+bhAlphas &lt;- stats::p.adjust(pValues, method = &quot;BH&quot;, n = length(pValues))
+
+bhAlphaNeuro &lt;- round(bhAlphas[1], 2)
+
+bhAlphaPhysSev &lt;- round(bhAlphas[7], 2)</code></pre>
+<pre class="r"><code>neuroGraph &lt;- ggplot(test, aes(neuroticism, hyp1LmmCondCiiv)) +
+  geom_smooth(method = &quot;rlm&quot;, se = F, colour = &quot;black&quot;) +
+  ylim(0, 1) +
+  jtools::theme_apa() +
+  xlab(&quot;Neuroticism&quot;) +
+  ylab(&quot;Cortisol Intraindividual Variability&quot;)
+
+physSxSeverityGraph &lt;- ggplot(test, aes(meanPhysSxSeverity, hyp1LmmCondCiiv)) +
+  geom_smooth(method = &quot;rlm&quot;, se = F, colour = &quot;black&quot;) +
+  ylim(0, 1) +
+  jtools::theme_apa() +
+  xlab(&quot;Physical Symptom Severity&quot;) +
+  ylab(&quot;Cortisol Intraindividual Variability&quot;)</code></pre>
+</div>
+<div id="tables" class="section level1">
+<h1>Tables</h1>
+<pre class="r"><code># rsl tables
+table1PredNames &lt;- c(`(Intercept)` = &quot;Intercept&quot;,
+                     age = &quot;Age&quot;,
+                     education = &quot;Education&quot;,
+                     smoker = &quot;Smoker&quot;,
+                     neuroticism = &quot;Neuroticism&quot;,
+                     conscientiousness = &quot;Consientiousness&quot;,
+                     opennessToExp  = &quot;Openness to Experience&quot;,
+                     agreeableness = &quot;Agreeableness&quot;)
+
+resultsTable1 &lt;- sjPlot::tab_model(rslNeuro, rslConsc, rslOpen, rslAgree,
+                  pred.labels = table1PredNames,
+                  dv.labels = c(&quot;Neuroticism&quot;, &quot;Conscientiousness&quot;,
+                                &quot;Openness to Experience&quot;, &quot;Agreeableness&quot;))
+
+table2PredNames &lt;- c(`(Intercept)` = &quot;Intercept&quot;,
+                     age = &quot;Age&quot;,
+                     education = &quot;Education&quot;,
+                     smoker = &quot;Smoker&quot;,
+                     meanNumberPhysSx = &quot;Average Number of Physical Symptoms&quot;,
+                     meanPhysSxSeverity = &quot;Average Physical Symptom Severity&quot;)
+
+resultsTable2 &lt;- sjPlot::tab_model(rslExtra, rslMeanNumberPhysSx, rslMeanPhysSxSeverity,
+              pred.labels = table2PredNames,
+              dv.labels = c(&quot;Extraversion&quot;, &quot;Number of Physical Symptoms&quot;,
+                            &quot;Physical Symptom Severity&quot;))
+
+#demo tables
+
+
+predictorsTable &lt;- apaTables::apa.cor.table(test[, 8:12])</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Sierra 10.12.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] sfsmisc_1.1-2   MASS_7.3-50     nlme_3.1-145    forcats_0.5.0  
+ [5] stringr_1.4.0   dplyr_0.8.4     purrr_0.3.3     readr_1.3.1    
+ [9] tidyr_1.0.2     tibble_2.1.3    ggplot2_3.3.0   tidyverse_1.2.1
+[13] workflowr_1.6.0
+
+loaded via a namespace (and not attached):
+ [1] fs_1.3.1          lubridate_1.7.4   insight_0.8.4     httr_1.3.1       
+ [5] rprojroot_1.3-2   tools_3.5.1       backports_1.1.4   R6_2.4.1         
+ [9] sjlabelled_1.1.4  colorspace_1.3-2  withr_2.1.2       tidyselect_1.0.0 
+[13] emmeans_1.4.4     compiler_3.5.1    git2r_0.26.1      performance_0.4.6
+[17] cli_2.0.2         rvest_0.3.2       xml2_1.2.0        sandwich_2.5-0   
+[21] bayestestR_0.6.0  scales_1.1.0      mvtnorm_1.0-8     digest_0.6.25    
+[25] minqa_1.2.4       rmarkdown_1.13    pkgconfig_2.0.3   htmltools_0.3.6  
+[29] lme4_1.1-21       highr_0.8         rlang_0.4.5       readxl_1.3.1     
+[33] rstudioapi_0.11   generics_0.0.2    apaTables_2.0.5   zoo_1.8-4        
+[37] jsonlite_1.6      sjPlot_2.8.4      magrittr_1.5      parameters_0.8.0 
+[41] Matrix_1.2-14     Rcpp_1.0.4        munsell_0.5.0     fansi_0.4.1      
+[45] lifecycle_0.2.0   stringi_1.4.6     multcomp_1.4-8    whisker_0.3-2    
+[49] yaml_2.2.1        grid_3.5.1        promises_1.0.1    sjmisc_2.8.4     
+[53] crayon_1.3.4      lattice_0.20-35   ggeffects_0.14.3  haven_2.2.0      
+[57] splines_3.5.1     jtools_2.1.0      pander_0.6.2      sjstats_0.18.0   
+[61] hms_0.5.3         knitr_1.28        pillar_1.4.3      boot_1.3-20      
+[65] estimability_1.3  effectsize_0.3.1  codetools_0.2-15  glue_1.3.2       
+[69] evaluate_0.14     modelr_0.1.2      nloptr_1.2.2.1    vctrs_0.2.4      
+[73] httpuv_1.4.5      cellranger_1.1.0  gtable_0.3.0      assertthat_0.2.1 
+[77] xfun_0.12         xtable_1.8-3      broom_0.5.2       coda_0.19-1      
+[81] later_0.7.4       survival_2.42-6   TH.data_1.0-9    </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

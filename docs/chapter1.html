@@ -435,7 +435,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-20
+<strong>Last updated:</strong> 2020-07-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -466,10 +466,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreeaa5d443227914dfd56ba93d213665e2a6f3acb34targetblankaa5d443a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/santiallende/dissertation/tree/aa5d443227914dfd56ba93d213665e2a6f3acb34" target="_blank">aa5d443</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreec650b2b840f1e111edca40440bf9c2d4782d5b95targetblankc650b2ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/santiallende/dissertation/tree/c650b2b840f1e111edca40440bf9c2d4782d5b95" target="_blank">c650b2b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreeaa5d443227914dfd56ba93d213665e2a6f3acb34targetblankaa5d443a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreec650b2b840f1e111edca40440bf9c2d4782d5b95targetblankc650b2ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -484,10 +484,20 @@ Ignored files:
     Ignored:    analysis/ICPSR_04652 3/DS0001/.DS_Store
     Ignored:    analysis/ICPSR_26841/.DS_Store
     Ignored:    analysis/ICPSR_26841/DS0001/.DS_Store
-    Ignored:    analysis/dataInspection.nb.html
-    Ignored:    analysis/dataWrangling.nb.html
+    Ignored:    analysis/big5Analysis.nb.html
+    Ignored:    analysis/big5DataInspection.nb.html
+    Ignored:    analysis/big5DataWrangling.nb.html
+    Ignored:    analysis/rslTable.html
 
 Untracked files:
+    Untracked:  analysis/big5Analysis.R
+    Untracked:  analysis/big5Analysis.RData
+    Untracked:  analysis/big5AnalysisDat.csv
+    Untracked:  analysis/big5Dat.csv
+    Untracked:  analysis/big5DataInspection.R
+    Untracked:  analysis/big5DataWrangling.R
+    Untracked:  analysis/chapter3.pdf
+    Untracked:  analysis/chapter3.tex
     Untracked:  analysis/hyp1Dat.csv
     Untracked:  analysis/hyp2Dat.csv
     Untracked:  analysis/lmeResidsPerDay.csv
@@ -497,13 +507,20 @@ Untracked files:
     Untracked:  analysis/manuscript.pdf
     Untracked:  analysis/manuscript.tex
     Untracked:  analysis/manuscript/
+    Untracked:  analysis/rslTable
+    Untracked:  analysis/rslTable1
+    Untracked:  analysis/rslTable2
     Untracked:  analysis/~$nuscript.docx
     Untracked:  analysis/~$ssertation_1.8.20.docx
-    Untracked:  hyp1Dat.csv
-    Untracked:  hyp2Dat.csv
+    Untracked:  big5Dat.csv
+    Untracked:  refs.bib
 
 Unstaged changes:
     Modified:   analysis/ICPSR_26841/DS0001/26841-0001-Documentation-saliva.pdf
+    Deleted:    analysis/dataInspection.Rmd
+    Deleted:    analysis/dataWrangling.Rmd
+    Modified:   analysis/manuscript.Rmd
+    Modified:   analysis/refs.bib
 
 </code></pre>
 <p>
@@ -542,6 +559,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/santiallende/dissertation/blob/c650b2b840f1e111edca40440bf9c2d4782d5b95/analysis/chapter1.Rmd" target="_blank">c650b2b</a>
+</td>
+<td>
+sallende
+</td>
+<td>
+2020-07-08
+</td>
+<td>
+files
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/santiallende/dissertation/b51c2991499e56d158fb72f91399a12a22d102b1/docs/chapter1.html" target="_blank">b51c299</a>
+</td>
+<td>
+sallende
+</td>
+<td>
+2020-05-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -775,8 +826,8 @@ new files
 <p>Although cIIV may not directly detect pulsatile episodes, it may provide a reliable measure of cortisol secretory dynamics in that it may be related to how tightly controlled and responsive the system is. Deriving individual residual standard deviations from predicted linear mixed model trajectories is akin to the root mean square error (RMSE) in ordinary least-squares regression models, a measure of model fit. In the context of diurnal cortisol, a better fitting model would be expected for salubrious health outcomes, whereas a poorer fitting model would be expected for adverse health outcomes. In sum, cIIV, excluding the CAR, may be conceptualized as a measure of HPA axis systemic health, with a poorer fitting model indicative of a disrupted dynamical system.</p>
 <p>A few salivary cortisol studies have examined cortisol dynamics in mood disorders. Contrary to the above prediction, a recent study using a Bayesian multilevel Ornstein-Uhlenbeck model found lower variability in older depressed female adults <span class="citation">(Booij et al. 2020)</span>. However, this finding was only found in one of two samples analyzed and is qualified by a small sample size <span class="citation">(Booij et al. 2020)</span>.</p>
 <p>Two other studies of depressed patients used linear mixed models to test group differences (depression diagnosis vs. control &amp; bipolar diagnosis vs. control) in cortisol residual variance and autocorrelation (i.e., sample to sample variability) structures <span class="citation">(Havermans et al. 2011; Peeters, Nicolson, and Berkhof 2004)</span>. In these studies, clinical patients exhibited lower autocorrelation but did not exhibit different residual variance structures <span class="citation">(Havermans et al. 2011; Peeters, Nicolson, and Berkhof 2004)</span>. In both studies, cortisol levels were used as the dependent variable and the likelihood ratio test was used to compare models with different group-level variance and autocorrelation structures <span class="citation">(Havermans et al. 2011; Peeters, Nicolson, and Berkhof 2004)</span>. Of note, both studies reported small sample sizes, which may have rendered it difficult to obtain reliable variance component estimates <span class="citation">(Havermans et al. 2011; Peeters, Nicolson, and Berkhof 2004)</span>.</p>
-<p>Given the paucity of data on salivary cortisol dynamics, more studies are needed to discern meaningful conclusions. While a few studies have examined cortisol dynamics in clinical depression, studies have yet to examine cortisol dynamics in nonclinical affect presentations. Moreover, studies have yet to investigate salivary cortisol intraindividual secretory variability as a person-level predictor. Thus, the primary aim of the present study is to address these gaps in the literature.</p>
-<p>A second exploratory aim is to examine whether distinct salivary cortisol profiles comprising the CAR, DCS, AUC and cIIV are associated with trait positive and negative affect. Although extant literature has demonstrated individual associations between affect and measures of salivary cortisol, studies have yet to examine associations with distinct profiles of salivary cortisol measures (i.e., similar patterns of the CAR, DCS, AUC and cIIV) and affect. It may be that particular combinations of the CAR, DCS, AUC and cIIV are better or worse for health. An initial step in this line of research is to derive distinct profiles of salivary cortisol measures and to assess their relation to positive and negative affect.</p>
+<p>Given the paucity of data on salivary cortisol dynamics, more studies are needed to discern meaningful conclusions. While a few studies have examined cortisol dynamics in clinical depression, studies have yet to examine cortisol dynamics in nonclinical populations. Thus, the primary aim of the present study is to address this gap in the literature. Personality traits are strong candidates in examining such associations because they are psychometrically sound and generally demonstrate robust variability in nonclinical populations. Although previous research has produced mixed results in the association between personality traits and measures of cortisol, a broad measure of personality functioning may help in the assessment of a less commonly used salivary cortisol measure. Such a broad measure of personality functioning may help to delineate whether meaningful patterns in cIIV exist among a broad spectrum of psychological traits.</p>
+<p>physical symptoms…</p>
 <div id="refs" class="references">
 <div id="ref-Abercrombie:2004ih">
 <p>Abercrombie, Heather C, Janine Giese-Davis, Sandra Sephton, Elissa S Epel, Julie M Turner-Cobb, and David Spiegel. 2004. “Flattened cortisol rhythms in metastatic breast cancer patients.” <em>Psychoneuroendocrinology</em> 29 (8): 1082–92.</p>
