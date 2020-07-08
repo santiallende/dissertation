@@ -9,10 +9,9 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Santi Allende" />
 
 
-<title>chapter2</title>
+<title>chapter2.utf8.md</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -382,10 +381,10 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="thoughtLog.html">Thought Log</a>
+  <a href="dataWrangling.html">Data Wrangling</a>
 </li>
 <li>
-  <a href="dataWrangling.html">Data Wrangling</a>
+  <a href="dataInspection.html">Data Inspection</a>
 </li>
 <li>
   <a href="analysis.html">Analysis</a>
@@ -412,16 +411,13 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">chapter2</h1>
-<h4 class="author">Santi Allende</h4>
-<h4 class="date">4/7/2020</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -430,7 +426,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -439,10 +435,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-14
+<strong>Last updated:</strong> 2020-07-08
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>dissertation/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -454,7 +450,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <hr>
 </div>
 <div id="checks" class="tab-pane fade">
-<div id="workflowr-checks" class="panel-group">
+<div class="panel-group" id="workflowr-checks">
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
@@ -470,10 +466,102 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreed7d4a9b0a5de0cc752bd39065c8bc9f366c48a0etargetblankd7d4a9ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/santiallende/dissertation/tree/d7d4a9b0a5de0cc752bd39065c8bc9f366c48a0e" target="_blank">d7d4a9b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreed7d4a9b0a5de0cc752bd39065c8bc9f366c48a0etargetblankd7d4a9ba" class="panel-collapse collapse">
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200414code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200414)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200414code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200414)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
+</p>
+</div>
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/Users/Santi/Desktop/rProjects/dissertation/analysis/big5DataWrangling.Rmd
+</td>
+<td style="text-align:left;">
+analysis/big5DataWrangling.Rmd
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+/Users/Santi/Desktop/rProjects/dissertation/analysis/big5DataInspection.Rmd
+</td>
+<td style="text-align:left;">
+analysis/big5DataInspection.Rmd
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreef6bf459e36e04fd05d17f817dbeabc2fcda97a7dtargetblankf6bf459a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/santiallende/dissertation/tree/f6bf459e36e04fd05d17f817dbeabc2fcda97a7d" target="_blank">f6bf459</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsantiallendedissertationtreef6bf459e36e04fd05d17f817dbeabc2fcda97a7dtargetblankf6bf459a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -481,15 +569,55 @@ Great! You are using Git for version control. Tracking code development and conn
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
     Ignored:    analysis/ICPSR_04652 3/.DS_Store
     Ignored:    analysis/ICPSR_04652 3/DS0001/.DS_Store
     Ignored:    analysis/ICPSR_26841/.DS_Store
     Ignored:    analysis/ICPSR_26841/DS0001/.DS_Store
+    Ignored:    analysis/big5Analysis.nb.html
+    Ignored:    analysis/big5DataInspection.nb.html
+    Ignored:    analysis/big5DataWrangling.nb.html
+    Ignored:    analysis/rslTable.html
 
 Untracked files:
-    Untracked:  analysis/refs.bib
+    Untracked:  analysis/big5Analysis.R
+    Untracked:  analysis/big5Analysis.RData
+    Untracked:  analysis/big5Analysis.Rmd
+    Untracked:  analysis/big5AnalysisDat.csv
+    Untracked:  analysis/big5Dat.csv
+    Untracked:  analysis/big5DataInspection.R
+    Untracked:  analysis/big5DataInspection.Rmd
+    Untracked:  analysis/big5DataWrangling.R
+    Untracked:  analysis/big5DataWrangling.Rmd
+    Untracked:  analysis/chapter3.pdf
+    Untracked:  analysis/chapter3.tex
+    Untracked:  analysis/hyp1Dat.csv
+    Untracked:  analysis/hyp2Dat.csv
+    Untracked:  analysis/lmeResidsPerDay.csv
+    Untracked:  analysis/manuscript copy.docx
+    Untracked:  analysis/manuscript.docx
+    Untracked:  analysis/manuscript.log
+    Untracked:  analysis/manuscript.pdf
+    Untracked:  analysis/manuscript.tex
+    Untracked:  analysis/manuscript/
+    Untracked:  analysis/rslTable
+    Untracked:  analysis/rslTable1
+    Untracked:  analysis/rslTable2
+    Untracked:  analysis/~$nuscript.docx
+    Untracked:  analysis/~$ssertation_1.8.20.docx
+    Untracked:  big5Dat.csv
+    Untracked:  refs.bib
+
+Unstaged changes:
+    Modified:   analysis/ICPSR_26841/DS0001/26841-0001-Documentation-saliva.pdf
+    Modified:   analysis/chapter1.Rmd
+    Deleted:    analysis/dataInspection.Rmd
+    Deleted:    analysis/dataWrangling.Rmd
+    Modified:   analysis/hypotheses.Rmd
+    Modified:   analysis/manuscript.Rmd
+    Modified:   analysis/refs.bib
 
 </code></pre>
 <p>
@@ -533,6 +661,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/santiallende/dissertation/blob/f6bf459e36e04fd05d17f817dbeabc2fcda97a7d/analysis/chapter2.Rmd" target="_blank">f6bf459</a>
+</td>
+<td>
+sallende
+</td>
+<td>
+2020-07-08
+</td>
+<td>
+chapt2,3
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/santiallende/dissertation/cd4169294f29d25209f3ab04916eb5595f01e169/docs/chapter2.html" target="_blank">cd41692</a>
+</td>
+<td>
+sallende
+</td>
+<td>
+2020-04-14
+</td>
+<td>
+all changes
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/santiallende/dissertation/blob/d7d4a9b0a5de0cc752bd39065c8bc9f366c48a0e/analysis/chapter2.Rmd" target="_blank">d7d4a9b</a>
 </td>
 <td>
@@ -559,53 +721,299 @@ new files
 <h1><strong>METHOD</strong></h1>
 <div id="sample-and-procedure" class="section level2">
 <h2><strong>Sample and Procedure</strong></h2>
-<p>The present study used data from the National Study of Daily Experiences (NSDE), a substudy of the second wave of the Midlife in the United States Survey (MIDUS II). A nonclinical sample of participants (N = 2,022) completed 10-15 minute semi-structured evening telephone interviews for eight consecutive days, where daily affect was assessed alongside other variables of interest (see Almeida et al. 2002 for methodological details). However, saliva samples to be assayed for cortisol were only collected on days two through five, four times per day. Informed consent was obtained from all participants. Participants were compensated $20 for participating in the NSDE. Per the cortisol exclusion criteria outlined below, data from 1,101 participants were analyzed in the present study.</p>
-<p>Age of participation ranged from 34 to 87 years-of-age (M = 58.2, SD = 12.1) and 56.2% of participants identified as female. Eighty three percent of participants identified as Caucasian, 10% as African-American and 7% as Asian, Native American/Alaska Native/Aleutian Islander/Eskimo or Other. As shown in Table 1, 51.3% had at least some college education or a college degree, 28.3% had at least earned a high school diploma or a GED and 20.3% had at least some graduate education or a graduate degree.</p>
+<p>The present study used data from the National Study of Daily Experiences (NSDE), a substudy of the second wave of the Midlife in the United States Survey (MIDUS II). A nonclinical sample of participants (<span class="math inline">\(N = 2022\)</span>) completed 10-15 minute semi-structured evening telephone interviews for eight consecutive days, where daily physical symptoms were assessed alongside other variables of interest (see Almeida et al. 2002 for methodological details). However, saliva samples to be assayed for cortisol were only collected on days two through five, four times per day. Informed consent was obtained from all participants. Participants were compensated $20 for participating in the NSDE. Per the cortisol exclusion criteria outlined below, data from 1731 participants were analyzed in the present study.</p>
+<p>Age of participation ranged from 33 to 84 years (<span class="math inline">\(M = 56.44, SD = 12.08\)</span>) and 56.38% of participants identified as female. As shown in table 1, 86.02% of participants identified as Caucasian, 2.54% identified as African American, 0.23 % identified as Asian, 1.21% identified as Native American/Alaska Native/Aleutian Islander/Eskimo and 2.31% identified as other. As shown in Table 1, 22.76% had earned a high school diploma or a GED, 47.09% had at least some college education or a college degree and 18.26 had at least some graduate education or a graduate degree.</p>
 </div>
 <div id="measures" class="section level2">
 <h2><strong>Measures</strong></h2>
-<div id="trait-affect" class="section level3">
-<h3><strong>Trait Affect</strong></h3>
-<p>Trait positive and negative affect were assessed with the Positive and Negative Affect Schedule (PANAS) (Watson et al., 1988). The PANAS was administered at MIDUS II and assessed the degree to which they felt 10 positive and 10 negative emotional states during the preceding month (Watson et al., 1988). Positive emotional states included, “attentive,” ‘active,” “alert,” “excited,” “enthusiastic “determined,” “inspired,” “proud,” “interested” and “strong” (Watson et al., 1988). Negative emotional states included, “hostile,” “irritable,” “ashamed,” “guilty,” “distressed,” “upset,” “scared,” “afraid,” “jittery” and “nervous” (Watson et al., 1988). The measure has good internal consistency (PA and NA Cronbach’s <span class="math inline">\(\alpha\)</span> = .87) (Watson et al., 1988). Separate summed scores for positive and negative items were used in the present analysis. Each item was rated on a 5-point likert scale ranging from “very slightly or not at all” to “extremely” (Watson et al., 1988).</p>
+<div id="personality" class="section level3">
+<h3><strong>Personality</strong></h3>
+<p>Personality was assessed with a self-report measure specifically developed for the MIDUS studies <span class="citation">(Lachman and Weaver 1997)</span>. Six factors were derived from 30 items: agency, agreeableness, neuroticism, openness to experience, conscientiousness and extraversion <span class="citation">(Lachman and Weaver 1997)</span>. The present analysis excluded agency in that it is not a factor in the Five Factor theory of personality. Participants were asked to rate how much each of the 30 adjectives described them on a 4-point Likert-type scale ranging from “not at all” and “a little” to “some” and “a lot” <span class="citation">(Lachman and Weaver 1997)</span>. The mean of each factor was computed, with higher scores reflecting greater endorsement of the trait. The agreeableness factor included, “helpful”, “warm”, “caring”, “softhearted” and “sympathetic” (Cronbach’s <span class="math inline">\(\alpha\)</span> = .80); the neuroticism factor included, “moody”, “worrying”, “nervous” and “not calm” (Cronbach’s <span class="math inline">\(\alpha\)</span> = .74); the openness to experience factor included, “creative”, “imaginative”, “intelligent”, “curious”, “broadminded”, “sophisticated” and “adventurous” (Cronbach’s <span class="math inline">\(\alpha\)</span> = .77); the conscientiousness factor included, “organized”, “responsible”, “hardworking” and “careless” (Cronbach’s <span class="math inline">\(\alpha\)</span> = .58); the extraversion factor included, “outgoing”, “friendly”, “lively”, “active” and “talkative” (Cronbach’s <span class="math inline">\(\alpha\)</span> = .78) <span class="citation">(Lachman and Weaver 1997)</span>.</p>
 </div>
-<div id="trait-affect-1" class="section level3">
-<h3><strong>Trait Affect</strong></h3>
-<p>Trait positive and negative affect were assessed with the Positive and Negative Affect Schedule (PANAS) (Watson et al., 1988). The PANAS was administered at MIDUS II and assessed the degree to which they felt 10 positive and 10 negative emotional states during the preceding month (Watson et al., 1988). Positive emotional states included, “attentive,” ‘active,” “alert,” “excited,” “enthusiastic “determined,” “inspired,” “proud,” “interested” and “strong” (Watson et al., 1988). Negative emotional states included, “hostile,” “irritable,” “ashamed,” “guilty,” “distressed,” “upset,” “scared,” “afraid,” “jittery” and “nervous” (Watson et al., 1988). The measure has good internal consistency (PA and NA Cronbach’s <span class="math inline">\(\alpha\)</span> = .87) (Watson et al., 1988). Separate summed scores for positive and negative items were used in the present analysis. Each item was rated on a 5-point likert scale ranging from “very slightly or not at all” to “extremely” (Watson et al., 1988).</p>
-</div>
-<div id="daily-affect" class="section level3">
-<h3><strong>Daily Affect</strong></h3>
-<p>Daily positive and negative affect were assessed with an instrument specifically designed for the MIDUS (Kessler et al. 2002; Mroczek and Kolarz 1998). The measure uses a 5-point Likert-type scale ranging from “none of the time” to “all of the time” to assess the frequency of 13 positive and 14 negative emotions during the preceding 24h. Examples of positive emotion items include, “cheerful,” “calm and peaceful,” “enthusiastic” and “attentive.” Examples of negative emotion items include, “nervous,” “upset,” “frustrated” and “hopeless.” The measure demonstrated good internal consistency across the 8 study days (daily PA Cronbach’s <span class="math inline">\(\alpha\)</span> = [.93, .95]; daily NA Cronbach’s <span class="math inline">\(\alpha\)</span> = [.84, .88]) Separate averaged scores for positive and negative items were used in the present analysis.</p>
+<div id="number-of-physical-symptoms-and-physical-symptom-severity" class="section level3">
+<h3><strong>Number of Physical Symptoms and Physical Symptom Severity</strong></h3>
+<p>Number of physical symptoms was assessed each day with an adapted version of the Larsen and Kasimatis (1991) symptom checklist. The inventory consists of 28 physical symptoms: “Headache”, “Backache”, “Muscle Soreness”, “Fatigue”, “Joint Pain”, “Muscle Weakness”, “Cough”, “Sore Throat”, “Fever”, “Chills”, “Other Cold Or Flu Symptoms”, “Nausea”, “Allergies”, “Diarrhea”, “Constipation”, “Poor Appetite”, “Other Stomach Problems”, “Chest Pain”, “Dizziness”, “Shortness of Breath”, “Menstrual Related Symptoms”, “Hot Flashes or Flushes”, “Any Other Physical Symptoms”, “Skin Related Symptoms”, “Eye Related Symptoms”, “Ear Related Symptoms”, “Teeth Related Symptom”, “Leg or Foot Related Symptom”. Participants rated each item using a binary Yes/No scale. After recoding items so that 0 represents “No” and 1 represents “Yes”, items were summed for a measure of total number of daily symptoms. To measure physical symptom severity, participants rated the severity of each physical symptom endorsed in the above checklist on a 10-point Likert-type scale, with 1 indicating “Very Mild” and 10 indicating “Very Severe”. The average of all severity ratings was used as a measure of daily physical symptom severity. In the present study, we used the average of days two through five of both measures in all analyses.</p>
 </div>
 <div id="salivary-cortisol" class="section level3">
 <h3><strong>Salivary Cortisol</strong></h3>
-<p>Using at-home cotton swab Salivette collection devices (Sarstedt, Nümbrecht, Germany), participants provided four saliva samples per day for four consecutive days (Almeida et al., 2002). Participants were instructed to provide samples at wake, 30-minutes post-wake, before lunch and before bed (Almeida et al., 2002). Participants were also instructed to refrain from consuming a meal at least one hour prior to collection, drinking or eating dairy products 20 minutes prior to collection, brushing their teeth and consuming caffeine 30 minutes prior to collection (alcohol?). In addition, participants recorded all prescription and over-the-counter medications and disclosed any history of endocrine-related disorders.</p>
-<p>Intra- and inter-coefficients of variation less than 5% were derived from the luminescence immunoassay procedure (Almeida et al., 2002). After collecting a total of 16 samples, participants shipped the Salivette devices to the MIDUS Biological Core at the University of Wisconsin. At MIDUS Biological Core, samples were stored at -60C before being thawed, centrifuged and assayed for cortisol (Almeida et al., 2002). Also, each cortisol sample was examined and corrected if not within a 4 to 9 pH range.</p>
-<p>In addition to paper-and-pencil logs and evening telephone interviews to record timestamps, ~25% of participants used an electronic box that recorded when participants opened and closed the box to use a Salivette collection device (Almeida et al., 2002). At each collection occasion, self-reported timestamps were correlated above .90. Correlations between self-reported time-stamps and the electronic box were correlated above .75, with a stronger correlation in the morning than in the evening (Almeida et al., 2002).</p>
-<p>Based on prior studies on the NSDE dataset, the following exclusion criteria were used (CITE). First, cortisol values with missing timestamps (n = , x%) or with concentration levels greater than 60 nmol/L were excluded (n = , x%). Second, participants who worked night shifts were excluded (n = , x%). Third, waking cortisol samples with timestamps before 0400h or after 1200h, indicating aberrant sleep patterns, were removed. Fourth, to avoid modeling erroneously high cortisol levels due to lunchtime meals, noon cortisol samples 10 nmol/L or greater than the wake +30 sample were removed. Fifth, for hypotheses 2a and 2b, due to unreliable SD estimates with only 2 data points, participants with fewer than 3 cortisol samples on any given day were removed from the dataset. Last, X samples were removed due to missing data on one or more covariates. The final analytic sample included X number of participants, who provided x number of saliva samples.</p>
+<p>Using at-home cotton swab Salivette collection devices (Sarstedt, Nümbrecht, Germany), participants provided four saliva samples per day for four consecutive days <span class="citation">(Almeida, Wethington, and Kessler 2002)</span>. Participants were instructed to provide samples at wake, 30-minutes post-wake, before lunch and before bed <span class="citation">(Almeida, Wethington, and Kessler 2002)</span>. Participants were also instructed to refrain from consuming a meal at least one hour prior to collection, drinking or eating dairy products 20 minutes prior to collection, brushing their teeth and consuming caffeine 30 minutes prior to collection (alcohol?). In addition, participants recorded all prescription and over-the-counter medications and disclosed any history of endocrine-related disorders.</p>
+<p>Intra- and inter-coefficients of variation less than 5% were derived from the luminescence immunoassay procedure <span class="citation">(Almeida, Wethington, and Kessler 2002)</span>. After collecting a total of 16 samples, participants shipped the Salivette devices to the MIDUS Biological Core at the University of Wisconsin. At MIDUS Biological Core, samples were stored at -60C before being thawed, centrifuged and assayed for cortisol <span class="citation">(Almeida, Wethington, and Kessler 2002)</span>. Also, each cortisol sample was examined and corrected if not within a 4 to 9 pH range.</p>
+<p>In addition to paper-and-pencil logs and evening telephone interviews to record timestamps, ~25% of participants used an electronic box that recorded the time at which participants opened and closed the box to use a Salivette collection device <span class="citation">(Almeida, Wethington, and Kessler 2002)</span>. At each collection occasion, self-reported timestamps were correlated above .90. Correlations between self-reported time-stamps and the electronic box were correlated above .75, with a stronger correlation in the morning than in the evening <span class="citation">(Almeida, Wethington, and Kessler 2002)</span>.</p>
+<p>Based on prior studies on the NSDE dataset, the following exclusion criteria were used <span class="citation">(Almeida, Piazza, and Stawski 2009; Charles et al. 2013; Piazza et al. 2013; Sin et al. 2017)</span>. First, cortisol samples with mising values were excluded (<span class="math inline">\(n = 1519, 5.47\)</span>%). Second, cortisol values with missing timestamps (<span class="math inline">\(n = 1399, 5.04\)</span>%) or with concentration levels greater than 60 nmol/L were excluded (<span class="math inline">\(n = 381, 1.5\)</span>%). Third, waking cortisol samples with timestamps before 0400h or after 1200h, indicating aberrant sleep patterns, were removed (<span class="math inline">\(n = 173, 0.69\)</span>%). Fourth, cortisol samples collected outside of the 24h window were removed (<span class="math inline">\(n = 607, 2.34\)</span>%). Fifth, to avoid modeling erroneously high cortisol levels due to lunchtime meals, noon cortisol samples 10 nmol/L or greater than the wake +30 sample were removed (<span class="math inline">\(n = 166, 0.67\)</span>%). The final analytic sample included 1731 participants, who provided 24597 saliva samples. (covariate missing data)</p>
 </div>
 </div>
 <div id="statistical-analyses" class="section level2">
 <h2><strong>Statistical Analyses</strong></h2>
-<p>The R statistical computing language was used for all analyses. The natural logarithm of cortisol was computed to correct for skewness in the distribution. Prior to all analyses, a variably spaced time-since-waking variable (i.e., uniquely computed hours since waking for each participant) was computed as time-unstructured predictors are more reliable than time-structured predictors (Singer &amp; Willett, 2003). To avoid modeling the cortisol awakening response, the second salivary cortisol sample from day 2 was removed for each participant (i.e., wake + 30 minutes) (Adam &amp; Kumari, 2009; Kraemer et al., 2006). The intercept was centered at the waking sample for all analyses. An alpha level of .05 was used for the likelihood ratio tests as well as for the fixed effect estimates. Diagnostic plots for assumptions of normality, independence and constant variance at level 1 and at level 2 did not reveal notable departures.</p>
-<p>Covariates known to be associated with positive and negative affect were individually tested in an unconditional model. Demographic variables included age, gender, ethnicity, education level and marital status. Health variables included smoking status, menopause status, self-rated physical health status (4 = poor, 3 = fair, 2 = good, 1 = very good, 0 = excellent) and a binary variable for use of steroid and hormonal medications, oral contraceptives, anxiolytics and antidepressants. Covariates that were not significantly associated with positive and negative affect, which included XXXX, were not included in the models below.</p>
-<div id="hypotheses-1a-and-1b" class="section level3">
-<h3><strong>Hypotheses 1a and 1b</strong></h3>
-<p>First, cIIV was derived by developing a 2-level variance components model, with log-transformed cortisol entered as the outcome variable and time-since-waking and relevant covariates entered as predictor variables. Random intercept and slope variance components were estimated at level 2, while within-participant residual variability was estimated at level 1. Cortisol IIV was calculated as the SD of raw residuals (observed - fitted) at level 1. As a result, each participant had one, time-invariant, cIIV value.</p>
-<p>Two ordinary least-squares regression models were used to quantify the association between cIIV and positive and negative affect. Positive and negative affect were entered as outcome variables, while cIIV and relevant covariates were entered as predictor variables. Multicollinearity was tested with the variance inflation factor (VIF). Diagnostic plots were used to assess assumptions of linearity, homoscedasticity, independence and normality.</p>
+<p>The R statistical computing language was used for all analyses. The natural logarithm of cortisol was computed to correct for skewness in the distribution. To avoid modeling the cortisol awakening response, the second salivary cortisol sample from day 2 was removed for each participant (i.e., wake + 30 minutes) <span class="citation">(Adam and Kumari 2009; Kraemer et al. 2006)</span>. The cortisol IIV variable was derived by developing a 2-level variance components model, with log-transformed cortisol entered as the outcome variable and time-since-waking entered as the predictor. Random intercept and slope variance components were estimated at level 2, while within-participant residual variability was estimated at level 1. Cortisol IIV was calculated as the SD of raw residuals (observed - fitted) at level 1. As a result, each participant had one, time-invariant, cIIV value. An alpha level of .05 was used for all model estimates.</p>
+<p>Covariates known to be associated with measures of salivary cortisol, including age, gender, steroid medication use, education level and smoking status, were individually tested in a robust regression model. Covariates that were not associated with cIIV, which included gender and medication use, were not included in the models below. However, age, education and smoking status were associated with cIIV and were included as covariates in all models.</p>
+<p>Due to collinearity and OLS assumption violations, seven robust regression models were estimated to test the hypotheses of the study. Cortisol IIV was modeled as a function of each personality factor and symptom severity variables, separately, while adjusting for the effects of age, education and smoking status. Huber M-estimation was chosen as the estimation method because it weighs deviations as the absolute value of the deviation, which renders the model less sensitive to outliers. All predictors were grand-mean-centered to aid interpretability of regression coefficients. The Benjamini-Hochberg procedure was used to correct for multiple comparisons <span class="citation">(Benjamini and Hochberg 1995)</span>.</p>
+<p><strong>Table 1.</strong> Demographic Characteristics</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Level</th>
+<th>Frequency (<span class="math inline">\(N = 1731\)</span>)</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gender</td>
+<td>Male</td>
+<td>755</td>
+<td>43.62</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Female</td>
+<td>976</td>
+<td>56.38</td>
+</tr>
+<tr class="odd">
+<td>Age</td>
+<td>30-39 years old</td>
+<td>137</td>
+<td>7.91</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>40-49 years old</td>
+<td>383</td>
+<td>22.13</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>50-59 years old</td>
+<td>434</td>
+<td>25.07</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>60-69 years old</td>
+<td>374</td>
+<td>21.61</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>70-79 years old</td>
+<td>187</td>
+<td>10.8</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>80 years and older</td>
+<td>33</td>
+<td>1.91</td>
+</tr>
+<tr class="odd">
+<td>Education</td>
+<td>Elementary/Middle School</td>
+<td>19</td>
+<td>1.1</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Some High School</td>
+<td>56</td>
+<td>3.24</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>High School Graduate/GED</td>
+<td>394</td>
+<td>22.76</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Some College</td>
+<td>367</td>
+<td>21.2</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Community College Degree</td>
+<td>114</td>
+<td>6.59</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Bachelor’s Degree</td>
+<td>334</td>
+<td>19.3</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Some Graduate School</td>
+<td>60</td>
+<td>3.47</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Master’s Degree</td>
+<td>183</td>
+<td>10.57</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Doctorate Degree</td>
+<td>73</td>
+<td>4.22</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Not available</td>
+<td>131</td>
+<td>7.57</td>
+</tr>
+<tr class="odd">
+<td>Ethnicity</td>
+<td>Caucasian</td>
+<td>1489</td>
+<td>86.02</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>African American</td>
+<td>44</td>
+<td>2.54</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Native American</td>
+<td>21</td>
+<td>1.21</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Asian</td>
+<td>4</td>
+<td>0.23</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Other</td>
+<td>40</td>
+<td>2.31</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Not available</td>
+<td>128</td>
+<td>7.39</td>
+</tr>
+<tr class="odd">
+<td>Medication Use</td>
+<td>Yes</td>
+<td>836</td>
+<td>48.3</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>No</td>
+<td>638</td>
+<td>36.86</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Not available</td>
+<td>257</td>
+<td>14.85</td>
+</tr>
+<tr class="even">
+<td>Smoker</td>
+<td>Yes</td>
+<td>190</td>
+<td>10.98</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>No</td>
+<td>519</td>
+<td>29.98</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Not available</td>
+<td>1022</td>
+<td>59.04</td>
+</tr>
+</tbody>
+</table>
+<div id="refs">
+<div id="ref-Adam:2009et">
+<p>Adam, Emma K, and Meena Kumari. 2009. “Assessing salivary cortisol in large-scale, epidemiological research.” <em>Psychoneuroendocrinology</em> 34 (10): 1423–36.</p>
 </div>
-<div id="hypotheses-2a-and-2b" class="section level3">
-<h3><strong>Hypotheses 2a and 2b</strong></h3>
-<p>To test hypotheses 2a and 2b, cIIV was derived as it was for hypotheses 1a and 2b, but separately for each of the four days. Then, cIIV was separated into its time-invariant component (between-person variability) and its time-varying component (within-person variable). To do so, a 2-level variance components model was estimated, with cIIV entered as the dependent variable and days-in-study entered as the independent variable. Variance components were estimated for the intercept and for the slope. An ICC of X was derived, indicating that X% of the variability in cIIV was between-persons and X% was within-persons. After assessing within- and between-person variability in cIIV, person-mean-centering was used to create 2 orthogonal within- and -between-person variables. The time-invariant predictor was calculated as the mean of all persons for all days subtracted from the mean of each individual for all days. The time-varying predictor was calculated as the mean for each individual for all days subtracted from each day’s cIIV value for each individual.</p>
-<p>Separate bottom-up variance components modeling procedures were used to estimate baseline models from which <span class="math inline">\(pseudo-R^2\)</span> (see Eq. 1) could be derived. The best fitting baseline model for both PA and NA was a fixed linear time, random intercept model, with affect specified as the dependent variable and days-in-study specified as the independent variable. The intercept was centered at the waking sample for all analyses. Then an adjusted model was estimated, which included the time-varying and time-invariant predictors for affect and all relevant covariates. Equation (1) was used to quantify the proportion of variance explained by time-invariant and time-varying predictors in between-person intercept variance and within-person residual variance, respectively.</p>
+<div id="ref-almeida2009interindividual">
+<p>Almeida, David M, Jennifer R Piazza, and Robert S Stawski. 2009. “Interindividual Differences and Intraindividual Variability in the Cortisol Awakening Response: An Examination of Age and Gender.” <em>Psychology and Aging</em> 24 (4): 819.</p>
 </div>
-<div id="hypothesis-3" class="section level3">
-<h3><strong>Hypothesis 3</strong></h3>
-<p>Cortisol intraindividual variability was derived as it was in Hypothesis 1. Then, a correlation matrix was used to examine correlation coefficients between cIIV, DCS and AUC.</p>
+<div id="ref-Almeida2002-fo">
+<p>Almeida, David M, Elaine Wethington, and Ronald C Kessler. 2002. “The Daily Inventory of Stressful Events: An Interview-Based Approach for Measuring Daily Stressors.” <em>Assessment</em> 9 (1): 41–55.</p>
 </div>
-<div id="hypothesis-4" class="section level3">
-<h3><strong>Hypothesis 4</strong></h3>
-<p>A 2-part procedure was used to investigate hypothesis 4. In part 1, a latent profile analysis (LPA), a type of latent variable mixture model, was used to estimate a latent factor with K number of groups (i.e., profiles) from person-level values on the CAR, DCS, AUC and cIIV. That is, participant profile membership probabilities were based on similar values in the CAR, DCS, AUC and cIIV. The best fitting model was determined by Akaike information criteria (AIC), Bayesian information criteria (BIC), sample-adjusted Bayesian information criteria (SABIC), Log-likelihood estimates, entropy values and by theoretical interpretability (Jung &amp; Wickrama, 2008; Pastor, Barron, Miller, &amp; Davis, 2007).</p>
-<p>In part 2, two ordinary least-squares regression models were used to examine associations between salivary cortisol profiles and positive and negative affect. Trait positive and negative affect were entered as outcome variables, while the profile variable and other relevant covariates were entered as predictor variables. The variance inflation factor (VIF) was used to test for multicollinearity. Diagnostic plots were used to assess assumptions of linearity, homoscedasticity, independence and normality.</p>
+<div id="ref-benjamini1995controlling">
+<p>Benjamini, Yoav, and Yosef Hochberg. 1995. “Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing.” <em>Journal of the Royal Statistical Society: Series B (Methodological)</em> 57 (1): 289–300.</p>
+</div>
+<div id="ref-charles2013wear">
+<p>Charles, Susan T, Jennifer R Piazza, Jacqueline Mogle, Martin J Sliwinski, and David M Almeida. 2013. “The Wear and Tear of Daily Stressors on Mental Health.” <em>Psychological Science</em> 24 (5): 733–41.</p>
+</div>
+<div id="ref-kraemer2006design">
+<p>Kraemer, Helena C, Janine Giese-Davis, Maya Yutsis, Ruth O’hara, Eric Neri, Dolores Gallagher-Thompson, C Barr Taylor, and David Spiegel. 2006. “Design Decisions to Optimize Reliability of Daytime Cortisol Slopes in an Older Population.” <em>The American Journal of Geriatric Psychiatry</em> 14 (4): 325–33.</p>
+</div>
+<div id="ref-lachman1997midlife">
+<p>Lachman, Margie E, and Suzanne L Weaver. 1997. “The Midlife Development Inventory (Midi) Personality Scales: Scale Construction and Scoring.” <em>Waltham, MA: Brandeis University</em>, 1–9.</p>
+</div>
+<div id="ref-larsen1991day">
+<p>Larsen, Randy J, and Margaret Kasimatis. 1991. “Day-to-Day Physical Symptoms: Individual Differences in the Occurrence, Duration, and Emotional Concomitants of Minor Daily Illnesses.” <em>Journal of Personality</em> 59 (3): 387–423.</p>
+</div>
+<div id="ref-piazza2013age">
+<p>Piazza, Jennifer R, Susan T Charles, Robert S Stawski, and David M Almeida. 2013. “Age and the Association Between Negative Affective States and Diurnal Cortisol.” <em>Psychology and Aging</em> 28 (1): 47.</p>
+</div>
+<div id="ref-Sin:2017gt">
+<p>Sin, Nancy L, Anthony D Ong, Robert S Stawski, and David M Almeida. 2017. <em>Psychoneuroendocrinology</em> 83 (July): 91–100.</p>
+</div>
+</div>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Sierra 10.12.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] forcats_0.5.0   stringr_1.4.0   purrr_0.3.3     readr_1.3.1    
+ [5] tibble_2.1.3    tidyverse_1.2.1 nlme_3.1-145    ggplot2_3.3.0  
+ [9] tidyr_1.0.2     dplyr_0.8.4     workflowr_1.6.0
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.0.0 xfun_0.12        haven_2.2.0      lattice_0.20-35 
+ [5] colorspace_1.3-2 vctrs_0.2.4      generics_0.0.2   htmltools_0.3.6 
+ [9] yaml_2.2.1       utf8_1.1.4       rlang_0.4.5      later_0.7.4     
+[13] pillar_1.4.3     glue_1.3.2       withr_2.1.2      modelr_0.1.2    
+[17] readxl_1.3.1     lifecycle_0.2.0  munsell_0.5.0    gtable_0.3.0    
+[21] cellranger_1.1.0 rvest_0.3.2      evaluate_0.14    labeling_0.3    
+[25] knitr_1.28       httpuv_1.4.5     fansi_0.4.1      highr_0.8       
+[29] broom_0.5.2      Rcpp_1.0.4       promises_1.0.1   scales_1.1.0    
+[33] backports_1.1.4  jsonlite_1.6     farver_2.0.3     fs_1.3.1        
+[37] hms_0.5.3        digest_0.6.25    stringi_1.4.6    grid_3.5.1      
+[41] rprojroot_1.3-2  cli_2.0.2        tools_3.5.1      magrittr_1.5    
+[45] crayon_1.3.4     whisker_0.3-2    pkgconfig_2.0.3  xml2_1.2.0      
+[49] lubridate_1.7.4  rstudioapi_0.11  assertthat_0.2.1 rmarkdown_1.13  
+[53] httr_1.3.1       R6_2.4.1         git2r_0.26.1     compiler_3.5.1  </code></pre>
 </div>
 </div>
 </div>
